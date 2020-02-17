@@ -1,0 +1,298 @@
+﻿<Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.0\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props" Condition="Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.0\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" />
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{17B06AA4-5CE8-4DB8-AED6-7CB0F47162DA}</ProjectGuid>
+    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>ZipNachWebAPI</RootNamespace>
+    <AssemblyName>ZipNachWebAPI</AssemblyName>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <UseIISExpress>true</UseIISExpress>
+    <Use64BitIISExpress />
+    <IISExpressSSLPort />
+    <IISExpressAnonymousAuthentication />
+    <IISExpressWindowsAuthentication />
+    <IISExpressUseClassicPipelineMode />
+    <UseGlobalApplicationHostFile />
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Encryption">
+      <HintPath>..\..\ZipNachESign\ZipNachESign\bin\Encryption.dll</HintPath>
+    </Reference>
+    <Reference Include="itextsharp, Version=5.5.10.0, Culture=neutral, PublicKeyToken=8354ae6d2174ddca, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\ZipNach\Saisho\Banking System\bin\itextsharp.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="QRCoder, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>bin\QRCoder.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Net.Http.Formatting, Version=5.2.5.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Client.5.2.5\lib\net45\System.Net.Http.Formatting.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Cors">
+      <HintPath>..\..\..\..\Downloads\System.Web.Cors.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.DynamicData" />
+    <Reference Include="System.Web.Entity" />
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Web.Http, Version=5.2.5.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Core.5.2.5\lib\net45\System.Web.Http.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Http.Cors">
+      <HintPath>..\..\..\..\Downloads\System.Web.Http.Cors.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Http.WebHost, Version=5.2.5.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.WebHost.5.2.5\lib\net45\System.Web.Http.WebHost.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.EnterpriseServices" />
+    <Reference Include="zxing, Version=0.16.4.0, Culture=neutral, PublicKeyToken=4e88037ac681fe60, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>bin\zxing.dll</HintPath>
+    </Reference>
+    <Reference Include="zxing.presentation, Version=0.16.4.0, Culture=neutral, PublicKeyToken=4e88037ac681fe60, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>bin\zxing.presentation.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\packages\Newtonsoft.Json.11.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform">
+      <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.0\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Global.asax" />
+    <Content Include="images\2.jpg" />
+    <Content Include="images\68747470733a2f2f732d6d65646.png" />
+    <Content Include="images\auth.jpg" />
+    <Content Include="images\back-btn.png" />
+    <Content Include="images\ban.png" />
+    <Content Include="images\ben.png" />
+    <Content Include="images\bg-layer.png" />
+    <Content Include="images\blueback.jpg" />
+    <Content Include="images\blueNew.png" />
+    <Content Include="images\borderarwltst.png" />
+    <Content Include="images\btnBack.png" />
+    <Content Include="images\btnLine.png" />
+    <Content Include="images\btnLineNewCrop.png" />
+    <Content Include="images\cancel.png" />
+    <Content Include="images\cashondelivery.png" />
+    <Content Include="images\caution2.png" />
+    <Content Include="images\check1new.png" />
+    <Content Include="images\check5.png" />
+    <Content Include="images\checkbox-background.jpg" />
+    <Content Include="images\checkbox.jpg" />
+    <Content Include="images\checked.png" />
+    <Content Include="images\chequ.png" />
+    <Content Include="images\createPDF.png" />
+    <Content Include="images\Cross-icon.png" />
+    <Content Include="images\cross.png" />
+    <Content Include="images\data.png" />
+    <Content Include="images\DDraft.png" />
+    <Content Include="images\default_logo.png" />
+    <Content Include="images\delete.jpg" />
+    <Content Include="images\deleted.png" />
+    <Content Include="images\download.png" />
+    <Content Include="images\edit1.png" />
+    <Content Include="images\error %281%29.png" />
+    <Content Include="images\favicon1.ico" />
+    <Content Include="images\getData.png" />
+    <Content Include="images\getDataa.png" />
+    <Content Include="images\getdataaa.png" />
+    <Content Include="images\herofincorplogo.png" />
+    <Content Include="images\hutHome.png" />
+    <Content Include="images\icon %282%29.png" />
+    <Content Include="images\icon green.png" />
+    <Content Include="images\icon red.png" />
+    <Content Include="images\icon yellow.png" />
+    <Content Include="images\incomplete.png" />
+    <Content Include="images\info-image.png" />
+    <Content Include="images\info.png" />
+    <Content Include="images\large\image1.jpg" />
+    <Content Include="images\large\image2.jpg" />
+    <Content Include="images\large\image3.jpg" />
+    <Content Include="images\large\image4.jpg" />
+    <Content Include="images\line.png" />
+    <Content Include="images\linenewcrop.png" />
+    <Content Include="images\logo1.png" />
+    <Content Include="images\mobile_verfi.png" />
+    <Content Include="images\noImg.png" />
+    <Content Include="images\online.png" />
+    <Content Include="images\paiselo-logo-web.png" />
+    <Content Include="images\pdfIcon.jpg" />
+    <Content Include="images\play-button %282%29.png" />
+    <Content Include="images\play-button %283%29.png" />
+    <Content Include="images\plus.png" />
+    <Content Include="images\printer-.png" />
+    <Content Include="images\question.jpg" />
+    <Content Include="images\question.png" />
+    <Content Include="images\rotate.png" />
+    <Content Include="images\save5.png" />
+    <Content Include="images\savee.png" />
+    <Content Include="images\saveTickUPdated.png" />
+    <Content Include="images\SkFinLogo.jpg" />
+    <Content Include="images\SkFinLogo.png" />
+    <Content Include="images\small\image1.png" />
+    <Content Include="images\small\image2.png" />
+    <Content Include="images\small\image3.png" />
+    <Content Include="images\small\image4.png" />
+    <Content Include="images\success.png" />
+    <Content Include="images\success1.png" />
+    <Content Include="images\successs.png" />
+    <Content Include="images\tick-icon.png" />
+    <Content Include="images\tick-iconmandate.png" />
+    <Content Include="images\ui-icons_555555_256x240.png" />
+    <Content Include="images\ui-icons_777777_256x240.png" />
+    <Content Include="images\unsuccess.png" />
+    <Content Include="images\upld.png" />
+    <Content Include="images\upldltst.png" />
+    <Content Include="images\uploadltst.png" />
+    <Content Include="images\ZipNach1.png" />
+    <Content Include="PdfLogoImage\logo.png" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Controllers\ActivityAddController.cs" />
+    <Compile Include="Controllers\ActivityCancelController.cs" />
+    <Compile Include="Controllers\ActivityDeleteController.cs" />
+    <Compile Include="Controllers\ActivitySetupController.cs" />
+    <Compile Include="Controllers\ActivityStatusController.cs" />
+    <Compile Include="Controllers\ActivityUpdateController.cs" />
+    <Compile Include="Controllers\ChangePasswordController.cs" />
+    <Compile Include="Controllers\DownloadMandateBinaryController.cs" />
+    <Compile Include="Controllers\DownloadMandateController.cs" />
+    <Compile Include="Controllers\GetMandateStatusController.cs" />
+    <Compile Include="Controllers\LoginController.cs" />
+    <Compile Include="Controllers\ScanQRCodeController.cs" />
+    <Compile Include="Controllers\SendLinksController.cs" />
+    <Compile Include="Controllers\SubmitMandateController.cs" />
+    <Compile Include="Controllers\SubmitMandateImageDataController.cs" />
+    <Compile Include="Controllers\UMRNHistoryController.cs" />
+    <Compile Include="Controllers\UploadMandateBase64Controller.cs" />
+    <Compile Include="Controllers\UploadMandateController.cs" />
+    <Compile Include="Controllers\UploadMandateOrgbase64Controller.cs" />
+    <Compile Include="Controllers\UploadMandateOrgController.cs" />
+    <Compile Include="Controllers\ValuesController.cs" />
+    <Compile Include="Controllers\ZipQRUploadImageController.cs" />
+    <Compile Include="Global.asax.cs">
+      <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ChangePassword.cs" />
+    <Compile Include="Models\CheckMandateInfo.cs" />
+    <Compile Include="Models\Crc32.cs" />
+    <Compile Include="Models\CustomerModel.cs" />
+    <Compile Include="Models\DBsecurity.cs" />
+    <Compile Include="Models\Global.cs" />
+    <Compile Include="Models\HttpResponse.cs" />
+    <Compile Include="Models\Login.cs" />
+    <Compile Include="Models\PresentmentModel.cs" />
+    <Compile Include="Models\ValidatePresement.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="images\large\vssver.scc" />
+    <Content Include="images\small\vssver.scc" />
+    <Content Include="images\vssver.scc" />
+    <None Include="packages.config" />
+    <Content Include="PdfLogoImage\vssver.scc" />
+    <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
+    <None Include="Properties\PublishProfiles\FolderProfile1.pubxml" />
+    <None Include="Web.Debug.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
+    <None Include="Web.Release.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="App_Data\" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Connected Services\" />
+  </ItemGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>True</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>49979</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>http://localhost:49979/</IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.0\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.0\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props'))" />
+  </Target>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
