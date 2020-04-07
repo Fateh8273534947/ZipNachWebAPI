@@ -242,7 +242,14 @@ namespace ZipNachWebAPI.Controllers
                             {
                                 foreach (DataRow dr in ds.Tables[0].Rows)
                                 {
+                                    int count_IherebyAuthorize = (dr["CompanyName"].ToString()).Length;
+                                    int count_BankName = (dr["BankName"].ToString()).Length;
+                                    int count = (dr["EmailId"].ToString()).Length;
+                                    int count_Ref1 = (dr["Reference1"].ToString()).Length;
+                                    int count_Ref2 = (dr["Reference2"].ToString()).Length;
+                                    int count_Customer = (dr["BenificiaryName"].ToString()).Length;
                                     //var FontColour = new BaseColor(35, 31, 32);
+
                                     Font fontAb11 = FontFactory.GetFont("Verdana", 8, Font.BOLD);
                                     Font fontAbCutomer = FontFactory.GetFont("Verdana", 7, Font.BOLD);
                                     Font font9 = FontFactory.GetFont("Verdana", 8, Font.BOLD);
@@ -255,8 +262,11 @@ namespace ZipNachWebAPI.Controllers
                                     Font fontA119B = FontFactory.GetFont("Verdana", 9, Font.BOLD);
                                     Font fontText = FontFactory.GetFont("Verdana", 7, Font.BOLD);
                                     Font fontText6 = FontFactory.GetFont("Verdana", 6, Font.BOLD);
-                                    Font fontText5 = FontFactory.GetFont("Verdana", 7, Font.BOLD);
+                                    Font fontText5 = FontFactory.GetFont("Verdana", 5, Font.BOLD);
                                     Font fontText4 = FontFactory.GetFont("Verdana", 1);
+                                    var spacerParagraph = new Paragraph();
+                                    spacerParagraph.SpacingBefore = 5f;
+                                    spacerParagraph.SpacingAfter = 5f;
                                     string filePath = ConfigurationManager.AppSettings["FilePath" + context.AppID]; //AppDomain.CurrentDomain.BaseDirectory;
                                     iTextSharp.text.Image CutterImage = iTextSharp.text.Image.GetInstance(GetcutterImage(context.AppID));
                                     //System.IO.File.WriteAllBytes("E:/YoekiProjects/cutternew.png", BusinessLibrary1.GetcutterImage());  
@@ -346,48 +356,17 @@ namespace ZipNachWebAPI.Controllers
                                     PdfHeaderCell.BorderWidthRight = 2f;
                                     PdfHeaderTable.AddCell(PdfHeaderCell);
 
-                                    PdfHeaderCell = new PdfPCell(new Phrase(""));
-                                    PdfHeaderCell.Colspan = 33;
-                                    PdfHeaderCell.Border = Rectangle.NO_BORDER;
-                                    PdfHeaderCell.BorderWidthLeft = 2f;
-                                    PdfHeaderCell.BorderWidthRight = 2f;
-                                    PdfHeaderTable.AddCell(PdfHeaderCell);
-
-
-                                    //PdfHeaderCell = new PdfPCell(new Phrase(""));
-                                    //PdfHeaderCell.Border = Rectangle.NO_BORDER;
-                                    //PdfHeaderCell.Border = Rectangle.TOP_BORDER;
-                                    //PdfHeaderCell.Border = Rectangle.RIGHT_BORDER;
-                                    //PdfHeaderCell.BorderWidth = 2f;
-                                    //PdfHeaderTable.AddCell(PdfHeaderCell);
-
-                                    //PdfHeaderCell = new PdfPCell(new Phrase(""));
-                                    //PdfHeaderCell.Colspan = 33;
-                                    //PdfHeaderCell.Border = Rectangle.NO_BORDER;
-                                    //PdfHeaderCell.Border = Rectangle.TOP_BORDER;
-                                    //PdfHeaderCell.Border = Rectangle.LEFT_BORDER;
-                                    //PdfHeaderCell.BorderWidth = 2f;
-                                    //PdfHeaderTable.AddCell(PdfHeaderCell);
-
-
-                                    //PdfHeaderCell = new PdfPCell(new Phrase(""));
-                                    //PdfHeaderCell.Border = Rectangle.NO_BORDER;
-                                    //PdfHeaderCell.Border = Rectangle.TOP_BORDER;
-                                    //PdfHeaderCell.Border = Rectangle.RIGHT_BORDER;
-                                    //PdfHeaderCell.BorderWidth = 2f;
-                                    //PdfHeaderTable.AddCell(PdfHeaderCell);
-
 
                                     PdfHeaderCell = new PdfPCell(new Phrase(" "));
-                                    PdfHeaderCell.FixedHeight = 35f;
+                                    PdfHeaderCell.FixedHeight = 50f;
                                     PdfHeaderCell.Rowspan = 3;
                                     PdfHeaderCell.Border = Rectangle.NO_BORDER;//Avinash                        
                                     PdfHeaderCell.BorderWidthLeft = 2f;
                                     PdfHeaderTable.AddCell(PdfHeaderCell);
 
 
-                                    PdfHeaderCell = new PdfPCell(LogoImage, true);
-                                    PdfHeaderCell.FixedHeight = 35f;
+                                    PdfHeaderCell = new PdfPCell(LogoImage);
+                                    PdfHeaderCell.FixedHeight = 50f;
                                     //PdfHeaderCell = new PdfPCell(p);
                                     //PdfHeaderCell.FixedHeight = 30f;
 
@@ -550,7 +529,6 @@ namespace ZipNachWebAPI.Controllers
                                             PdfHeaderCell.NoWrap = false;
                                             PdfHeaderCell.RunDirection = PdfWriter.RUN_DIRECTION_LTR;
                                             PdfHeaderCell.HorizontalAlignment = 1;
-
                                             PdfHeaderTable.AddCell(PdfHeaderCell);
                                         }
                                     }
@@ -582,7 +560,7 @@ namespace ZipNachWebAPI.Controllers
                                     PdfHeaderCell.Colspan = 4;
                                     PdfHeaderCell.RunDirection = PdfWriter.RUN_DIRECTION_LTR;
                                     PdfHeaderCell.HorizontalAlignment = 1;
-                                    //PdfHeaderCell.FixedHeight = 20f;
+                                    PdfHeaderCell.FixedHeight = 15f;
                                     PdfHeaderCell.VerticalAlignment = iTextSharp.text.Element.ALIGN_MIDDLE;
                                     PdfHeaderCell.Border = Rectangle.NO_BORDER;//Avinash
                                     PdfHeaderTable.AddCell(PdfHeaderCell);
@@ -612,7 +590,7 @@ namespace ZipNachWebAPI.Controllers
                                     PdfHeaderCell.Colspan = 8;
                                     PdfHeaderCell.RunDirection = PdfWriter.RUN_DIRECTION_RTL;
                                     PdfHeaderCell.HorizontalAlignment = 1;
-                                    PdfHeaderCell.FixedHeight = 20f;
+                                    //PdfHeaderCell.FixedHeight = 20f;
                                     PdfHeaderCell.VerticalAlignment = iTextSharp.text.Element.ALIGN_MIDDLE;
                                     PdfHeaderTable.AddCell(PdfHeaderCell);
 
@@ -662,24 +640,51 @@ namespace ZipNachWebAPI.Controllers
                                     //PdfHeaderCell.Border = Rectangle.NO_BORDER;//Avinash
                                     //PdfHeaderTable.AddCell(PdfHeaderCell);
 
+                                    //PdfHeaderCell = new PdfPCell(new Phrase(" "));
+                                    //PdfHeaderCell.NoWrap = false;
+                                    //PdfHeaderCell.RunDirection = PdfWriter.RUN_DIRECTION_LTR;
+                                    //PdfHeaderCell.HorizontalAlignment = 1;
+                                    //PdfHeaderCell.Border = Rectangle.NO_BORDER;//Avinash
+                                    //PdfHeaderCell.BorderWidthLeft = 2f;
+                                    //PdfHeaderTable.AddCell(PdfHeaderCell);
+
+
+
 
                                     PdfHeaderCell = new PdfPCell(new Phrase("I/We hereby Authorize", fontAb11B));
                                     PdfHeaderCell.NoWrap = false;
                                     PdfHeaderCell.BackgroundColor = new Color(252, 252, 252);
-                                    PdfHeaderCell.RunDirection = PdfWriter.RUN_DIRECTION_RTL;
+                                    PdfHeaderCell.RunDirection = PdfWriter.RUN_DIRECTION_LTR;
                                     PdfHeaderCell.Colspan = 5;
-                                    //PdfHeaderCell.FixedHeight = 15f; 
+                                    PdfHeaderCell.FixedHeight = 15f;
                                     PdfHeaderCell.HorizontalAlignment = 1;
                                     PdfHeaderCell.VerticalAlignment = iTextSharp.text.Element.ALIGN_MIDDLE;
                                     PdfHeaderCell.Border = Rectangle.NO_BORDER;//Avinash
                                     PdfHeaderTable.AddCell(PdfHeaderCell);
 
 
-                                    PdfHeaderCell = new PdfPCell(new Phrase(dr["CompanyName"].ToString(), fontAb11B));
+                                    //PdfHeaderCell = new PdfPCell(new Phrase(dr["CompanyName"].ToString(), fontAb11B));
+                                    if (count_IherebyAuthorize < 34)
+                                    {
+                                        PdfHeaderCell = new PdfPCell(new Phrase(dr["CompanyName"].ToString(), fontAb11B));
+                                    }
+                                    else if (count_IherebyAuthorize < 40)
+                                    {
+                                        PdfHeaderCell = new PdfPCell(new Phrase(dr["CompanyName"].ToString(), fontText));
+                                    }
+                                    else if (count_IherebyAuthorize < 48)
+                                    {
+                                        PdfHeaderCell = new PdfPCell(new Phrase(dr["CompanyName"].ToString(), fontText6));
+                                    }
+                                    else
+                                    {
+                                        PdfHeaderCell = new PdfPCell(new Phrase(dr["CompanyName"].ToString(), fontText5));
+                                    }
+
                                     PdfHeaderCell.NoWrap = false;
                                     PdfHeaderCell.RunDirection = PdfWriter.RUN_DIRECTION_LTR;
+                                    //PdfHeaderCell.Colspan = 10;
                                     PdfHeaderCell.Colspan = 10;
-                                    PdfHeaderCell.FixedHeight = 20f;
                                     PdfHeaderCell.HorizontalAlignment = 1;
                                     PdfHeaderCell.VerticalAlignment = iTextSharp.text.Element.ALIGN_MIDDLE;
                                     PdfHeaderTable.AddCell(PdfHeaderCell);
@@ -701,7 +706,7 @@ namespace ZipNachWebAPI.Controllers
                                     string chDebit = dr["DebitTo"].ToString();
                                     if (chDebit == "SB")
                                     {
-                                        pCheckBoxSB.Add(new Phrase(" ", fontText));
+                                        // pCheckBoxSB.Add(new Phrase(" ", fontText));
                                         pCheckBoxSB.Add(new Chunk(checkBox, PdfPCell.ALIGN_LEFT, PdfPCell.ALIGN_LEFT));
                                         pCheckBoxSB.Add(new Phrase(" SB/ ", fontText));
                                         pCheckBoxSB.Add(new Chunk(SmallcheckBox, PdfPCell.ALIGN_LEFT, PdfPCell.ALIGN_LEFT));
@@ -717,7 +722,7 @@ namespace ZipNachWebAPI.Controllers
                                     }
                                     else if (chDebit == "CA")
                                     {
-                                        pCheckBoxSB.Add(new Phrase(" ", fontText));
+                                        //pCheckBoxSB.Add(new Phrase(" ", fontText));
                                         pCheckBoxSB.Add(new Chunk(SmallcheckBox, PdfPCell.ALIGN_LEFT, PdfPCell.ALIGN_LEFT));
                                         pCheckBoxSB.Add(new Phrase(" SB/ ", fontText));
                                         pCheckBoxSB.Add(new Chunk(checkBox, PdfPCell.ALIGN_LEFT, PdfPCell.ALIGN_LEFT));
@@ -734,7 +739,7 @@ namespace ZipNachWebAPI.Controllers
 
                                     else if (chDebit == "CC")
                                     {
-                                        pCheckBoxSB.Add(new Phrase(" ", fontText));
+                                        //pCheckBoxSB.Add(new Phrase(" ", fontText));
                                         pCheckBoxSB.Add(new Chunk(SmallcheckBox, PdfPCell.ALIGN_LEFT, PdfPCell.ALIGN_LEFT));
                                         pCheckBoxSB.Add(new Phrase(" SB/ ", fontText));
                                         pCheckBoxSB.Add(new Chunk(SmallcheckBox, PdfPCell.ALIGN_LEFT, PdfPCell.ALIGN_LEFT));
@@ -750,7 +755,7 @@ namespace ZipNachWebAPI.Controllers
                                     }
                                     else if (chDebit == "RE")
                                     {
-                                        pCheckBoxSB.Add(new Phrase(" ", fontText));
+                                        // pCheckBoxSB.Add(new Phrase(" ", fontText));
                                         pCheckBoxSB.Add(new Chunk(SmallcheckBox, PdfPCell.ALIGN_LEFT, PdfPCell.ALIGN_LEFT));
                                         pCheckBoxSB.Add(new Phrase(" SB/ ", fontText));
                                         pCheckBoxSB.Add(new Chunk(SmallcheckBox, PdfPCell.ALIGN_LEFT, PdfPCell.ALIGN_LEFT));
@@ -766,7 +771,7 @@ namespace ZipNachWebAPI.Controllers
                                     }
                                     else if (chDebit == "RD")
                                     {
-                                        pCheckBoxSB.Add(new Phrase(" ", fontText));
+                                        // pCheckBoxSB.Add(new Phrase(" ", fontText));
                                         pCheckBoxSB.Add(new Chunk(SmallcheckBox, PdfPCell.ALIGN_LEFT, PdfPCell.ALIGN_LEFT));
                                         pCheckBoxSB.Add(new Phrase(" SB/ ", fontText));
                                         pCheckBoxSB.Add(new Chunk(SmallcheckBox, PdfPCell.ALIGN_LEFT, PdfPCell.ALIGN_LEFT));
@@ -782,7 +787,7 @@ namespace ZipNachWebAPI.Controllers
                                     }
                                     else if (chDebit == "OT")
                                     {
-                                        pCheckBoxSB.Add(new Phrase(" ", fontText));
+                                        //pCheckBoxSB.Add(new Phrase(" ", fontText));
                                         pCheckBoxSB.Add(new Chunk(SmallcheckBox, PdfPCell.ALIGN_LEFT, PdfPCell.ALIGN_LEFT));
                                         pCheckBoxSB.Add(new Phrase(" SB/ ", fontText));
                                         pCheckBoxSB.Add(new Chunk(SmallcheckBox, PdfPCell.ALIGN_LEFT, PdfPCell.ALIGN_LEFT));
@@ -799,7 +804,8 @@ namespace ZipNachWebAPI.Controllers
                                     PdfHeaderCell = new PdfPCell(pCheckBoxSB);
                                     PdfHeaderCell.NoWrap = false;
                                     PdfHeaderCell.RunDirection = PdfWriter.RUN_DIRECTION_LTR;
-                                    PdfHeaderCell.Colspan = 11;
+                                    //PdfHeaderCell.Colspan = 11;
+                                    PdfHeaderCell.Colspan = 12;
                                     PdfHeaderCell.HorizontalAlignment = 1;
                                     PdfHeaderCell.VerticalAlignment = iTextSharp.text.Element.ALIGN_MIDDLE;
                                     PdfHeaderCell.Border = Rectangle.NO_BORDER;//Avinash                        
@@ -945,16 +951,33 @@ namespace ZipNachWebAPI.Controllers
                                     PdfMidCell.BackgroundColor = new Color(252, 252, 252);
                                     PdfMidCell.RunDirection = PdfWriter.RUN_DIRECTION_LTR;
                                     PdfMidCell.HorizontalAlignment = 1;
-                                    PdfMidCell.FixedHeight = 20f;
+                                    PdfMidCell.FixedHeight = 25f;
                                     PdfMidCell.VerticalAlignment = iTextSharp.text.Element.ALIGN_MIDDLE;
                                     PdfMidCell.Border = Rectangle.NO_BORDER;//Avinash
                                                                             //PdfMidCell.Border = Rectangle.LEFT_BORDER;
                                                                             //PdfMidCell.BorderWidth = 2f;
                                     PdfMidTable.AddCell(PdfMidCell);
 
-                                    PdfMidCell = new PdfPCell(new Phrase(dr["BankName"].ToString(), fontAb11));
+                                    //PdfMidCell = new PdfPCell(new Phrase(dr["BankName"].ToString(), fontAb11));                        
+                                    if (count_BankName < 34)
+                                    {
+                                        PdfMidCell = new PdfPCell(new Phrase(dr["BankName"].ToString(), fontAb11B));
+                                    }
+                                    else if (count_BankName < 40)
+                                    {
+                                        PdfMidCell = new PdfPCell(new Phrase(dr["BankName"].ToString(), fontText));
+                                    }
+                                    else if (count_BankName < 48)
+                                    {
+                                        PdfMidCell = new PdfPCell(new Phrase(dr["BankName"].ToString(), fontText6));
+                                    }
+                                    else
+                                    {
+                                        PdfMidCell = new PdfPCell(new Phrase(dr["BankName"].ToString(), fontText5));
+                                    }
+
                                     PdfMidCell.NoWrap = false;
-                                    PdfMidCell.FixedHeight = 30f;
+                                    //PdfMidCell.FixedHeight = 30f;
                                     PdfMidCell.RunDirection = PdfWriter.RUN_DIRECTION_LTR;
                                     PdfMidCell.Colspan = 6;
                                     PdfMidCell.HorizontalAlignment = 1;
@@ -1108,7 +1131,8 @@ namespace ZipNachWebAPI.Controllers
                                     PdfMidTable.AddCell(PdfMidCell);
 
                                     string Freq = dr["Frequency"].ToString();
-                                    PdfMidCell = new PdfPCell(new Phrase("Frequency", fontAb11B));
+                                    //PdfMidCell = new PdfPCell(new Phrase("Frequency", fontAb11B));
+                                    PdfMidCell = new PdfPCell(new Phrase("Frequency", fontText));
                                     PdfMidCell.NoWrap = false;
                                     PdfMidCell.BackgroundColor = new Color(252, 252, 252);
                                     PdfMidCell.RunDirection = PdfWriter.RUN_DIRECTION_LTR;
@@ -1127,12 +1151,12 @@ namespace ZipNachWebAPI.Controllers
                                     if (Freq == "M")
                                     {
                                         pMonthly.Add(new Chunk(checkBox, PdfPCell.ALIGN_LEFT, PdfPCell.ALIGN_LEFT));
-                                        pMonthly.Add(new Phrase("  Monthly ", fontText));
+                                        pMonthly.Add(new Phrase("  Monthly", fontText));
                                     }
                                     else
                                     {
                                         pMonthly.Add(new Chunk(Box, PdfPCell.ALIGN_LEFT, PdfPCell.ALIGN_LEFT));
-                                        pMonthly.Add(new Phrase("  Monthly ", fontText));
+                                        pMonthly.Add(new Phrase("  Monthly", fontText));
                                     }
 
                                     PdfMidCell = new PdfPCell(pMonthly);
@@ -1149,12 +1173,12 @@ namespace ZipNachWebAPI.Controllers
                                     if (Freq == "Q")
                                     {
                                         pQtly.Add(new Chunk(checkBox, PdfPCell.ALIGN_LEFT, PdfPCell.ALIGN_LEFT));
-                                        pQtly.Add(new Phrase(" Qtly ", fontText));
+                                        pQtly.Add(new Phrase(" Qtly", fontText));
                                     }
                                     else
                                     {
                                         pQtly.Add(new Chunk(Box, PdfPCell.ALIGN_LEFT, PdfPCell.ALIGN_LEFT));
-                                        pQtly.Add(new Phrase(" Qtly ", fontText));
+                                        pQtly.Add(new Phrase(" Qtly", fontText));
                                     }
 
                                     PdfMidCell = new PdfPCell(pQtly);
@@ -1171,12 +1195,12 @@ namespace ZipNachWebAPI.Controllers
                                     if (Freq == "H")
                                     {
                                         pHYrly.Add(new Chunk(checkBox, PdfPCell.ALIGN_LEFT, PdfPCell.ALIGN_LEFT));
-                                        pHYrly.Add(new Phrase("  H-Yrly ", fontText));
+                                        pHYrly.Add(new Phrase("  H-Yrly", fontText));
                                     }
                                     else
                                     {
                                         pHYrly.Add(new Chunk(Box, PdfPCell.ALIGN_LEFT, PdfPCell.ALIGN_LEFT));
-                                        pHYrly.Add(new Phrase("  H-Yrly ", fontText));
+                                        pHYrly.Add(new Phrase("  H-Yrly", fontText));
                                     }
 
                                     PdfMidCell = new PdfPCell(pHYrly);
@@ -1193,12 +1217,12 @@ namespace ZipNachWebAPI.Controllers
                                     if (Freq == "Y")
                                     {
                                         pYearly.Add(new Chunk(checkBox, PdfPCell.ALIGN_LEFT, PdfPCell.ALIGN_LEFT));
-                                        pYearly.Add(new Phrase("  Yearly ", fontText));
+                                        pYearly.Add(new Phrase("  Yearly", fontText));
                                     }
                                     else
                                     {
                                         pYearly.Add(new Chunk(Box, PdfPCell.ALIGN_LEFT, PdfPCell.ALIGN_LEFT));
-                                        pYearly.Add(new Phrase("  Yearly ", fontText));
+                                        pYearly.Add(new Phrase("  Yearly", fontText));
                                     }
 
                                     PdfMidCell = new PdfPCell(pYearly);
@@ -1214,12 +1238,12 @@ namespace ZipNachWebAPI.Controllers
                                     if (Freq == "A")
                                     {
                                         prensented.Add(new Chunk(checkBox, PdfPCell.ALIGN_LEFT, PdfPCell.ALIGN_LEFT));
-                                        prensented.Add(new Phrase("  As & when prensented ", fontText));
+                                        prensented.Add(new Phrase("  As & when prensented", fontText));
                                     }
                                     else
                                     {
                                         prensented.Add(new Chunk(Box, PdfPCell.ALIGN_LEFT, PdfPCell.ALIGN_LEFT));
-                                        prensented.Add(new Phrase("  As & when prensented ", fontText));
+                                        prensented.Add(new Phrase("  As & when prensented", fontText));
                                     }
 
                                     PdfMidCell = new PdfPCell(prensented);
@@ -1231,7 +1255,8 @@ namespace ZipNachWebAPI.Controllers
 
                                     string DebitType = dr["DebitType"].ToString();
 
-                                    PdfMidCell = new PdfPCell(new Phrase("Debit Type", fontAb11B));
+                                    //PdfMidCell = new PdfPCell(new Phrase("Debit Type", fontAb11B));
+                                    PdfMidCell = new PdfPCell(new Phrase("Debit Type", fontText));
                                     PdfMidCell.NoWrap = false;
                                     PdfMidCell.BackgroundColor = new Color(252, 252, 252);
                                     PdfMidCell.RunDirection = PdfWriter.RUN_DIRECTION_LTR;
@@ -1312,7 +1337,24 @@ namespace ZipNachWebAPI.Controllers
                                     PdfMidCell.VerticalAlignment = iTextSharp.text.Element.ALIGN_LEFT;
                                     PdfMidTable.AddCell(PdfMidCell);
 
-                                    PdfMidCell = new PdfPCell(new Phrase(dr["Reference1"].ToString(), fontAb11B));
+                                    //PdfMidCell = new PdfPCell(new Phrase(dr["Reference1"].ToString(), fontAb11B));
+                                    if (count_Ref1 < 34)
+                                    {
+                                        PdfMidCell = new PdfPCell(new Phrase(dr["Reference1"].ToString(), fontAb11B));
+                                    }
+                                    else if (count_Ref1 < 40)
+                                    {
+                                        PdfMidCell = new PdfPCell(new Phrase(dr["Reference1"].ToString(), fontText));
+                                    }
+                                    else if (count_Ref1 < 48)
+                                    {
+                                        PdfMidCell = new PdfPCell(new Phrase(dr["Reference1"].ToString(), fontText6));
+                                    }
+                                    else
+                                    {
+                                        PdfMidCell = new PdfPCell(new Phrase(dr["Reference1"].ToString(), fontText5));
+                                    }
+
                                     PdfMidCell.NoWrap = false;
                                     PdfMidCell.RunDirection = PdfWriter.RUN_DIRECTION_LTR;
                                     PdfMidCell.Colspan = 15;
@@ -1363,7 +1405,24 @@ namespace ZipNachWebAPI.Controllers
                                     PdfMidCell.VerticalAlignment = iTextSharp.text.Element.ALIGN_LEFT;
                                     PdfMidTable.AddCell(PdfMidCell);
 
-                                    PdfMidCell = new PdfPCell(new Phrase(dr["Reference2"].ToString(), fontAb11B));
+                                    //PdfMidCell = new PdfPCell(new Phrase(dr["Reference2"].ToString(), fontAb11B));
+                                    if (count_Ref2 < 34)
+                                    {
+                                        PdfMidCell = new PdfPCell(new Phrase(dr["Reference2"].ToString(), fontAb11B));
+                                    }
+                                    else if (count_Ref2 < 40)
+                                    {
+                                        PdfMidCell = new PdfPCell(new Phrase(dr["Reference2"].ToString(), fontText));
+                                    }
+                                    else if (count_Ref2 < 48)
+                                    {
+                                        PdfMidCell = new PdfPCell(new Phrase(dr["Reference2"].ToString(), fontText6));
+                                    }
+                                    else
+                                    {
+                                        PdfMidCell = new PdfPCell(new Phrase(dr["Reference2"].ToString(), fontText5));
+                                    }
+
                                     PdfMidCell.NoWrap = false;
                                     PdfMidCell.RunDirection = PdfWriter.RUN_DIRECTION_LTR;
                                     PdfMidCell.Colspan = 15;
@@ -1380,7 +1439,24 @@ namespace ZipNachWebAPI.Controllers
                                     PdfMidCell.Border = Rectangle.NO_BORDER;//Avinash
                                     PdfMidTable.AddCell(PdfMidCell);
 
-                                    PdfMidCell = new PdfPCell(new Phrase(dr["EmailId"].ToString(), fontAb11B));
+                                    //PdfMidCell = new PdfPCell(new Phrase(dr["EmailId"].ToString(), fontAb11B));
+                                    if (count < 34)
+                                    {
+                                        PdfMidCell = new PdfPCell(new Phrase(dr["EmailId"].ToString(), fontAb11B));
+                                    }
+                                    //else if (count < 40)
+                                    //{
+                                    //    PdfMidCell = new PdfPCell(new Phrase(dr["EmailId"].ToString(), fontText));
+                                    //}
+                                    //else if (count < 48)
+                                    //{
+                                    //    PdfMidCell = new PdfPCell(new Phrase(dr["EmailId"].ToString(), fontText6));
+                                    //}
+                                    else
+                                    {
+                                        PdfMidCell = new PdfPCell(new Phrase(dr["EmailId"].ToString(), fontText5));
+                                    }
+
                                     PdfMidCell.NoWrap = false;
                                     PdfMidCell.RunDirection = PdfWriter.RUN_DIRECTION_LTR;
                                     PdfMidCell.Colspan = 10;
@@ -1403,11 +1479,13 @@ namespace ZipNachWebAPI.Controllers
                                     PdfMidCell.BorderWidthLeft = 2f;
                                     PdfMidTable.AddCell(PdfMidCell);
 
-                                    PdfMidCell = new PdfPCell(new Phrase("PERIOD", fontAb11B));
+                                    //PdfMidCell = new PdfPCell(new Phrase("PERIOD", fontAb11B));
+                                    PdfMidCell = new PdfPCell(new Phrase("PERIOD", fontText));
                                     PdfMidCell.NoWrap = false;
                                     PdfMidCell.BackgroundColor = new Color(252, 252, 252);
                                     PdfMidCell.RunDirection = PdfWriter.RUN_DIRECTION_LTR;
                                     PdfMidCell.HorizontalAlignment = 1;
+                                    PdfMidCell.FixedHeight = 8f;
                                     //PdfMidCell.BorderWidthLeft = 2f;
                                     //PdfMidCell.Border = Rectangle.NO_BORDER;//Avinash
                                     //PdfMidCell.Border = Rectangle.LEFT_BORDER;
@@ -1702,7 +1780,24 @@ namespace ZipNachWebAPI.Controllers
                                     //PdfDetailCell.Colspan = 5;
                                     //PdfDetailTable.AddCell(PdfDetailCell);
 
-                                    PdfDetailCell = new PdfPCell(new Phrase(dr["BenificiaryName"].ToString(), fontAbCutomer));
+                                    //PdfDetailCell = new PdfPCell(new Phrase(dr["BenificiaryName"].ToString(), fontAbCutomer));
+                                    if (count_Customer < 10)
+                                    {
+                                        PdfDetailCell = new PdfPCell(new Phrase(dr["BenificiaryName"].ToString(), fontAb11B));
+                                    }
+                                    else if (count_Customer < 20)
+                                    {
+                                        PdfDetailCell = new PdfPCell(new Phrase(dr["BenificiaryName"].ToString(), fontText));
+                                    }
+                                    else if (count_Customer < 30)
+                                    {
+                                        PdfDetailCell = new PdfPCell(new Phrase(dr["BenificiaryName"].ToString(), fontText6));
+                                    }
+                                    else
+                                    {
+                                        PdfDetailCell = new PdfPCell(new Phrase(dr["BenificiaryName"].ToString(), fontText5));
+                                    }
+
                                     PdfDetailCell.NoWrap = false;
                                     PdfDetailCell.RunDirection = PdfWriter.RUN_DIRECTION_LTR;
                                     PdfDetailCell.HorizontalAlignment = 1;
@@ -1711,8 +1806,23 @@ namespace ZipNachWebAPI.Controllers
                                     PdfDetailCell.Colspan = 7;
                                     PdfDetailTable.AddCell(PdfDetailCell);
 
-                                    PdfDetailCell = new PdfPCell(new Phrase(dr["Customer2"].ToString(), fontAbCutomer));
-                                    //PdfDetailCell = new PdfPCell(new Phrase("Avinash Gupta", fontAbCutomer));
+                                    if (count_Customer < 10)
+                                    {
+                                        PdfDetailCell = new PdfPCell(new Phrase(dr["Customer2"].ToString(), fontAb11B));
+                                    }
+                                    else if (count_Customer < 20)
+                                    {
+                                        PdfDetailCell = new PdfPCell(new Phrase(dr["Customer2"].ToString(), fontText));
+                                    }
+                                    else if (count_Customer < 30)
+                                    {
+                                        PdfDetailCell = new PdfPCell(new Phrase(dr["Customer2"].ToString(), fontText6));
+                                    }
+                                    else
+                                    {
+                                        PdfDetailCell = new PdfPCell(new Phrase(dr["Customer2"].ToString(), fontText5));
+                                    }
+                                    //  PdfDetailCell = new PdfPCell(new Phrase(dr["Customer2"].ToString(), fontAbCutomer));
                                     PdfDetailCell.NoWrap = false;
                                     PdfDetailCell.RunDirection = PdfWriter.RUN_DIRECTION_LTR;
                                     PdfDetailCell.HorizontalAlignment = 1;
@@ -1720,8 +1830,23 @@ namespace ZipNachWebAPI.Controllers
                                     PdfDetailCell.Colspan = 10;
                                     PdfDetailTable.AddCell(PdfDetailCell);
 
-                                    PdfDetailCell = new PdfPCell(new Phrase(dr["Customer3"].ToString(), fontAbCutomer));
-                                    //PdfDetailCell = new PdfPCell(new Phrase("Avinash Gupta", fontAbCutomer));
+                                    if (count_Customer < 10)
+                                    {
+                                        PdfDetailCell = new PdfPCell(new Phrase(dr["Customer3"].ToString(), fontAb11B));
+                                    }
+                                    else if (count_Customer < 20)
+                                    {
+                                        PdfDetailCell = new PdfPCell(new Phrase(dr["Customer3"].ToString(), fontText));
+                                    }
+                                    else if (count_Customer < 30)
+                                    {
+                                        PdfDetailCell = new PdfPCell(new Phrase(dr["Customer3"].ToString(), fontText6));
+                                    }
+                                    else
+                                    {
+                                        PdfDetailCell = new PdfPCell(new Phrase(dr["Customer3"].ToString(), fontText5));
+                                    }
+                                    //PdfDetailCell = new PdfPCell(new Phrase(dr["Customer3"].ToString(), fontAbCutomer));
                                     PdfDetailCell.NoWrap = false;
                                     PdfDetailCell.RunDirection = PdfWriter.RUN_DIRECTION_LTR;
                                     PdfDetailCell.HorizontalAlignment = 1;
@@ -1740,6 +1865,37 @@ namespace ZipNachWebAPI.Controllers
                                     PdfDetailTable.AddCell(PdfDetailCell);
 
 
+                                    /*Avinash[14/01/2020]*/
+                                    PdfDetailCell = new PdfPCell(new Phrase(""));
+                                    PdfDetailCell.NoWrap = false;
+                                    PdfDetailCell.RunDirection = PdfWriter.RUN_DIRECTION_LTR;
+                                    PdfDetailCell.HorizontalAlignment = 1;
+                                    PdfDetailCell.Border = Rectangle.NO_BORDER;//Avinash
+                                    PdfDetailCell.BorderWidthLeft = 2f;
+                                    PdfDetailCell.BorderWidthRight = 2f;
+                                    PdfDetailCell.Colspan = 38;
+                                    PdfDetailTable.AddCell(PdfDetailCell);
+
+                                    PdfDetailCell = new PdfPCell(new Phrase(""));
+                                    PdfDetailCell.NoWrap = false;
+                                    PdfDetailCell.RunDirection = PdfWriter.RUN_DIRECTION_LTR;
+                                    PdfDetailCell.HorizontalAlignment = 1;
+                                    PdfDetailCell.Border = Rectangle.NO_BORDER;//Avinash
+                                    PdfDetailCell.BorderWidthLeft = 2f;
+                                    PdfDetailCell.BorderWidthRight = 2f;
+                                    PdfDetailCell.Colspan = 38;
+                                    PdfDetailTable.AddCell(PdfDetailCell);
+
+                                    PdfDetailCell = new PdfPCell(new Phrase(""));
+                                    PdfDetailCell.NoWrap = false;
+                                    PdfDetailCell.RunDirection = PdfWriter.RUN_DIRECTION_LTR;
+                                    PdfDetailCell.HorizontalAlignment = 1;
+                                    PdfDetailCell.Border = Rectangle.NO_BORDER;//Avinash
+                                    PdfDetailCell.BorderWidthLeft = 2f;
+                                    PdfDetailCell.BorderWidthRight = 2f;
+                                    PdfDetailCell.Colspan = 38;
+                                    PdfDetailTable.AddCell(PdfDetailCell);
+
                                     PdfDetailCell = new PdfPCell(new Phrase(""));
                                     PdfDetailCell.NoWrap = false;
                                     PdfDetailCell.RunDirection = PdfWriter.RUN_DIRECTION_LTR;
@@ -1747,61 +1903,6 @@ namespace ZipNachWebAPI.Controllers
                                     PdfDetailCell.Border = Rectangle.NO_BORDER;//Avinash
                                     PdfDetailCell.BorderWidthLeft = 2f;
                                     PdfDetailTable.AddCell(PdfDetailCell);
-
-                                    /*PdfDetailCell = new PdfPCell(new Phrase(" ", fontAb11B));
-                                    PdfDetailCell.NoWrap = false;
-                                    PdfDetailCell.Colspan = 9;
-                                    PdfDetailCell.RunDirection = PdfWriter.RUN_DIRECTION_LTR;
-                                    PdfDetailCell.HorizontalAlignment = 1;
-                                    PdfDetailCell.Border = Rectangle.NO_BORDER;
-                                    PdfDetailCell.Border = Rectangle.LEFT_BORDER;
-                                    PdfMidCell.BorderWidthLeft = 2f;
-                                    PdfDetailTable.AddCell(PdfDetailCell);
-
-                                    PdfDetailCell = new PdfPCell(new Phrase("1.Name as in Bank Records", fontAb11BU));
-                                    PdfDetailCell.NoWrap = false;
-                                    PdfDetailCell.RunDirection = PdfWriter.RUN_DIRECTION_LTR;
-                                    PdfDetailCell.HorizontalAlignment = 1;
-                                    PdfDetailCell.Border = Rectangle.NO_BORDER;
-                                    PdfDetailCell.Colspan = 8;
-                                    PdfDetailTable.AddCell(PdfDetailCell);
-                                    PdfDetailCell = new PdfPCell(new Phrase("2.Name as in Bank Records", fontAb11BU));
-                                    PdfDetailCell.NoWrap = false;
-                                    PdfDetailCell.RunDirection = PdfWriter.RUN_DIRECTION_LTR;
-                                    PdfDetailCell.HorizontalAlignment = 1;
-                                    PdfDetailCell.Border = Rectangle.NO_BORDER;
-                                    PdfDetailCell.Colspan = 8;
-                                    PdfDetailTable.AddCell(PdfDetailCell);
-                                    PdfDetailCell = new PdfPCell(new Phrase("3.Name as in Bank Records", fontAb11BU));
-                                    PdfDetailCell.NoWrap = false;
-                                    PdfDetailCell.RunDirection = PdfWriter.RUN_DIRECTION_LTR;
-                                    PdfDetailCell.HorizontalAlignment = 1;
-                                    PdfDetailCell.Border = Rectangle.NO_BORDER;
-                                    PdfDetailCell.Border = Rectangle.RIGHT_BORDER;//Avinash
-                                    PdfDetailCell.Colspan = 9;
-                                    PdfDetailTable.AddCell(PdfDetailCell);
-
-                                    // PdfDetailCell = new PdfPCell(new Phrase(""));
-                                    ////PdfDetailCell.NoWrap = false;
-                                    ////PdfDetailCell.RunDirection = PdfWriter.RUN_DIRECTION_LTR;
-                                    ////PdfDetailCell.HorizontalAlignment = 1;
-
-                                    // PdfDetailCell.Border = Rectangle.NO_BORDER;
-                                    // PdfDetailCell.Border = Rectangle.LEFT_BORDER;
-                                    // PdfDetailCell.Border = Rectangle.RIGHT_BORDER;
-                                    // PdfDetailCell.Colspan = 34;
-                                    // PdfDetailTable.AddCell(PdfDetailCell);
-                                    */
-
-                                    //PdfDetailCell = new PdfPCell(new Phrase(""));
-                                    //PdfDetailCell.NoWrap = false;
-                                    //PdfDetailCell.RunDirection = PdfWriter.RUN_DIRECTION_LTR;
-                                    //PdfDetailCell.HorizontalAlignment = 1;
-                                    //PdfDetailCell.Border = Rectangle.NO_BORDER;//Avinash
-                                    //PdfDetailCell.BorderWidthLeft = 2f;
-                                    //PdfDetailTable.AddCell(PdfDetailCell);
-
-
 
                                     PdfDetailCell = new PdfPCell(new Phrase("This is to confirm that declaration has been carefully read, understood & made by me/us. I'm authorizing the user entity/Corporate to debit my account, based on the instruction as agreed and signed by me. I've understood that I'm authorized to cancel/amend this mandate by appropriately communicating the cancellation/amendment request to the user/entity/corporate or the bank where I've authorized the debit.", fontText5));
                                     //PdfDetailCell = new PdfPCell(new Phrase("This is to confirm that declaration has been carefully read, understood & made by me/us. I'm authorizing the user entity/Corporate to debit my account, based on the instruction as agreed and signed by me. I've understood that I'm authorized to cancel/amend this mandate by appropriately communicating the cancellation/amendment request to the user/entity/corporate or the bank where I've authorized the debit.", fontText5));
@@ -1882,12 +1983,12 @@ namespace ZipNachWebAPI.Controllers
                                     PdfHeaderCell1.BorderWidthRight = 2f;
                                     PdfHeaderTable1.AddCell(PdfHeaderCell1);
 
-                                    PdfHeaderCell1 = new PdfPCell(new Phrase(""));
-                                    PdfHeaderCell1.Colspan = 33;
-                                    PdfHeaderCell1.Border = Rectangle.NO_BORDER;
-                                    PdfHeaderCell1.BorderWidthLeft = 2f;
-                                    PdfHeaderCell1.BorderWidthRight = 2f;
-                                    PdfHeaderTable1.AddCell(PdfHeaderCell1);
+                                    //PdfHeaderCell1 = new PdfPCell(new Phrase(""));
+                                    //PdfHeaderCell1.Colspan = 33;
+                                    //PdfHeaderCell1.Border = Rectangle.NO_BORDER;
+                                    //PdfHeaderCell1.BorderWidthLeft = 2f;
+                                    //PdfHeaderCell1.BorderWidthRight = 2f;
+                                    //PdfHeaderTable1.AddCell(PdfHeaderCell1);
 
                                     PdfHeaderCell1 = new PdfPCell(new Phrase(" "));
                                     PdfHeaderCell1.FixedHeight = 35f;
@@ -1897,9 +1998,8 @@ namespace ZipNachWebAPI.Controllers
                                     PdfHeaderTable1.AddCell(PdfHeaderCell1);
 
 
-                                    PdfHeaderCell1 = new PdfPCell(LogoImage, true);
-                                    PdfHeaderCell1.FixedHeight = 35f;
-
+                                    PdfHeaderCell1 = new PdfPCell(LogoImage);
+                                    PdfHeaderCell1.FixedHeight = 50f;
                                     PdfHeaderCell1.Rowspan = 3;
                                     PdfHeaderCell1.Border = Rectangle.NO_BORDER;
                                     PdfHeaderTable1.AddCell(PdfHeaderCell1);
@@ -2087,13 +2187,19 @@ namespace ZipNachWebAPI.Controllers
                                     PdfHeaderCell1.Colspan = 4;
                                     PdfHeaderCell1.RunDirection = PdfWriter.RUN_DIRECTION_LTR;
                                     PdfHeaderCell1.HorizontalAlignment = 1;
-                                    //PdfHeaderCell1.FixedHeight = 20f;
+                                    PdfHeaderCell1.FixedHeight = 15f;
                                     PdfHeaderCell1.VerticalAlignment = iTextSharp.text.Element.ALIGN_MIDDLE;
                                     PdfHeaderCell1.Border = Rectangle.NO_BORDER;//Avinash
                                     PdfHeaderTable1.AddCell(PdfHeaderCell1);
 
-
-                                    PdfHeaderCell1 = new PdfPCell(new Phrase(dr["SponserBankCode"].ToString(), fontAb11B));
+                                    if (Convert.ToInt16(ds.Tables[0].Rows[0]["NoOfQRCopy"]) > 1)
+                                    {
+                                        PdfHeaderCell1 = new PdfPCell(new Phrase(dr["SponserBankCode"].ToString(), fontAb11B));
+                                    }
+                                    else
+                                    {
+                                        PdfHeaderCell1 = new PdfPCell(new Phrase(" ", fontAb11B));
+                                    }
                                     PdfHeaderCell1.NoWrap = false;
                                     PdfHeaderCell1.Colspan = 12;
                                     PdfHeaderCell1.RunDirection = PdfWriter.RUN_DIRECTION_LTR;
@@ -2112,12 +2218,19 @@ namespace ZipNachWebAPI.Controllers
                                     PdfHeaderCell1.Border = Rectangle.NO_BORDER;//Avinash
                                     PdfHeaderTable1.AddCell(PdfHeaderCell1);
 
-                                    PdfHeaderCell1 = new PdfPCell(new Phrase(dr["UtilityCode"].ToString(), fontAb11B));
+                                    if (Convert.ToInt16(ds.Tables[0].Rows[0]["NoOfQRCopy"]) > 1)
+                                    {
+                                        PdfHeaderCell1 = new PdfPCell(new Phrase(dr["UtilityCode"].ToString(), fontAb11B));
+                                    }
+                                    else
+                                    {
+                                        PdfHeaderCell1 = new PdfPCell(new Phrase(" ", fontAb11B));
+                                    }
                                     PdfHeaderCell1.NoWrap = false;
                                     PdfHeaderCell1.Colspan = 8;
                                     PdfHeaderCell1.RunDirection = PdfWriter.RUN_DIRECTION_RTL;
                                     PdfHeaderCell1.HorizontalAlignment = 1;
-                                    PdfHeaderCell1.FixedHeight = 20f;
+                                    //PdfHeaderCell1.FixedHeight = 20f;
                                     PdfHeaderCell1.VerticalAlignment = iTextSharp.text.Element.ALIGN_MIDDLE;
                                     PdfHeaderTable1.AddCell(PdfHeaderCell1);
 
@@ -2133,25 +2246,47 @@ namespace ZipNachWebAPI.Controllers
 
                                     ////------------------------------- add Created Status-------------------------------------
                                     Document documentCheckBox1 = new Document();
-
-
                                     PdfHeaderCell1 = new PdfPCell(new Phrase("I/We hereby Authorize", fontAb11B));
+
                                     PdfHeaderCell1.NoWrap = false;
                                     PdfHeaderCell1.BackgroundColor = new Color(252, 252, 252);
-                                    PdfHeaderCell1.RunDirection = PdfWriter.RUN_DIRECTION_RTL;
+                                    PdfHeaderCell1.RunDirection = PdfWriter.RUN_DIRECTION_LTR;
                                     PdfHeaderCell1.Colspan = 5;
-                                    //PdfHeaderCell1.FixedHeight = 15f; 
+                                    PdfHeaderCell1.FixedHeight = 15f;
                                     PdfHeaderCell1.HorizontalAlignment = 1;
                                     PdfHeaderCell1.VerticalAlignment = iTextSharp.text.Element.ALIGN_MIDDLE;
                                     PdfHeaderCell1.Border = Rectangle.NO_BORDER;//Avinash
                                     PdfHeaderTable1.AddCell(PdfHeaderCell1);
 
 
-                                    PdfHeaderCell1 = new PdfPCell(new Phrase(dr["CompanyName"].ToString(), fontAb11B));
+                                    //PdfHeaderCell1 = new PdfPCell(new Phrase(dr["CompanyName"].ToString(), fontAb11B));
+                                    if (Convert.ToInt16(ds.Tables[0].Rows[0]["NoOfQRCopy"]) > 1)
+                                    {
+                                        if (count_IherebyAuthorize < 34)
+                                        {
+                                            PdfHeaderCell1 = new PdfPCell(new Phrase(dr["CompanyName"].ToString(), fontAb11B));
+                                        }
+                                        else if (count_IherebyAuthorize < 40)
+                                        {
+                                            PdfHeaderCell1 = new PdfPCell(new Phrase(dr["CompanyName"].ToString(), fontText));
+                                        }
+                                        else if (count_IherebyAuthorize < 48)
+                                        {
+                                            PdfHeaderCell1 = new PdfPCell(new Phrase(dr["CompanyName"].ToString(), fontText6));
+                                        }
+                                        else
+                                        {
+                                            PdfHeaderCell1 = new PdfPCell(new Phrase(dr["CompanyName"].ToString(), fontText5));
+                                        }
+                                    }
+                                    else
+                                    {
+                                        PdfHeaderCell1 = new PdfPCell(new Phrase(" ", fontText6));
+                                    }
+
                                     PdfHeaderCell1.NoWrap = false;
                                     PdfHeaderCell1.RunDirection = PdfWriter.RUN_DIRECTION_LTR;
                                     PdfHeaderCell1.Colspan = 10;
-                                    PdfHeaderCell1.FixedHeight = 20f;
                                     PdfHeaderCell1.HorizontalAlignment = 1;
                                     PdfHeaderCell1.VerticalAlignment = iTextSharp.text.Element.ALIGN_MIDDLE;
                                     PdfHeaderTable1.AddCell(PdfHeaderCell1);
@@ -2170,91 +2305,109 @@ namespace ZipNachWebAPI.Controllers
                                     documentCheckBox1SB1.Open();
                                     Paragraph pCheckBox1SB1 = new Paragraph();
                                     //----------------------------------add To Debit---------------------------
-                                    string chDebit1 = dr["DebitTo"].ToString();
-                                    if (chDebit1 == "SB")
+                                    if (Convert.ToInt16(ds.Tables[0].Rows[0]["NoOfQRCopy"]) > 1)
                                     {
-                                        pCheckBox1SB1.Add(new Phrase(" ", fontText));
-                                        pCheckBox1SB1.Add(new Chunk(checkBox, PdfPCell.ALIGN_LEFT, PdfPCell.ALIGN_LEFT));
-                                        pCheckBox1SB1.Add(new Phrase(" SB/ ", fontText));
-                                        pCheckBox1SB1.Add(new Chunk(SmallcheckBox, PdfPCell.ALIGN_LEFT, PdfPCell.ALIGN_LEFT));
-                                        pCheckBox1SB1.Add(new Phrase(" CA/ ", fontText));
-                                        pCheckBox1SB1.Add(new Chunk(SmallcheckBox, PdfPCell.ALIGN_LEFT, PdfPCell.ALIGN_LEFT));
-                                        pCheckBox1SB1.Add(new Phrase(" CC/ ", fontText));
-                                        pCheckBox1SB1.Add(new Chunk(SmallcheckBox, PdfPCell.ALIGN_LEFT, PdfPCell.ALIGN_LEFT));
-                                        pCheckBox1SB1.Add(new Phrase(" SB-NRE/ ", fontText));
-                                        pCheckBox1SB1.Add(new Chunk(SmallcheckBox, PdfPCell.ALIGN_LEFT, PdfPCell.ALIGN_LEFT));
-                                        pCheckBox1SB1.Add(new Phrase(" SB-NRO/ ", fontText));
-                                        pCheckBox1SB1.Add(new Chunk(SmallcheckBox, PdfPCell.ALIGN_LEFT, PdfPCell.ALIGN_LEFT));
-                                        pCheckBox1SB1.Add(new Phrase(" OTHER ", fontText));
-                                    }
-                                    else if (chDebit1 == "CA")
-                                    {
-                                        pCheckBox1SB1.Add(new Phrase(" ", fontText));
-                                        pCheckBox1SB1.Add(new Chunk(SmallcheckBox, PdfPCell.ALIGN_LEFT, PdfPCell.ALIGN_LEFT));
-                                        pCheckBox1SB1.Add(new Phrase(" SB/ ", fontText));
-                                        pCheckBox1SB1.Add(new Chunk(checkBox, PdfPCell.ALIGN_LEFT, PdfPCell.ALIGN_LEFT));
-                                        pCheckBox1SB1.Add(new Phrase(" CA/ ", fontText));
-                                        pCheckBox1SB1.Add(new Chunk(SmallcheckBox, PdfPCell.ALIGN_LEFT, PdfPCell.ALIGN_LEFT));
-                                        pCheckBox1SB1.Add(new Phrase(" CC/ ", fontText));
-                                        pCheckBox1SB1.Add(new Chunk(SmallcheckBox, PdfPCell.ALIGN_LEFT, PdfPCell.ALIGN_LEFT));
-                                        pCheckBox1SB1.Add(new Phrase(" SB-NRE/ ", fontText));
-                                        pCheckBox1SB1.Add(new Chunk(SmallcheckBox, PdfPCell.ALIGN_LEFT, PdfPCell.ALIGN_LEFT));
-                                        pCheckBox1SB1.Add(new Phrase(" SB-NRO/ ", fontText));
-                                        pCheckBox1SB1.Add(new Chunk(SmallcheckBox, PdfPCell.ALIGN_LEFT, PdfPCell.ALIGN_LEFT));
-                                        pCheckBox1SB1.Add(new Phrase(" OTHER ", fontText));
-                                    }
+                                        string chDebit1 = dr["DebitTo"].ToString();
+                                        if (chDebit1 == "SB")
+                                        {
+                                            //   pCheckBox1SB1.Add(new Phrase(" ", fontText));
+                                            pCheckBox1SB1.Add(new Chunk(checkBox, PdfPCell.ALIGN_LEFT, PdfPCell.ALIGN_LEFT));
+                                            pCheckBox1SB1.Add(new Phrase(" SB/ ", fontText));
+                                            pCheckBox1SB1.Add(new Chunk(SmallcheckBox, PdfPCell.ALIGN_LEFT, PdfPCell.ALIGN_LEFT));
+                                            pCheckBox1SB1.Add(new Phrase(" CA/ ", fontText));
+                                            pCheckBox1SB1.Add(new Chunk(SmallcheckBox, PdfPCell.ALIGN_LEFT, PdfPCell.ALIGN_LEFT));
+                                            pCheckBox1SB1.Add(new Phrase(" CC/ ", fontText));
+                                            pCheckBox1SB1.Add(new Chunk(SmallcheckBox, PdfPCell.ALIGN_LEFT, PdfPCell.ALIGN_LEFT));
+                                            pCheckBox1SB1.Add(new Phrase(" SB-NRE/ ", fontText));
+                                            pCheckBox1SB1.Add(new Chunk(SmallcheckBox, PdfPCell.ALIGN_LEFT, PdfPCell.ALIGN_LEFT));
+                                            pCheckBox1SB1.Add(new Phrase(" SB-NRO/ ", fontText));
+                                            pCheckBox1SB1.Add(new Chunk(SmallcheckBox, PdfPCell.ALIGN_LEFT, PdfPCell.ALIGN_LEFT));
+                                            pCheckBox1SB1.Add(new Phrase(" OTHER ", fontText));
+                                        }
+                                        else if (chDebit1 == "CA")
+                                        {
+                                            // pCheckBox1SB1.Add(new Phrase(" ", fontText));
+                                            pCheckBox1SB1.Add(new Chunk(SmallcheckBox, PdfPCell.ALIGN_LEFT, PdfPCell.ALIGN_LEFT));
+                                            pCheckBox1SB1.Add(new Phrase(" SB/ ", fontText));
+                                            pCheckBox1SB1.Add(new Chunk(checkBox, PdfPCell.ALIGN_LEFT, PdfPCell.ALIGN_LEFT));
+                                            pCheckBox1SB1.Add(new Phrase(" CA/ ", fontText));
+                                            pCheckBox1SB1.Add(new Chunk(SmallcheckBox, PdfPCell.ALIGN_LEFT, PdfPCell.ALIGN_LEFT));
+                                            pCheckBox1SB1.Add(new Phrase(" CC/ ", fontText));
+                                            pCheckBox1SB1.Add(new Chunk(SmallcheckBox, PdfPCell.ALIGN_LEFT, PdfPCell.ALIGN_LEFT));
+                                            pCheckBox1SB1.Add(new Phrase(" SB-NRE/ ", fontText));
+                                            pCheckBox1SB1.Add(new Chunk(SmallcheckBox, PdfPCell.ALIGN_LEFT, PdfPCell.ALIGN_LEFT));
+                                            pCheckBox1SB1.Add(new Phrase(" SB-NRO/ ", fontText));
+                                            pCheckBox1SB1.Add(new Chunk(SmallcheckBox, PdfPCell.ALIGN_LEFT, PdfPCell.ALIGN_LEFT));
+                                            pCheckBox1SB1.Add(new Phrase(" OTHER ", fontText));
+                                        }
 
-                                    else if (chDebit1 == "CC")
-                                    {
-                                        pCheckBox1SB1.Add(new Phrase(" ", fontText));
-                                        pCheckBox1SB1.Add(new Chunk(SmallcheckBox, PdfPCell.ALIGN_LEFT, PdfPCell.ALIGN_LEFT));
-                                        pCheckBox1SB1.Add(new Phrase(" SB/ ", fontText));
-                                        pCheckBox1SB1.Add(new Chunk(SmallcheckBox, PdfPCell.ALIGN_LEFT, PdfPCell.ALIGN_LEFT));
-                                        pCheckBox1SB1.Add(new Phrase(" CA/ ", fontText));
-                                        pCheckBox1SB1.Add(new Chunk(checkBox, PdfPCell.ALIGN_LEFT, PdfPCell.ALIGN_LEFT));
-                                        pCheckBox1SB1.Add(new Phrase(" CC/ ", fontText));
-                                        pCheckBox1SB1.Add(new Chunk(SmallcheckBox, PdfPCell.ALIGN_LEFT, PdfPCell.ALIGN_LEFT));
-                                        pCheckBox1SB1.Add(new Phrase(" SB-NRE/ ", fontText));
-                                        pCheckBox1SB1.Add(new Chunk(SmallcheckBox, PdfPCell.ALIGN_LEFT, PdfPCell.ALIGN_LEFT));
-                                        pCheckBox1SB1.Add(new Phrase(" SB-NRO/ ", fontText));
-                                        pCheckBox1SB1.Add(new Chunk(SmallcheckBox, PdfPCell.ALIGN_LEFT, PdfPCell.ALIGN_LEFT));
-                                        pCheckBox1SB1.Add(new Phrase(" OTHER ", fontText));
+                                        else if (chDebit1 == "CC")
+                                        {
+                                            //pCheckBox1SB1.Add(new Phrase(" ", fontText));
+                                            pCheckBox1SB1.Add(new Chunk(SmallcheckBox, PdfPCell.ALIGN_LEFT, PdfPCell.ALIGN_LEFT));
+                                            pCheckBox1SB1.Add(new Phrase(" SB/ ", fontText));
+                                            pCheckBox1SB1.Add(new Chunk(SmallcheckBox, PdfPCell.ALIGN_LEFT, PdfPCell.ALIGN_LEFT));
+                                            pCheckBox1SB1.Add(new Phrase(" CA/ ", fontText));
+                                            pCheckBox1SB1.Add(new Chunk(checkBox, PdfPCell.ALIGN_LEFT, PdfPCell.ALIGN_LEFT));
+                                            pCheckBox1SB1.Add(new Phrase(" CC/ ", fontText));
+                                            pCheckBox1SB1.Add(new Chunk(SmallcheckBox, PdfPCell.ALIGN_LEFT, PdfPCell.ALIGN_LEFT));
+                                            pCheckBox1SB1.Add(new Phrase(" SB-NRE/ ", fontText));
+                                            pCheckBox1SB1.Add(new Chunk(SmallcheckBox, PdfPCell.ALIGN_LEFT, PdfPCell.ALIGN_LEFT));
+                                            pCheckBox1SB1.Add(new Phrase(" SB-NRO/ ", fontText));
+                                            pCheckBox1SB1.Add(new Chunk(SmallcheckBox, PdfPCell.ALIGN_LEFT, PdfPCell.ALIGN_LEFT));
+                                            pCheckBox1SB1.Add(new Phrase(" OTHER ", fontText));
+                                        }
+                                        else if (chDebit1 == "RE")
+                                        {
+                                            // pCheckBox1SB1.Add(new Phrase(" ", fontText));
+                                            pCheckBox1SB1.Add(new Chunk(SmallcheckBox, PdfPCell.ALIGN_LEFT, PdfPCell.ALIGN_LEFT));
+                                            pCheckBox1SB1.Add(new Phrase(" SB/ ", fontText));
+                                            pCheckBox1SB1.Add(new Chunk(SmallcheckBox, PdfPCell.ALIGN_LEFT, PdfPCell.ALIGN_LEFT));
+                                            pCheckBox1SB1.Add(new Phrase(" CA/ ", fontText));
+                                            pCheckBox1SB1.Add(new Chunk(SmallcheckBox, PdfPCell.ALIGN_LEFT, PdfPCell.ALIGN_LEFT));
+                                            pCheckBox1SB1.Add(new Phrase(" CC/ ", fontText));
+                                            pCheckBox1SB1.Add(new Chunk(checkBox, PdfPCell.ALIGN_LEFT, PdfPCell.ALIGN_LEFT));
+                                            pCheckBox1SB1.Add(new Phrase(" SB-NRE/ ", fontText));
+                                            pCheckBox1SB1.Add(new Chunk(SmallcheckBox, PdfPCell.ALIGN_LEFT, PdfPCell.ALIGN_LEFT));
+                                            pCheckBox1SB1.Add(new Phrase(" SB-NRO/ ", fontText));
+                                            pCheckBox1SB1.Add(new Chunk(SmallcheckBox, PdfPCell.ALIGN_LEFT, PdfPCell.ALIGN_LEFT));
+                                            pCheckBox1SB1.Add(new Phrase(" OTHER ", fontText));
+                                        }
+                                        else if (chDebit1 == "RD")
+                                        {
+                                            // pCheckBox1SB1.Add(new Phrase(" ", fontText));
+                                            pCheckBox1SB1.Add(new Chunk(SmallcheckBox, PdfPCell.ALIGN_LEFT, PdfPCell.ALIGN_LEFT));
+                                            pCheckBox1SB1.Add(new Phrase(" SB/ ", fontText));
+                                            pCheckBox1SB1.Add(new Chunk(SmallcheckBox, PdfPCell.ALIGN_LEFT, PdfPCell.ALIGN_LEFT));
+                                            pCheckBox1SB1.Add(new Phrase(" CA/ ", fontText));
+                                            pCheckBox1SB1.Add(new Chunk(SmallcheckBox, PdfPCell.ALIGN_LEFT, PdfPCell.ALIGN_LEFT));
+                                            pCheckBox1SB1.Add(new Phrase(" CC/ ", fontText));
+                                            pCheckBox1SB1.Add(new Chunk(SmallcheckBox, PdfPCell.ALIGN_LEFT, PdfPCell.ALIGN_LEFT));
+                                            pCheckBox1SB1.Add(new Phrase(" SB-NRE/ ", fontText));
+                                            pCheckBox1SB1.Add(new Chunk(checkBox, PdfPCell.ALIGN_LEFT, PdfPCell.ALIGN_LEFT));
+                                            pCheckBox1SB1.Add(new Phrase(" SB-NRO/ ", fontText));
+                                            pCheckBox1SB1.Add(new Chunk(SmallcheckBox, PdfPCell.ALIGN_LEFT, PdfPCell.ALIGN_LEFT));
+                                            pCheckBox1SB1.Add(new Phrase(" OTHER ", fontText));
+                                        }
+                                        else if (chDebit1 == "OT")
+                                        {
+                                            // pCheckBox1SB1.Add(new Phrase(" ", fontText));
+                                            pCheckBox1SB1.Add(new Chunk(SmallcheckBox, PdfPCell.ALIGN_LEFT, PdfPCell.ALIGN_LEFT));
+                                            pCheckBox1SB1.Add(new Phrase(" SB/ ", fontText));
+                                            pCheckBox1SB1.Add(new Chunk(SmallcheckBox, PdfPCell.ALIGN_LEFT, PdfPCell.ALIGN_LEFT));
+                                            pCheckBox1SB1.Add(new Phrase(" CA/ ", fontText));
+                                            pCheckBox1SB1.Add(new Chunk(SmallcheckBox, PdfPCell.ALIGN_LEFT, PdfPCell.ALIGN_LEFT));
+                                            pCheckBox1SB1.Add(new Phrase(" CC/ ", fontText));
+                                            pCheckBox1SB1.Add(new Chunk(SmallcheckBox, PdfPCell.ALIGN_LEFT, PdfPCell.ALIGN_LEFT));
+                                            pCheckBox1SB1.Add(new Phrase(" SB-NRE/ ", fontText));
+                                            pCheckBox1SB1.Add(new Chunk(SmallcheckBox, PdfPCell.ALIGN_LEFT, PdfPCell.ALIGN_LEFT));
+                                            pCheckBox1SB1.Add(new Phrase(" SB-NRO/ ", fontText));
+                                            pCheckBox1SB1.Add(new Chunk(checkBox, PdfPCell.ALIGN_LEFT, PdfPCell.ALIGN_LEFT));
+                                            pCheckBox1SB1.Add(new Phrase(" OTHER ", fontText));
+                                        }
                                     }
-                                    else if (chDebit1 == "RE")
+                                    else
                                     {
-                                        pCheckBox1SB1.Add(new Phrase(" ", fontText));
-                                        pCheckBox1SB1.Add(new Chunk(SmallcheckBox, PdfPCell.ALIGN_LEFT, PdfPCell.ALIGN_LEFT));
-                                        pCheckBox1SB1.Add(new Phrase(" SB/ ", fontText));
-                                        pCheckBox1SB1.Add(new Chunk(SmallcheckBox, PdfPCell.ALIGN_LEFT, PdfPCell.ALIGN_LEFT));
-                                        pCheckBox1SB1.Add(new Phrase(" CA/ ", fontText));
-                                        pCheckBox1SB1.Add(new Chunk(SmallcheckBox, PdfPCell.ALIGN_LEFT, PdfPCell.ALIGN_LEFT));
-                                        pCheckBox1SB1.Add(new Phrase(" CC/ ", fontText));
-                                        pCheckBox1SB1.Add(new Chunk(checkBox, PdfPCell.ALIGN_LEFT, PdfPCell.ALIGN_LEFT));
-                                        pCheckBox1SB1.Add(new Phrase(" SB-NRE/ ", fontText));
-                                        pCheckBox1SB1.Add(new Chunk(SmallcheckBox, PdfPCell.ALIGN_LEFT, PdfPCell.ALIGN_LEFT));
-                                        pCheckBox1SB1.Add(new Phrase(" SB-NRO/ ", fontText));
-                                        pCheckBox1SB1.Add(new Chunk(SmallcheckBox, PdfPCell.ALIGN_LEFT, PdfPCell.ALIGN_LEFT));
-                                        pCheckBox1SB1.Add(new Phrase(" OTHER ", fontText));
-                                    }
-                                    else if (chDebit1 == "RD")
-                                    {
-                                        pCheckBox1SB1.Add(new Phrase(" ", fontText));
-                                        pCheckBox1SB1.Add(new Chunk(SmallcheckBox, PdfPCell.ALIGN_LEFT, PdfPCell.ALIGN_LEFT));
-                                        pCheckBox1SB1.Add(new Phrase(" SB/ ", fontText));
-                                        pCheckBox1SB1.Add(new Chunk(SmallcheckBox, PdfPCell.ALIGN_LEFT, PdfPCell.ALIGN_LEFT));
-                                        pCheckBox1SB1.Add(new Phrase(" CA/ ", fontText));
-                                        pCheckBox1SB1.Add(new Chunk(SmallcheckBox, PdfPCell.ALIGN_LEFT, PdfPCell.ALIGN_LEFT));
-                                        pCheckBox1SB1.Add(new Phrase(" CC/ ", fontText));
-                                        pCheckBox1SB1.Add(new Chunk(SmallcheckBox, PdfPCell.ALIGN_LEFT, PdfPCell.ALIGN_LEFT));
-                                        pCheckBox1SB1.Add(new Phrase(" SB-NRE/ ", fontText));
-                                        pCheckBox1SB1.Add(new Chunk(checkBox, PdfPCell.ALIGN_LEFT, PdfPCell.ALIGN_LEFT));
-                                        pCheckBox1SB1.Add(new Phrase(" SB-NRO/ ", fontText));
-                                        pCheckBox1SB1.Add(new Chunk(SmallcheckBox, PdfPCell.ALIGN_LEFT, PdfPCell.ALIGN_LEFT));
-                                        pCheckBox1SB1.Add(new Phrase(" OTHER ", fontText));
-                                    }
-                                    else if (chDebit1 == "OT")
-                                    {
-                                        pCheckBox1SB1.Add(new Phrase(" ", fontText));
                                         pCheckBox1SB1.Add(new Chunk(SmallcheckBox, PdfPCell.ALIGN_LEFT, PdfPCell.ALIGN_LEFT));
                                         pCheckBox1SB1.Add(new Phrase(" SB/ ", fontText));
                                         pCheckBox1SB1.Add(new Chunk(SmallcheckBox, PdfPCell.ALIGN_LEFT, PdfPCell.ALIGN_LEFT));
@@ -2265,13 +2418,14 @@ namespace ZipNachWebAPI.Controllers
                                         pCheckBox1SB1.Add(new Phrase(" SB-NRE/ ", fontText));
                                         pCheckBox1SB1.Add(new Chunk(SmallcheckBox, PdfPCell.ALIGN_LEFT, PdfPCell.ALIGN_LEFT));
                                         pCheckBox1SB1.Add(new Phrase(" SB-NRO/ ", fontText));
-                                        pCheckBox1SB1.Add(new Chunk(checkBox, PdfPCell.ALIGN_LEFT, PdfPCell.ALIGN_LEFT));
+                                        pCheckBox1SB1.Add(new Chunk(SmallcheckBox, PdfPCell.ALIGN_LEFT, PdfPCell.ALIGN_LEFT));
                                         pCheckBox1SB1.Add(new Phrase(" OTHER ", fontText));
                                     }
                                     PdfHeaderCell1 = new PdfPCell(pCheckBox1SB1);
                                     PdfHeaderCell1.NoWrap = false;
                                     PdfHeaderCell1.RunDirection = PdfWriter.RUN_DIRECTION_LTR;
-                                    PdfHeaderCell1.Colspan = 11;
+                                    //PdfHeaderCell.Colspan = 11;
+                                    PdfHeaderCell1.Colspan = 12;
                                     PdfHeaderCell1.HorizontalAlignment = 1;
                                     PdfHeaderCell1.VerticalAlignment = iTextSharp.text.Element.ALIGN_MIDDLE;
                                     PdfHeaderCell1.Border = Rectangle.NO_BORDER;//Avinash                        
@@ -2308,30 +2462,42 @@ namespace ZipNachWebAPI.Controllers
                                     documentCheckBox1.Open();
                                     Paragraph pCheckBox1 = new Paragraph();
                                     string status_1 = dr["CreatedStatus"].ToString();
-                                    if (status_1 == "C")
+                                    if (Convert.ToInt16(ds.Tables[0].Rows[0]["NoOfQRCopy"]) > 1)
                                     {
-                                        pCheckBox1.Add(new Phrase("CREATE ", fontText));
-                                        pCheckBox1.Add(new Chunk(checkBox, PdfPCell.ALIGN_LEFT, PdfPCell.ALIGN_LEFT));
-                                        pCheckBox1.Add(new Phrase(" MODIFY ", fontText));
-                                        pCheckBox1.Add(new Phrase(" CANCEL ", fontText));
+                                        if (status_1 == "C")
+                                        {
+                                            pCheckBox1.Add(new Phrase("CREATE ", fontText));
+                                            pCheckBox1.Add(new Chunk(checkBox, PdfPCell.ALIGN_LEFT, PdfPCell.ALIGN_LEFT));
+                                            pCheckBox1.Add(new Phrase(" MODIFY ", fontText));
+                                            pCheckBox1.Add(new Phrase(" CANCEL ", fontText));
 
+                                        }
+                                        else if (status_1 == "M")
+                                        {
+                                            pCheckBox1.Add(new Phrase("CREATE ", fontText));
+                                            pCheckBox1.Add(new Phrase(" MODIFY ", fontText));
+                                            pCheckBox1.Add(new Chunk(checkBox, PdfPCell.ALIGN_LEFT, PdfPCell.ALIGN_LEFT));
+                                            pCheckBox1.Add(new Phrase(" CANCEL ", fontText));
+
+                                        }
+                                        else if (status_1 == "L")
+                                        {
+                                            pCheckBox1.Add(new Phrase("CREATE ", fontText));
+
+                                            pCheckBox1.Add(new Phrase(" MODIFY ", fontText));
+
+                                            pCheckBox1.Add(new Phrase(" CANCEL ", fontText));
+                                            pCheckBox1.Add(new Chunk(checkBox, PdfPCell.ALIGN_LEFT, PdfPCell.ALIGN_LEFT));
+                                        }
                                     }
-                                    else if (status_1 == "M")
-                                    {
-                                        pCheckBox1.Add(new Phrase("CREATE ", fontText));
-                                        pCheckBox1.Add(new Phrase(" MODIFY ", fontText));
-                                        pCheckBox1.Add(new Chunk(checkBox, PdfPCell.ALIGN_LEFT, PdfPCell.ALIGN_LEFT));
-                                        pCheckBox1.Add(new Phrase(" CANCEL ", fontText));
-
-                                    }
-                                    else if (status_1 == "L")
+                                    else
                                     {
                                         pCheckBox1.Add(new Phrase("CREATE ", fontText));
 
                                         pCheckBox1.Add(new Phrase(" MODIFY ", fontText));
 
                                         pCheckBox1.Add(new Phrase(" CANCEL ", fontText));
-                                        pCheckBox1.Add(new Chunk(checkBox, PdfPCell.ALIGN_LEFT, PdfPCell.ALIGN_LEFT));
+
                                     }
                                     PdfMidCell1 = new PdfPCell(pCheckBox1);
                                     PdfMidCell1.NoWrap = false;
@@ -2351,30 +2517,60 @@ namespace ZipNachWebAPI.Controllers
                                     PdfMidCell1.Border = Rectangle.NO_BORDER;
                                     PdfMidTable1.AddCell(PdfMidCell1);
 
+
                                     string AccountNo1 = dr["AccountNo"].ToString();
                                     char[] chrAcountNo1 = new char[Convert.ToInt32(AccountNo1.Length)];
                                     chrAcountNo1 = AccountNo1.ToCharArray();
-                                    if (Convert.ToInt32(AccountNo1.Length) <= 26)
+                                    if (Convert.ToInt16(ds.Tables[0].Rows[0]["NoOfQRCopy"]) > 1)
                                     {
-                                        for (int j = 0; j < Convert.ToInt32(chrAcountNo1.Length); j++)
+                                        if (Convert.ToInt32(AccountNo1.Length) <= 26)
                                         {
-                                            PdfMidCell1 = new PdfPCell(new Phrase(chrAcountNo1[j].ToString(), fontA119B));
-                                            PdfMidCell1.NoWrap = false;
-                                            PdfMidCell1.RunDirection = PdfWriter.RUN_DIRECTION_LTR;
-                                            PdfMidCell1.HorizontalAlignment = 1;
-                                            PdfMidCell1.VerticalAlignment = iTextSharp.text.Element.ALIGN_MIDDLE;
-                                            PdfMidTable1.AddCell(PdfMidCell1);
-                                        }
+                                            for (int j = 0; j < Convert.ToInt32(chrAcountNo1.Length); j++)
+                                            {
+                                                PdfMidCell1 = new PdfPCell(new Phrase(chrAcountNo1[j].ToString(), fontA119B));
+                                                PdfMidCell1.NoWrap = false;
+                                                PdfMidCell1.RunDirection = PdfWriter.RUN_DIRECTION_LTR;
+                                                PdfMidCell1.HorizontalAlignment = 1;
+                                                PdfMidCell1.VerticalAlignment = iTextSharp.text.Element.ALIGN_MIDDLE;
+                                                PdfMidTable1.AddCell(PdfMidCell1);
+                                            }
 
-                                        int len = 26 - Convert.ToInt32(AccountNo1.Length);
-                                        for (int k = 0; k < len; k++)
+                                            int len = 26 - Convert.ToInt32(AccountNo1.Length);
+                                            for (int k = 0; k < len; k++)
+                                            {
+                                                PdfMidCell1 = new PdfPCell(new Phrase(" ", fontA119B));
+                                                PdfMidCell1.NoWrap = false;
+                                                PdfMidCell1.RunDirection = PdfWriter.RUN_DIRECTION_LTR;
+                                                PdfMidCell1.HorizontalAlignment = 1;
+                                                PdfMidCell1.VerticalAlignment = iTextSharp.text.Element.ALIGN_MIDDLE;
+                                                PdfMidTable1.AddCell(PdfMidCell1);
+                                            }
+                                        }
+                                    }
+                                    else
+                                    {
+                                        if (Convert.ToInt32(AccountNo1.Length) <= 26)
                                         {
-                                            PdfMidCell1 = new PdfPCell(new Phrase(" ", fontA119B));
-                                            PdfMidCell1.NoWrap = false;
-                                            PdfMidCell1.RunDirection = PdfWriter.RUN_DIRECTION_LTR;
-                                            PdfMidCell1.HorizontalAlignment = 1;
-                                            PdfMidCell1.VerticalAlignment = iTextSharp.text.Element.ALIGN_MIDDLE;
-                                            PdfMidTable1.AddCell(PdfMidCell1);
+                                            for (int j = 0; j < Convert.ToInt32(chrAcountNo1.Length); j++)
+                                            {
+                                                PdfMidCell1 = new PdfPCell(new Phrase(" ", fontA119B));
+                                                PdfMidCell1.NoWrap = false;
+                                                PdfMidCell1.RunDirection = PdfWriter.RUN_DIRECTION_LTR;
+                                                PdfMidCell1.HorizontalAlignment = 1;
+                                                PdfMidCell1.VerticalAlignment = iTextSharp.text.Element.ALIGN_MIDDLE;
+                                                PdfMidTable1.AddCell(PdfMidCell1);
+                                            }
+
+                                            int len = 26 - Convert.ToInt32(AccountNo1.Length);
+                                            for (int k = 0; k < len; k++)
+                                            {
+                                                PdfMidCell1 = new PdfPCell(new Phrase(" ", fontA119B));
+                                                PdfMidCell1.NoWrap = false;
+                                                PdfMidCell1.RunDirection = PdfWriter.RUN_DIRECTION_LTR;
+                                                PdfMidCell1.HorizontalAlignment = 1;
+                                                PdfMidCell1.VerticalAlignment = iTextSharp.text.Element.ALIGN_MIDDLE;
+                                                PdfMidTable1.AddCell(PdfMidCell1);
+                                            }
                                         }
                                     }
 
@@ -2400,16 +2596,39 @@ namespace ZipNachWebAPI.Controllers
                                     PdfMidCell1.BackgroundColor = new Color(252, 252, 252);
                                     PdfMidCell1.RunDirection = PdfWriter.RUN_DIRECTION_LTR;
                                     PdfMidCell1.HorizontalAlignment = 1;
-                                    PdfMidCell1.FixedHeight = 20f;
+                                    PdfMidCell1.FixedHeight = 25f;
                                     PdfMidCell1.VerticalAlignment = iTextSharp.text.Element.ALIGN_MIDDLE;
                                     PdfMidCell1.Border = Rectangle.NO_BORDER;//Avinash
                                                                              //PdfMidCell1.Border = Rectangle.LEFT_BORDER;
                                                                              //PdfMidCell1.BorderWidth = 2f;
                                     PdfMidTable1.AddCell(PdfMidCell1);
 
-                                    PdfMidCell1 = new PdfPCell(new Phrase(dr["BankName"].ToString(), fontAb11));
+                                    //PdfMidCell1 = new PdfPCell(new Phrase(dr["BankName"].ToString(), fontAb11));
+                                    if (Convert.ToInt16(ds.Tables[0].Rows[0]["NoOfQRCopy"]) > 1)
+                                    {
+                                        if (count_BankName < 34)
+                                        {
+                                            PdfMidCell1 = new PdfPCell(new Phrase(dr["BankName"].ToString(), fontAb11B));
+                                        }
+                                        else if (count_BankName < 40)
+                                        {
+                                            PdfMidCell1 = new PdfPCell(new Phrase(dr["BankName"].ToString(), fontText));
+                                        }
+                                        else if (count_BankName < 48)
+                                        {
+                                            PdfMidCell1 = new PdfPCell(new Phrase(dr["BankName"].ToString(), fontText6));
+                                        }
+                                        else
+                                        {
+                                            PdfMidCell1 = new PdfPCell(new Phrase(dr["BankName"].ToString(), fontText5));
+                                        }
+                                    }
+                                    else
+                                    {
+                                        PdfMidCell1 = new PdfPCell(new Phrase(" ", fontAb11B));
+                                    }
                                     PdfMidCell1.NoWrap = false;
-                                    PdfMidCell1.FixedHeight = 30f;
+                                    //PdfMidCell1.FixedHeight = 30f;
                                     PdfMidCell1.RunDirection = PdfWriter.RUN_DIRECTION_LTR;
                                     PdfMidCell1.Colspan = 6;
                                     PdfMidCell1.HorizontalAlignment = 1;
@@ -2431,28 +2650,58 @@ namespace ZipNachWebAPI.Controllers
                                     string IFSCcode1 = dr["IFSCcode"].ToString();
                                     char[] chrIFSCcode1 = new char[Convert.ToInt32(IFSCcode1.Length)];
                                     chrIFSCcode1 = IFSCcode1.ToCharArray();
-                                    if (Convert.ToInt32(chrIFSCcode1.Length) == 11)
+                                    if (Convert.ToInt16(ds.Tables[0].Rows[0]["NoOfQRCopy"]) > 1)
                                     {
-                                        for (int j = 0; j < Convert.ToInt32(chrIFSCcode1.Length); j++)
+                                        if (Convert.ToInt32(chrIFSCcode1.Length) == 11)
                                         {
-                                            PdfMidCell1 = new PdfPCell(new Phrase(chrIFSCcode1[j].ToString(), fontA119B));
-                                            PdfMidCell1.NoWrap = false;
-                                            PdfMidCell1.RunDirection = PdfWriter.RUN_DIRECTION_LTR;
-                                            PdfMidCell1.HorizontalAlignment = 1;
-                                            PdfMidCell1.VerticalAlignment = iTextSharp.text.Element.ALIGN_MIDDLE;
-                                            PdfMidTable1.AddCell(PdfMidCell1);
+                                            for (int j = 0; j < Convert.ToInt32(chrIFSCcode1.Length); j++)
+                                            {
+                                                PdfMidCell1 = new PdfPCell(new Phrase(chrIFSCcode1[j].ToString(), fontA119B));
+                                                PdfMidCell1.NoWrap = false;
+                                                PdfMidCell1.RunDirection = PdfWriter.RUN_DIRECTION_LTR;
+                                                PdfMidCell1.HorizontalAlignment = 1;
+                                                PdfMidCell1.VerticalAlignment = iTextSharp.text.Element.ALIGN_MIDDLE;
+                                                PdfMidTable1.AddCell(PdfMidCell1);
+                                            }
+                                        }
+                                        else
+                                        {
+                                            for (int j = 0; j < 11; j++)
+                                            {
+                                                PdfMidCell1 = new PdfPCell(new Phrase(" ", fontA119B));
+                                                PdfMidCell1.NoWrap = false;
+                                                PdfMidCell1.RunDirection = PdfWriter.RUN_DIRECTION_LTR;
+                                                PdfMidCell1.HorizontalAlignment = 1;
+                                                PdfMidCell1.VerticalAlignment = iTextSharp.text.Element.ALIGN_MIDDLE;
+                                                PdfMidTable1.AddCell(PdfMidCell1);
+                                            }
                                         }
                                     }
                                     else
                                     {
-                                        for (int j = 0; j < 11; j++)
+                                        if (Convert.ToInt32(chrIFSCcode1.Length) == 11)
                                         {
-                                            PdfMidCell1 = new PdfPCell(new Phrase(" ", fontA119B));
-                                            PdfMidCell1.NoWrap = false;
-                                            PdfMidCell1.RunDirection = PdfWriter.RUN_DIRECTION_LTR;
-                                            PdfMidCell1.HorizontalAlignment = 1;
-                                            PdfMidCell1.VerticalAlignment = iTextSharp.text.Element.ALIGN_MIDDLE;
-                                            PdfMidTable1.AddCell(PdfMidCell1);
+                                            for (int j = 0; j < Convert.ToInt32(chrIFSCcode1.Length); j++)
+                                            {
+                                                PdfMidCell1 = new PdfPCell(new Phrase(" ", fontA119B));
+                                                PdfMidCell1.NoWrap = false;
+                                                PdfMidCell1.RunDirection = PdfWriter.RUN_DIRECTION_LTR;
+                                                PdfMidCell1.HorizontalAlignment = 1;
+                                                PdfMidCell1.VerticalAlignment = iTextSharp.text.Element.ALIGN_MIDDLE;
+                                                PdfMidTable1.AddCell(PdfMidCell1);
+                                            }
+                                        }
+                                        else
+                                        {
+                                            for (int j = 0; j < 11; j++)
+                                            {
+                                                PdfMidCell1 = new PdfPCell(new Phrase(" ", fontA119B));
+                                                PdfMidCell1.NoWrap = false;
+                                                PdfMidCell1.RunDirection = PdfWriter.RUN_DIRECTION_LTR;
+                                                PdfMidCell1.HorizontalAlignment = 1;
+                                                PdfMidCell1.VerticalAlignment = iTextSharp.text.Element.ALIGN_MIDDLE;
+                                                PdfMidTable1.AddCell(PdfMidCell1);
+                                            }
                                         }
                                     }
                                     PdfMidCell1 = new PdfPCell(new Phrase("or MICR", fontAb11B));
@@ -2523,8 +2772,14 @@ namespace ZipNachWebAPI.Controllers
                                                                              //PdfMidCell1.BorderWidth = 2f;
                                     PdfMidCell1.VerticalAlignment = iTextSharp.text.Element.ALIGN_LEFT;
                                     PdfMidTable1.AddCell(PdfMidCell1);
-
-                                    PdfMidCell1 = new PdfPCell(new Phrase(dr["AmountInWord"].ToString(), fontA11B));
+                                    if (Convert.ToInt16(ds.Tables[0].Rows[0]["NoOfQRCopy"]) > 1)
+                                    {
+                                        PdfMidCell1 = new PdfPCell(new Phrase(dr["AmountInWord"].ToString(), fontA11B));
+                                    }
+                                    else
+                                    {
+                                        PdfMidCell1 = new PdfPCell(new Phrase(" ", fontA11B));
+                                    }
                                     PdfMidCell1.NoWrap = false;
                                     PdfMidCell1.RunDirection = PdfWriter.RUN_DIRECTION_LTR;
                                     PdfMidCell1.Colspan = 22;
@@ -2536,7 +2791,15 @@ namespace ZipNachWebAPI.Controllers
                                     documentAmountInDigit1.Open();
                                     Paragraph pAmountInDigit1 = new Paragraph();
                                     pAmountInDigit1.Add(new Chunk(Rupee, PdfPCell.ALIGN_CENTER, PdfPCell.ALIGN_CENTER));
-                                    pAmountInDigit1.Add(new Phrase(" " + dr["AmountInDigit"].ToString(), fontA119B));
+                                    if (Convert.ToInt16(ds.Tables[0].Rows[0]["NoOfQRCopy"]) > 1)
+                                    {
+                                        pAmountInDigit1.Add(new Phrase(" " + dr["AmountInDigit"].ToString(), fontA119B));
+                                    }
+                                    else
+                                    {
+                                        pAmountInDigit1.Add(new Phrase(" " + " ", fontA119B));
+                                    }
+
                                     PdfMidCell1 = new PdfPCell(pAmountInDigit1);
                                     PdfMidCell1.NoWrap = false;
                                     PdfMidCell1.RunDirection = PdfWriter.RUN_DIRECTION_LTR;
@@ -2563,7 +2826,7 @@ namespace ZipNachWebAPI.Controllers
                                     PdfMidTable1.AddCell(PdfMidCell1);
 
                                     string Freq1 = dr["Frequency"].ToString();
-                                    PdfMidCell1 = new PdfPCell(new Phrase("Frequency", fontAb11B));
+                                    PdfMidCell1 = new PdfPCell(new Phrase("Frequency", fontText));
                                     PdfMidCell1.NoWrap = false;
                                     PdfMidCell1.BackgroundColor = new Color(252, 252, 252);
                                     PdfMidCell1.RunDirection = PdfWriter.RUN_DIRECTION_LTR;
@@ -2578,18 +2841,26 @@ namespace ZipNachWebAPI.Controllers
                                     Document documentMonthly1 = new Document();
                                     documentMonthly1.Open();
                                     Paragraph pMonthly1 = new Paragraph();
-                                    //------------------------------- add Monthly-------------------------------------
-                                    if (Freq1 == "M")
+                                    if (Convert.ToInt16(ds.Tables[0].Rows[0]["NoOfQRCopy"]) > 1)
                                     {
-                                        pMonthly1.Add(new Chunk(checkBox, PdfPCell.ALIGN_LEFT, PdfPCell.ALIGN_LEFT));
-                                        pMonthly1.Add(new Phrase("  Monthly ", fontText));
+                                        //------------------------------- add Monthly-------------------------------------
+                                        if (Freq1 == "M")
+                                        {
+                                            pMonthly1.Add(new Chunk(checkBox, PdfPCell.ALIGN_LEFT, PdfPCell.ALIGN_LEFT));
+                                            pMonthly1.Add(new Phrase("  Monthly", fontText));
+                                        }
+                                        else
+                                        {
+                                            pMonthly1.Add(new Chunk(Box, PdfPCell.ALIGN_LEFT, PdfPCell.ALIGN_LEFT));
+                                            pMonthly1.Add(new Phrase("  Monthly", fontText));
+                                        }
+
                                     }
                                     else
                                     {
                                         pMonthly1.Add(new Chunk(Box, PdfPCell.ALIGN_LEFT, PdfPCell.ALIGN_LEFT));
-                                        pMonthly1.Add(new Phrase("  Monthly ", fontText));
+                                        pMonthly1.Add(new Phrase("  Monthly", fontText));
                                     }
-
                                     PdfMidCell1 = new PdfPCell(pMonthly1);
                                     PdfMidCell1.NoWrap = false;
                                     PdfMidCell1.RunDirection = PdfWriter.RUN_DIRECTION_LTR;
@@ -2601,15 +2872,23 @@ namespace ZipNachWebAPI.Controllers
                                     documentQtly1.Open();
                                     Paragraph pQtly1 = new Paragraph();
                                     //------------------------------- add Qtly-------------------------------------
-                                    if (Freq1 == "Q")
+                                    if (Convert.ToInt16(ds.Tables[0].Rows[0]["NoOfQRCopy"]) > 1)
                                     {
-                                        pQtly1.Add(new Chunk(checkBox, PdfPCell.ALIGN_LEFT, PdfPCell.ALIGN_LEFT));
-                                        pQtly1.Add(new Phrase(" Qtly ", fontText));
+                                        if (Freq1 == "Q")
+                                        {
+                                            pQtly1.Add(new Chunk(checkBox, PdfPCell.ALIGN_LEFT, PdfPCell.ALIGN_LEFT));
+                                            pQtly1.Add(new Phrase(" Qtly", fontText));
+                                        }
+                                        else
+                                        {
+                                            pQtly1.Add(new Chunk(Box, PdfPCell.ALIGN_LEFT, PdfPCell.ALIGN_LEFT));
+                                            pQtly1.Add(new Phrase(" Qtly", fontText));
+                                        }
                                     }
                                     else
                                     {
                                         pQtly1.Add(new Chunk(Box, PdfPCell.ALIGN_LEFT, PdfPCell.ALIGN_LEFT));
-                                        pQtly1.Add(new Phrase(" Qtly ", fontText));
+                                        pQtly1.Add(new Phrase(" Qtly", fontText));
                                     }
 
                                     PdfMidCell1 = new PdfPCell(pQtly1);
@@ -2623,17 +2902,25 @@ namespace ZipNachWebAPI.Controllers
                                     documentHYrly1.Open();
                                     Paragraph pHYrly1 = new Paragraph();
                                     //------------------------------- add H-Yrly-------------------------------------
-                                    if (Freq1 == "H")
+                                    if (Convert.ToInt16(ds.Tables[0].Rows[0]["NoOfQRCopy"]) > 1)
                                     {
-                                        pHYrly1.Add(new Chunk(checkBox, PdfPCell.ALIGN_LEFT, PdfPCell.ALIGN_LEFT));
-                                        pHYrly1.Add(new Phrase("  H-Yrly ", fontText));
+                                        if (Freq1 == "H")
+                                        {
+                                            pHYrly1.Add(new Chunk(checkBox, PdfPCell.ALIGN_LEFT, PdfPCell.ALIGN_LEFT));
+                                            pHYrly1.Add(new Phrase("  H-Yrly", fontText));
+                                        }
+                                        else
+                                        {
+                                            pHYrly1.Add(new Chunk(Box, PdfPCell.ALIGN_LEFT, PdfPCell.ALIGN_LEFT));
+                                            pHYrly1.Add(new Phrase("  H-Yrly", fontText));
+                                        }
+
                                     }
                                     else
                                     {
                                         pHYrly1.Add(new Chunk(Box, PdfPCell.ALIGN_LEFT, PdfPCell.ALIGN_LEFT));
-                                        pHYrly1.Add(new Phrase("  H-Yrly ", fontText));
+                                        pHYrly1.Add(new Phrase("  H-Yrly", fontText));
                                     }
-
                                     PdfMidCell1 = new PdfPCell(pHYrly1);
                                     PdfMidCell1.NoWrap = false;
                                     PdfMidCell1.RunDirection = PdfWriter.RUN_DIRECTION_LTR;
@@ -2645,15 +2932,23 @@ namespace ZipNachWebAPI.Controllers
                                     documentYearly1.Open();
                                     Paragraph pYearly1 = new Paragraph();
                                     //------------------------------- add Yearly-------------------------------------
-                                    if (Freq1 == "Y")
+                                    if (Convert.ToInt16(ds.Tables[0].Rows[0]["NoOfQRCopy"]) > 1)
                                     {
-                                        pYearly1.Add(new Chunk(checkBox, PdfPCell.ALIGN_LEFT, PdfPCell.ALIGN_LEFT));
-                                        pYearly1.Add(new Phrase("  Yearly ", fontText));
+                                        if (Freq1 == "Y")
+                                        {
+                                            pYearly1.Add(new Chunk(checkBox, PdfPCell.ALIGN_LEFT, PdfPCell.ALIGN_LEFT));
+                                            pYearly1.Add(new Phrase("  Yearly", fontText));
+                                        }
+                                        else
+                                        {
+                                            pYearly1.Add(new Chunk(Box, PdfPCell.ALIGN_LEFT, PdfPCell.ALIGN_LEFT));
+                                            pYearly1.Add(new Phrase("  Yearly", fontText));
+                                        }
                                     }
                                     else
                                     {
                                         pYearly1.Add(new Chunk(Box, PdfPCell.ALIGN_LEFT, PdfPCell.ALIGN_LEFT));
-                                        pYearly1.Add(new Phrase("  Yearly ", fontText));
+                                        pYearly1.Add(new Phrase("  Yearly", fontText));
                                     }
 
                                     PdfMidCell1 = new PdfPCell(pYearly1);
@@ -2666,15 +2961,23 @@ namespace ZipNachWebAPI.Controllers
                                     Document prensented1prensented11 = new Document();
                                     prensented1prensented11.Open();
                                     Paragraph prensented1 = new Paragraph();
-                                    if (Freq1 == "A")
+                                    if (Convert.ToInt16(ds.Tables[0].Rows[0]["NoOfQRCopy"]) > 1)
                                     {
-                                        prensented1.Add(new Chunk(checkBox, PdfPCell.ALIGN_LEFT, PdfPCell.ALIGN_LEFT));
-                                        prensented1.Add(new Phrase("  As & when prensented1 ", fontText));
+                                        if (Freq1 == "A")
+                                        {
+                                            prensented1.Add(new Chunk(checkBox, PdfPCell.ALIGN_LEFT, PdfPCell.ALIGN_LEFT));
+                                            prensented1.Add(new Phrase("  As & when prensented", fontText));
+                                        }
+                                        else
+                                        {
+                                            prensented1.Add(new Chunk(Box, PdfPCell.ALIGN_LEFT, PdfPCell.ALIGN_LEFT));
+                                            prensented1.Add(new Phrase("  As & when prensented", fontText));
+                                        }
                                     }
                                     else
                                     {
                                         prensented1.Add(new Chunk(Box, PdfPCell.ALIGN_LEFT, PdfPCell.ALIGN_LEFT));
-                                        prensented1.Add(new Phrase("  As & when prensented1 ", fontText));
+                                        prensented1.Add(new Phrase("  As & when prensented", fontText));
                                     }
 
                                     PdfMidCell1 = new PdfPCell(prensented1);
@@ -2686,7 +2989,7 @@ namespace ZipNachWebAPI.Controllers
 
                                     string DebitType1 = dr["DebitType"].ToString();
 
-                                    PdfMidCell1 = new PdfPCell(new Phrase("Debit Type", fontAb11B));
+                                    PdfMidCell1 = new PdfPCell(new Phrase("Debit Type", fontText));
                                     PdfMidCell1.NoWrap = false;
                                     PdfMidCell1.BackgroundColor = new Color(252, 252, 252);
                                     PdfMidCell1.RunDirection = PdfWriter.RUN_DIRECTION_LTR;
@@ -2700,15 +3003,23 @@ namespace ZipNachWebAPI.Controllers
                                     documentFixed1.Open();
                                     Paragraph pFixed1 = new Paragraph();
                                     //------------------------------- add H-Yrly-------------------------------------
-                                    if (DebitType1 == "F")
+                                    if (Convert.ToInt16(ds.Tables[0].Rows[0]["NoOfQRCopy"]) > 1)
                                     {
-                                        pFixed1.Add(new Chunk(checkBox, PdfPCell.ALIGN_LEFT, PdfPCell.ALIGN_LEFT));
-                                        pFixed1.Add(new Phrase("  Fixed Amount ", fontText));
+                                        if (DebitType1 == "F")
+                                        {
+                                            pFixed1.Add(new Chunk(checkBox, PdfPCell.ALIGN_LEFT, PdfPCell.ALIGN_LEFT));
+                                            pFixed1.Add(new Phrase("  Fixed Amount", fontText));
+                                        }
+                                        else
+                                        {
+                                            pFixed1.Add(new Chunk(Box, PdfPCell.ALIGN_LEFT, PdfPCell.ALIGN_LEFT));
+                                            pFixed1.Add(new Phrase("  Fixed Amount", fontText));
+                                        }
                                     }
                                     else
                                     {
                                         pFixed1.Add(new Chunk(Box, PdfPCell.ALIGN_LEFT, PdfPCell.ALIGN_LEFT));
-                                        pFixed1.Add(new Phrase("  Fixed Amount ", fontText));
+                                        pFixed1.Add(new Phrase("  Fixed Amount", fontText));
                                     }
                                     PdfMidCell1 = new PdfPCell(pFixed1);
                                     PdfMidCell1.NoWrap = false;
@@ -2721,15 +3032,23 @@ namespace ZipNachWebAPI.Controllers
                                     documentMaximum1.Open();
                                     Paragraph pMaximum1 = new Paragraph();
                                     //------------------------------- add H-Yrly-------------------------------------
-                                    if (DebitType1 == "M")
+                                    if (Convert.ToInt16(ds.Tables[0].Rows[0]["NoOfQRCopy"]) > 1)
                                     {
-                                        pMaximum1.Add(new Chunk(checkBox, PdfPCell.ALIGN_LEFT, PdfPCell.ALIGN_LEFT));
-                                        pMaximum1.Add(new Phrase("  Maximum Amount ", fontText));
+                                        if (DebitType1 == "M")
+                                        {
+                                            pMaximum1.Add(new Chunk(checkBox, PdfPCell.ALIGN_LEFT, PdfPCell.ALIGN_LEFT));
+                                            pMaximum1.Add(new Phrase("  Maximum Amount", fontText));
+                                        }
+                                        else
+                                        {
+                                            pMaximum1.Add(new Chunk(Box, PdfPCell.ALIGN_LEFT, PdfPCell.ALIGN_LEFT));
+                                            pMaximum1.Add(new Phrase("  Maximum Amount", fontText));
+                                        }
                                     }
                                     else
                                     {
                                         pMaximum1.Add(new Chunk(Box, PdfPCell.ALIGN_LEFT, PdfPCell.ALIGN_LEFT));
-                                        pMaximum1.Add(new Phrase("  Maximum Amount ", fontText));
+                                        pMaximum1.Add(new Phrase("  Maximum Amount", fontText));
                                     }
 
                                     PdfMidCell1 = new PdfPCell(pMaximum1);
@@ -2767,7 +3086,25 @@ namespace ZipNachWebAPI.Controllers
                                     PdfMidCell1.VerticalAlignment = iTextSharp.text.Element.ALIGN_LEFT;
                                     PdfMidTable1.AddCell(PdfMidCell1);
 
-                                    PdfMidCell1 = new PdfPCell(new Phrase(dr["Reference1"].ToString(), fontAb11B));
+                                    //PdfMidCell1 = new PdfPCell(new Phrase(dr["Reference1"].ToString(), fontAb11B));
+
+                                    if (count_Ref1 < 34)
+                                    {
+                                        PdfMidCell1 = new PdfPCell(new Phrase(dr["Reference1"].ToString(), fontAb11B));
+                                    }
+                                    else if (count_Ref1 < 40)
+                                    {
+                                        PdfMidCell1 = new PdfPCell(new Phrase(dr["Reference1"].ToString(), fontText));
+                                    }
+                                    else if (count_Ref1 < 48)
+                                    {
+                                        PdfMidCell1 = new PdfPCell(new Phrase(dr["Reference1"].ToString(), fontText6));
+                                    }
+                                    else
+                                    {
+                                        PdfMidCell1 = new PdfPCell(new Phrase(dr["Reference1"].ToString(), fontText5));
+                                    }
+
                                     PdfMidCell1.NoWrap = false;
                                     PdfMidCell1.RunDirection = PdfWriter.RUN_DIRECTION_LTR;
                                     PdfMidCell1.Colspan = 15;
@@ -2784,7 +3121,14 @@ namespace ZipNachWebAPI.Controllers
                                     PdfMidCell1.Border = Rectangle.NO_BORDER;//Avinash
                                     PdfMidTable1.AddCell(PdfMidCell1);
 
-                                    PdfMidCell1 = new PdfPCell(new Phrase(dr["PhoneNo"].ToString(), fontAb11B));
+                                    if (Convert.ToInt16(ds.Tables[0].Rows[0]["NoOfQRCopy"]) > 1)
+                                    {
+                                        PdfMidCell1 = new PdfPCell(new Phrase(dr["PhoneNo"].ToString(), fontAb11B));
+                                    }
+                                    else
+                                    {
+                                        PdfMidCell1 = new PdfPCell(new Phrase(" ", fontAb11B));
+                                    }
                                     PdfMidCell1.NoWrap = false;
                                     PdfMidCell1.RunDirection = PdfWriter.RUN_DIRECTION_LTR;
                                     PdfMidCell1.Colspan = 10;
@@ -2816,7 +3160,30 @@ namespace ZipNachWebAPI.Controllers
                                     PdfMidCell1.VerticalAlignment = iTextSharp.text.Element.ALIGN_LEFT;
                                     PdfMidTable1.AddCell(PdfMidCell1);
 
-                                    PdfMidCell1 = new PdfPCell(new Phrase(dr["Reference2"].ToString(), fontAb11B));
+                                    //PdfMidCell1 = new PdfPCell(new Phrase(dr["Reference2"].ToString(), fontAb11B));
+                                    if (Convert.ToInt16(ds.Tables[0].Rows[0]["NoOfQRCopy"]) > 1)
+                                    {
+                                        if (count_Ref2 < 34)
+                                        {
+                                            PdfMidCell1 = new PdfPCell(new Phrase(dr["Reference2"].ToString(), fontAb11B));
+                                        }
+                                        else if (count_Ref2 < 40)
+                                        {
+                                            PdfMidCell1 = new PdfPCell(new Phrase(dr["Reference2"].ToString(), fontText));
+                                        }
+                                        else if (count_Ref2 < 48)
+                                        {
+                                            PdfMidCell1 = new PdfPCell(new Phrase(dr["Reference2"].ToString(), fontText6));
+                                        }
+                                        else
+                                        {
+                                            PdfMidCell1 = new PdfPCell(new Phrase(dr["Reference2"].ToString(), fontText5));
+                                        }
+                                    }
+                                    else
+                                    {
+                                        PdfMidCell1 = new PdfPCell(new Phrase(" ", fontText5));
+                                    }
                                     PdfMidCell1.NoWrap = false;
                                     PdfMidCell1.RunDirection = PdfWriter.RUN_DIRECTION_LTR;
                                     PdfMidCell1.Colspan = 15;
@@ -2833,7 +3200,30 @@ namespace ZipNachWebAPI.Controllers
                                     PdfMidCell1.Border = Rectangle.NO_BORDER;//Avinash
                                     PdfMidTable1.AddCell(PdfMidCell1);
 
-                                    PdfMidCell1 = new PdfPCell(new Phrase(dr["EmailId"].ToString(), fontAb11B));
+                                    //PdfMidCell1 = new PdfPCell(new Phrase(dr["EmailId"].ToString(), fontAb11B));
+                                    if (Convert.ToInt16(ds.Tables[0].Rows[0]["NoOfQRCopy"]) > 1)
+                                    {
+                                        if (count < 34)
+                                        {
+                                            PdfMidCell1 = new PdfPCell(new Phrase(dr["EmailId"].ToString(), fontAb11B));
+                                        }
+                                        //else if (count < 40)
+                                        //{
+                                        //    PdfMidCell1 = new PdfPCell(new Phrase(dr["EmailId"].ToString(), fontText));
+                                        //}
+                                        //else if (count < 48)
+                                        //{
+                                        //    PdfMidCell1 = new PdfPCell(new Phrase(dr["EmailId"].ToString(), fontText6));
+                                        //}
+                                        else
+                                        {
+                                            PdfMidCell1 = new PdfPCell(new Phrase(dr["EmailId"].ToString(), fontText5));
+                                        }
+                                    }
+                                    else
+                                    {
+                                        PdfMidCell1 = new PdfPCell(new Phrase(" ", fontText5));
+                                    }
                                     PdfMidCell1.NoWrap = false;
                                     PdfMidCell1.RunDirection = PdfWriter.RUN_DIRECTION_LTR;
                                     PdfMidCell1.Colspan = 10;
@@ -2856,9 +3246,10 @@ namespace ZipNachWebAPI.Controllers
                                     PdfMidCell1.BorderWidthLeft = 2f;
                                     PdfMidTable1.AddCell(PdfMidCell1);
 
-                                    PdfMidCell1 = new PdfPCell(new Phrase("PERIOD", fontAb11B));
+                                    PdfMidCell1 = new PdfPCell(new Phrase("PERIOD", fontText));
                                     PdfMidCell1.NoWrap = false;
                                     PdfMidCell1.BackgroundColor = new Color(252, 252, 252);
+                                    PdfMidCell1.FixedHeight = 8f;
                                     PdfMidCell1.RunDirection = PdfWriter.RUN_DIRECTION_LTR;
                                     PdfMidCell1.HorizontalAlignment = 1;
                                     PdfMidTable1.AddCell(PdfMidCell1);//
@@ -2922,28 +3313,57 @@ namespace ZipNachWebAPI.Controllers
                                     string PeriodFrom1 = dr["PeriodFrom"].ToString();
                                     char[] chrPeriodFrom1 = new char[8];
                                     chrPeriodFrom1 = PeriodFrom1.ToCharArray();
-                                    if (Convert.ToInt32(chrPeriodFrom1.Length) > 0)
+                                    if (Convert.ToInt16(ds.Tables[0].Rows[0]["NoOfQRCopy"]) > 1)
                                     {
-                                        for (int j = 0; j < Convert.ToInt32(chrPeriodFrom1.Length); j++)
+                                        if (Convert.ToInt32(chrPeriodFrom1.Length) > 0)
                                         {
-                                            PdfDetailCell1 = new PdfPCell(new Phrase(chrPeriodFrom1[j].ToString(), fontA119B));
-                                            PdfDetailCell1.NoWrap = false;
-                                            PdfDetailCell1.RunDirection = PdfWriter.RUN_DIRECTION_LTR;
-                                            PdfDetailCell1.HorizontalAlignment = 1;
-                                            PdfDetailTable1.AddCell(PdfDetailCell1);
+                                            for (int j = 0; j < Convert.ToInt32(chrPeriodFrom1.Length); j++)
+                                            {
+                                                PdfDetailCell1 = new PdfPCell(new Phrase(chrPeriodFrom1[j].ToString(), fontA119B));
+                                                PdfDetailCell1.NoWrap = false;
+                                                PdfDetailCell1.RunDirection = PdfWriter.RUN_DIRECTION_LTR;
+                                                PdfDetailCell1.HorizontalAlignment = 1;
+                                                PdfDetailTable1.AddCell(PdfDetailCell1);
+                                            }
+                                        }
+                                        else
+                                        {
+                                            for (int j = 0; j < 8; j++)
+                                            {
+                                                PdfDetailCell1 = new PdfPCell(new Phrase(" ", fontA119B));
+                                                PdfDetailCell1.NoWrap = false;
+                                                PdfDetailCell1.RunDirection = PdfWriter.RUN_DIRECTION_LTR;
+                                                PdfDetailCell1.HorizontalAlignment = 1;
+                                                PdfDetailTable1.AddCell(PdfDetailCell1);
+                                            }
+
                                         }
                                     }
                                     else
                                     {
-                                        for (int j = 0; j < 8; j++)
+                                        if (Convert.ToInt32(chrPeriodFrom1.Length) > 0)
                                         {
-                                            PdfDetailCell1 = new PdfPCell(new Phrase(" ", fontA119B));
-                                            PdfDetailCell1.NoWrap = false;
-                                            PdfDetailCell1.RunDirection = PdfWriter.RUN_DIRECTION_LTR;
-                                            PdfDetailCell1.HorizontalAlignment = 1;
-                                            PdfDetailTable1.AddCell(PdfDetailCell1);
+                                            for (int j = 0; j < Convert.ToInt32(chrPeriodFrom1.Length); j++)
+                                            {
+                                                PdfDetailCell1 = new PdfPCell(new Phrase(" ", fontA119B));
+                                                PdfDetailCell1.NoWrap = false;
+                                                PdfDetailCell1.RunDirection = PdfWriter.RUN_DIRECTION_LTR;
+                                                PdfDetailCell1.HorizontalAlignment = 1;
+                                                PdfDetailTable1.AddCell(PdfDetailCell1);
+                                            }
                                         }
+                                        else
+                                        {
+                                            for (int j = 0; j < 8; j++)
+                                            {
+                                                PdfDetailCell1 = new PdfPCell(new Phrase(" ", fontA119B));
+                                                PdfDetailCell1.NoWrap = false;
+                                                PdfDetailCell1.RunDirection = PdfWriter.RUN_DIRECTION_LTR;
+                                                PdfDetailCell1.HorizontalAlignment = 1;
+                                                PdfDetailTable1.AddCell(PdfDetailCell1);
+                                            }
 
+                                        }
                                     }
                                     PdfDetailCell1 = new PdfPCell(new Phrase(" ", fontAb11));
                                     PdfDetailCell1.NoWrap = false;
@@ -2984,17 +3404,32 @@ namespace ZipNachWebAPI.Controllers
                                     string PeriodTo1 = dr["PeriodTo"].ToString();
                                     char[] chrPeriodTo1 = new char[8];
                                     chrPeriodTo1 = PeriodTo1.ToCharArray();
-                                    if (Convert.ToInt32(chrPeriodTo1.Length) > 0)
+                                    if (Convert.ToInt16(ds.Tables[0].Rows[0]["NoOfQRCopy"]) > 1)
                                     {
-                                        if (dr["PeriodTo"].ToString() != "01011900")
+                                        if (Convert.ToInt32(chrPeriodTo1.Length) > 0)
                                         {
-                                            for (int j = 0; j < Convert.ToInt32(chrPeriodTo1.Length); j++)
+                                            if (dr["PeriodTo"].ToString() != "01011900")
                                             {
-                                                PdfDetailCell1 = new PdfPCell(new Phrase(chrPeriodTo1[j].ToString(), fontA119B));
-                                                PdfDetailCell1.NoWrap = false;
-                                                PdfDetailCell1.RunDirection = PdfWriter.RUN_DIRECTION_LTR;
-                                                PdfDetailCell1.HorizontalAlignment = 1;
-                                                PdfDetailTable1.AddCell(PdfDetailCell1);
+                                                for (int j = 0; j < Convert.ToInt32(chrPeriodTo1.Length); j++)
+                                                {
+                                                    PdfDetailCell1 = new PdfPCell(new Phrase(chrPeriodTo1[j].ToString(), fontA119B));
+                                                    PdfDetailCell1.NoWrap = false;
+                                                    PdfDetailCell1.RunDirection = PdfWriter.RUN_DIRECTION_LTR;
+                                                    PdfDetailCell1.HorizontalAlignment = 1;
+                                                    PdfDetailTable1.AddCell(PdfDetailCell1);
+                                                }
+                                            }
+                                            else
+                                            {
+                                                for (int j = 0; j < 8; j++)
+                                                {
+                                                    PdfDetailCell1 = new PdfPCell(new Phrase(" ", fontA119B));
+                                                    PdfDetailCell1.NoWrap = false;
+                                                    //PdfDetailCell1.BackgroundColor = new Color(0,0,0);
+                                                    PdfDetailCell1.RunDirection = PdfWriter.RUN_DIRECTION_LTR;
+                                                    PdfDetailCell1.HorizontalAlignment = 1;
+                                                    PdfDetailTable1.AddCell(PdfDetailCell1);
+                                                }
                                             }
                                         }
                                         else
@@ -3003,9 +3438,9 @@ namespace ZipNachWebAPI.Controllers
                                             {
                                                 PdfDetailCell1 = new PdfPCell(new Phrase(" ", fontA119B));
                                                 PdfDetailCell1.NoWrap = false;
-                                                //PdfDetailCell1.BackgroundColor = new Color(0,0,0);
                                                 PdfDetailCell1.RunDirection = PdfWriter.RUN_DIRECTION_LTR;
                                                 PdfDetailCell1.HorizontalAlignment = 1;
+                                                //PdfDetailCell1.BackgroundColor = new Color(0, 0, 0);
                                                 PdfDetailTable1.AddCell(PdfDetailCell1);
                                             }
                                         }
@@ -3097,7 +3532,30 @@ namespace ZipNachWebAPI.Controllers
                                     PdfDetailCell1.HorizontalAlignment = 1;
                                     PdfDetailTable1.AddCell(PdfDetailCell1);
 
-                                    PdfDetailCell1 = new PdfPCell(new Phrase(dr["BenificiaryName"].ToString(), fontAbCutomer));
+                                    //PdfDetailCell1 = new PdfPCell(new Phrase(dr["BenificiaryName"].ToString(), fontAbCutomer));
+                                    if (Convert.ToInt16(ds.Tables[0].Rows[0]["NoOfQRCopy"]) > 1)
+                                    {
+                                        if (count_Customer < 10)
+                                        {
+                                            PdfDetailCell1 = new PdfPCell(new Phrase(dr["BenificiaryName"].ToString(), fontAb11B));
+                                        }
+                                        else if (count_Customer < 20)
+                                        {
+                                            PdfDetailCell1 = new PdfPCell(new Phrase(dr["BenificiaryName"].ToString(), fontText));
+                                        }
+                                        else if (count_Customer < 30)
+                                        {
+                                            PdfDetailCell1 = new PdfPCell(new Phrase(dr["BenificiaryName"].ToString(), fontText6));
+                                        }
+                                        else
+                                        {
+                                            PdfDetailCell1 = new PdfPCell(new Phrase(dr["BenificiaryName"].ToString(), fontText5));
+                                        }
+                                    }
+                                    else
+                                    {
+                                        PdfDetailCell1 = new PdfPCell(new Phrase(" ", fontText5));
+                                    }
                                     PdfDetailCell1.NoWrap = false;
                                     PdfDetailCell1.RunDirection = PdfWriter.RUN_DIRECTION_LTR;
                                     PdfDetailCell1.HorizontalAlignment = 1;
@@ -3106,8 +3564,31 @@ namespace ZipNachWebAPI.Controllers
                                     PdfDetailCell1.Colspan = 7;
                                     PdfDetailTable1.AddCell(PdfDetailCell1);
 
-                                    PdfDetailCell1 = new PdfPCell(new Phrase(dr["Customer2"].ToString(), fontAbCutomer));
-                                    //PdfDetailCell1 = new PdfPCell(new Phrase("Avinash Gupta", fontAbCutomer));
+                                    if (Convert.ToInt16(ds.Tables[0].Rows[0]["NoOfQRCopy"]) > 1)
+                                    {
+
+                                        if (count_Customer < 10)
+                                        {
+                                            PdfDetailCell1 = new PdfPCell(new Phrase(dr["Customer2"].ToString(), fontAb11B));
+                                        }
+                                        else if (count_Customer < 20)
+                                        {
+                                            PdfDetailCell1 = new PdfPCell(new Phrase(dr["Customer2"].ToString(), fontText));
+                                        }
+                                        else if (count_Customer < 30)
+                                        {
+                                            PdfDetailCell1 = new PdfPCell(new Phrase(dr["Customer2"].ToString(), fontText6));
+                                        }
+                                        else
+                                        {
+                                            PdfDetailCell1 = new PdfPCell(new Phrase(dr["Customer2"].ToString(), fontText5));
+                                        }
+                                    }
+                                    else
+                                    {
+                                        PdfDetailCell1 = new PdfPCell(new Phrase(" ", fontText5));
+                                    }
+                                    //PdfDetailCell1 = new PdfPCell(new Phrase(dr["Customer2"].ToString(), fontAbCutomer));                        
                                     PdfDetailCell1.NoWrap = false;
                                     PdfDetailCell1.RunDirection = PdfWriter.RUN_DIRECTION_LTR;
                                     PdfDetailCell1.HorizontalAlignment = 1;
@@ -3115,8 +3596,30 @@ namespace ZipNachWebAPI.Controllers
                                     PdfDetailCell1.Colspan = 10;
                                     PdfDetailTable1.AddCell(PdfDetailCell1);
 
-                                    PdfDetailCell1 = new PdfPCell(new Phrase(dr["Customer3"].ToString(), fontAbCutomer));
-                                    //PdfDetailCell1 = new PdfPCell(new Phrase("Avinash Gupta", fontAbCutomer));
+                                    if (Convert.ToInt16(ds.Tables[0].Rows[0]["NoOfQRCopy"]) > 1)
+                                    {
+                                        if (count_Customer < 10)
+                                        {
+                                            PdfDetailCell1 = new PdfPCell(new Phrase(dr["Customer3"].ToString(), fontAb11B));
+                                        }
+                                        else if (count_Customer < 20)
+                                        {
+                                            PdfDetailCell1 = new PdfPCell(new Phrase(dr["Customer3"].ToString(), fontText));
+                                        }
+                                        else if (count_Customer < 30)
+                                        {
+                                            PdfDetailCell1 = new PdfPCell(new Phrase(dr["Customer3"].ToString(), fontText6));
+                                        }
+                                        else
+                                        {
+                                            PdfDetailCell1 = new PdfPCell(new Phrase(dr["Customer3"].ToString(), fontText5));
+                                        }
+                                    }
+                                    else
+                                    {
+                                        PdfDetailCell1 = new PdfPCell(new Phrase(" ", fontText5));
+                                    }
+                                    //PdfDetailCell1 = new PdfPCell(new Phrase(dr["Customer3"].ToString(), fontAbCutomer));
                                     PdfDetailCell1.NoWrap = false;
                                     PdfDetailCell1.RunDirection = PdfWriter.RUN_DIRECTION_LTR;
                                     PdfDetailCell1.HorizontalAlignment = 1;
@@ -3132,6 +3635,27 @@ namespace ZipNachWebAPI.Controllers
                                     //PdfDetailCell1.Border = Rectangle.RIGHT_BORDER;//Avinash
                                     PdfDetailCell1.BorderWidthRight = 2f;
                                     PdfDetailCell1.Colspan = 9;
+                                    PdfDetailTable1.AddCell(PdfDetailCell1);
+
+                                    /*Avinash[14/01/2020]*/
+                                    PdfDetailCell1 = new PdfPCell(new Phrase(""));
+                                    PdfDetailCell1.NoWrap = false;
+                                    PdfDetailCell1.RunDirection = PdfWriter.RUN_DIRECTION_LTR;
+                                    PdfDetailCell1.HorizontalAlignment = 1;
+                                    PdfDetailCell1.Border = Rectangle.NO_BORDER;//Avinash
+                                    PdfDetailCell1.BorderWidthLeft = 2f;
+                                    PdfDetailCell1.BorderWidthRight = 2f;
+                                    PdfDetailCell1.Colspan = 38;
+                                    PdfDetailTable1.AddCell(PdfDetailCell1);
+
+                                    PdfDetailCell1 = new PdfPCell(new Phrase(""));
+                                    PdfDetailCell1.NoWrap = false;
+                                    PdfDetailCell1.RunDirection = PdfWriter.RUN_DIRECTION_LTR;
+                                    PdfDetailCell1.HorizontalAlignment = 1;
+                                    PdfDetailCell1.Border = Rectangle.NO_BORDER;//Avinash
+                                    PdfDetailCell1.BorderWidthLeft = 2f;
+                                    PdfDetailCell1.BorderWidthRight = 2f;
+                                    PdfDetailCell1.Colspan = 38;
                                     PdfDetailTable1.AddCell(PdfDetailCell1);
 
 
@@ -3188,12 +3712,12 @@ namespace ZipNachWebAPI.Controllers
                                     PdfHeaderCell2.BorderWidthRight = 2f;
                                     PdfHeaderTable2.AddCell(PdfHeaderCell2);
 
-                                    PdfHeaderCell2 = new PdfPCell(new Phrase(""));
-                                    PdfHeaderCell2.Colspan = 33;
-                                    PdfHeaderCell2.Border = Rectangle.NO_BORDER;
-                                    PdfHeaderCell2.BorderWidthLeft = 2f;
-                                    PdfHeaderCell2.BorderWidthRight = 2f;
-                                    PdfHeaderTable2.AddCell(PdfHeaderCell2);
+                                    //PdfHeaderCell2 = new PdfPCell(new Phrase(""));
+                                    //PdfHeaderCell2.Colspan = 33;
+                                    //PdfHeaderCell2.Border = Rectangle.NO_BORDER;
+                                    //PdfHeaderCell2.BorderWidthLeft = 2f;
+                                    //PdfHeaderCell2.BorderWidthRight = 2f;
+                                    //PdfHeaderTable2.AddCell(PdfHeaderCell2);
 
                                     PdfHeaderCell2 = new PdfPCell(new Phrase(" "));
                                     PdfHeaderCell2.FixedHeight = 35f;
@@ -3203,9 +3727,8 @@ namespace ZipNachWebAPI.Controllers
                                     PdfHeaderTable2.AddCell(PdfHeaderCell2);
 
 
-                                    PdfHeaderCell2 = new PdfPCell(LogoImage, true);
-                                    PdfHeaderCell2.FixedHeight = 35f;
-
+                                    PdfHeaderCell2 = new PdfPCell(LogoImage);
+                                    PdfHeaderCell2.FixedHeight = 50f;
                                     PdfHeaderCell2.Rowspan = 3;
                                     PdfHeaderCell2.Border = Rectangle.NO_BORDER;
                                     PdfHeaderTable2.AddCell(PdfHeaderCell2);
@@ -3395,10 +3918,17 @@ namespace ZipNachWebAPI.Controllers
                                     PdfHeaderCell2.HorizontalAlignment = 1;
                                     PdfHeaderCell2.VerticalAlignment = iTextSharp.text.Element.ALIGN_MIDDLE;
                                     PdfHeaderCell2.Border = Rectangle.NO_BORDER;//Avinash
+                                    PdfHeaderCell2.FixedHeight = 15f;
                                     PdfHeaderTable2.AddCell(PdfHeaderCell2);
 
-
-                                    PdfHeaderCell2 = new PdfPCell(new Phrase(dr["SponserBankCode"].ToString(), fontAb11B));
+                                    if (Convert.ToInt16(ds.Tables[0].Rows[0]["NoOfQRCopy"]) > 2)
+                                    {
+                                        PdfHeaderCell2 = new PdfPCell(new Phrase(dr["SponserBankCode"].ToString(), fontAb11B));
+                                    }
+                                    else
+                                    {
+                                        PdfHeaderCell2 = new PdfPCell(new Phrase(" ", fontAb11B));
+                                    }
                                     PdfHeaderCell2.NoWrap = false;
                                     PdfHeaderCell2.Colspan = 12;
                                     PdfHeaderCell2.RunDirection = PdfWriter.RUN_DIRECTION_LTR;
@@ -3417,12 +3947,18 @@ namespace ZipNachWebAPI.Controllers
                                     PdfHeaderCell2.Border = Rectangle.NO_BORDER;//Avinash
                                     PdfHeaderTable2.AddCell(PdfHeaderCell2);
 
-                                    PdfHeaderCell2 = new PdfPCell(new Phrase(dr["UtilityCode"].ToString(), fontAb11B));
+                                    if (Convert.ToInt16(ds.Tables[0].Rows[0]["NoOfQRCopy"]) > 2)
+                                    {
+                                        PdfHeaderCell2 = new PdfPCell(new Phrase(dr["UtilityCode"].ToString(), fontAb11B));
+                                    }
+                                    else
+                                    {
+                                        PdfHeaderCell2 = new PdfPCell(new Phrase(" ", fontAb11B));
+                                    }
                                     PdfHeaderCell2.NoWrap = false;
                                     PdfHeaderCell2.Colspan = 8;
                                     PdfHeaderCell2.RunDirection = PdfWriter.RUN_DIRECTION_RTL;
                                     PdfHeaderCell2.HorizontalAlignment = 1;
-                                    PdfHeaderCell2.FixedHeight = 20f;
                                     PdfHeaderCell2.VerticalAlignment = iTextSharp.text.Element.ALIGN_MIDDLE;
                                     PdfHeaderTable2.AddCell(PdfHeaderCell2);
 
@@ -3441,20 +3977,44 @@ namespace ZipNachWebAPI.Controllers
                                     PdfHeaderCell2 = new PdfPCell(new Phrase("I/We hereby Authorize", fontAb11B));
                                     PdfHeaderCell2.NoWrap = false;
                                     PdfHeaderCell2.BackgroundColor = new Color(252, 252, 252);
-                                    PdfHeaderCell2.RunDirection = PdfWriter.RUN_DIRECTION_RTL;
+                                    PdfHeaderCell2.RunDirection = PdfWriter.RUN_DIRECTION_LTR;
                                     PdfHeaderCell2.Colspan = 5;
-                                    //PdfHeaderCell2.FixedHeight = 15f; 
+                                    PdfHeaderCell2.FixedHeight = 15f;
                                     PdfHeaderCell2.HorizontalAlignment = 1;
                                     PdfHeaderCell2.VerticalAlignment = iTextSharp.text.Element.ALIGN_MIDDLE;
                                     PdfHeaderCell2.Border = Rectangle.NO_BORDER;//Avinash
                                     PdfHeaderTable2.AddCell(PdfHeaderCell2);
 
 
-                                    PdfHeaderCell2 = new PdfPCell(new Phrase(dr["CompanyName"].ToString(), fontAb11B));
+                                    //PdfHeaderCell2 = new PdfPCell(new Phrase(dr["CompanyName"].ToString(), fontAb11B));
+                                    if (Convert.ToInt16(ds.Tables[0].Rows[0]["NoOfQRCopy"]) > 2)
+                                    {
+                                        if (count_IherebyAuthorize < 34)
+                                        {
+                                            PdfHeaderCell2 = new PdfPCell(new Phrase(dr["CompanyName"].ToString(), fontAb11B));
+                                        }
+                                        else if (count_IherebyAuthorize < 40)
+                                        {
+                                            PdfHeaderCell2 = new PdfPCell(new Phrase(dr["CompanyName"].ToString(), fontText));
+                                        }
+                                        else if (count_IherebyAuthorize < 48)
+                                        {
+                                            PdfHeaderCell2 = new PdfPCell(new Phrase(dr["CompanyName"].ToString(), fontText6));
+                                        }
+                                        else
+                                        {
+                                            PdfHeaderCell2 = new PdfPCell(new Phrase(dr["CompanyName"].ToString(), fontText5));
+                                        }
+                                    }
+                                    else
+                                    {
+                                        PdfHeaderCell2 = new PdfPCell(new Phrase(" ", fontText5));
+                                    }
+
                                     PdfHeaderCell2.NoWrap = false;
                                     PdfHeaderCell2.RunDirection = PdfWriter.RUN_DIRECTION_LTR;
                                     PdfHeaderCell2.Colspan = 10;
-                                    PdfHeaderCell2.FixedHeight = 20f;
+                                    //PdfHeaderCell2.FixedHeight = 20f;
                                     PdfHeaderCell2.HorizontalAlignment = 1;
                                     PdfHeaderCell2.VerticalAlignment = iTextSharp.text.Element.ALIGN_MIDDLE;
                                     PdfHeaderTable2.AddCell(PdfHeaderCell2);
@@ -3474,90 +4034,108 @@ namespace ZipNachWebAPI.Controllers
                                     Paragraph pCheckBox1SB2 = new Paragraph();
                                     //----------------------------------add To Debit---------------------------
                                     string chDebit2 = dr["DebitTo"].ToString();
-                                    if (chDebit2 == "SB")
+                                    if (Convert.ToInt16(ds.Tables[0].Rows[0]["NoOfQRCopy"]) > 2)
                                     {
-                                        pCheckBox1SB2.Add(new Phrase(" ", fontText));
-                                        pCheckBox1SB2.Add(new Chunk(checkBox, PdfPCell.ALIGN_LEFT, PdfPCell.ALIGN_LEFT));
-                                        pCheckBox1SB2.Add(new Phrase(" SB/ ", fontText));
-                                        pCheckBox1SB2.Add(new Chunk(SmallcheckBox, PdfPCell.ALIGN_LEFT, PdfPCell.ALIGN_LEFT));
-                                        pCheckBox1SB2.Add(new Phrase(" CA/ ", fontText));
-                                        pCheckBox1SB2.Add(new Chunk(SmallcheckBox, PdfPCell.ALIGN_LEFT, PdfPCell.ALIGN_LEFT));
-                                        pCheckBox1SB2.Add(new Phrase(" CC/ ", fontText));
-                                        pCheckBox1SB2.Add(new Chunk(SmallcheckBox, PdfPCell.ALIGN_LEFT, PdfPCell.ALIGN_LEFT));
-                                        pCheckBox1SB2.Add(new Phrase(" SB-NRE/ ", fontText));
-                                        pCheckBox1SB2.Add(new Chunk(SmallcheckBox, PdfPCell.ALIGN_LEFT, PdfPCell.ALIGN_LEFT));
-                                        pCheckBox1SB2.Add(new Phrase(" SB-NRO/ ", fontText));
-                                        pCheckBox1SB2.Add(new Chunk(SmallcheckBox, PdfPCell.ALIGN_LEFT, PdfPCell.ALIGN_LEFT));
-                                        pCheckBox1SB2.Add(new Phrase(" OTHER ", fontText));
-                                    }
-                                    else if (chDebit2 == "CA")
-                                    {
-                                        pCheckBox1SB2.Add(new Phrase(" ", fontText));
-                                        pCheckBox1SB2.Add(new Chunk(SmallcheckBox, PdfPCell.ALIGN_LEFT, PdfPCell.ALIGN_LEFT));
-                                        pCheckBox1SB2.Add(new Phrase(" SB/ ", fontText));
-                                        pCheckBox1SB2.Add(new Chunk(checkBox, PdfPCell.ALIGN_LEFT, PdfPCell.ALIGN_LEFT));
-                                        pCheckBox1SB2.Add(new Phrase(" CA/ ", fontText));
-                                        pCheckBox1SB2.Add(new Chunk(SmallcheckBox, PdfPCell.ALIGN_LEFT, PdfPCell.ALIGN_LEFT));
-                                        pCheckBox1SB2.Add(new Phrase(" CC/ ", fontText));
-                                        pCheckBox1SB2.Add(new Chunk(SmallcheckBox, PdfPCell.ALIGN_LEFT, PdfPCell.ALIGN_LEFT));
-                                        pCheckBox1SB2.Add(new Phrase(" SB-NRE/ ", fontText));
-                                        pCheckBox1SB2.Add(new Chunk(SmallcheckBox, PdfPCell.ALIGN_LEFT, PdfPCell.ALIGN_LEFT));
-                                        pCheckBox1SB2.Add(new Phrase(" SB-NRO/ ", fontText));
-                                        pCheckBox1SB2.Add(new Chunk(SmallcheckBox, PdfPCell.ALIGN_LEFT, PdfPCell.ALIGN_LEFT));
-                                        pCheckBox1SB2.Add(new Phrase(" OTHER ", fontText));
-                                    }
+                                        if (chDebit2 == "SB")
+                                        {
+                                            //  pCheckBox1SB2.Add(new Phrase(" ", fontText));
+                                            pCheckBox1SB2.Add(new Chunk(checkBox, PdfPCell.ALIGN_LEFT, PdfPCell.ALIGN_LEFT));
+                                            pCheckBox1SB2.Add(new Phrase(" SB/ ", fontText));
+                                            pCheckBox1SB2.Add(new Chunk(SmallcheckBox, PdfPCell.ALIGN_LEFT, PdfPCell.ALIGN_LEFT));
+                                            pCheckBox1SB2.Add(new Phrase(" CA/ ", fontText));
+                                            pCheckBox1SB2.Add(new Chunk(SmallcheckBox, PdfPCell.ALIGN_LEFT, PdfPCell.ALIGN_LEFT));
+                                            pCheckBox1SB2.Add(new Phrase(" CC/ ", fontText));
+                                            pCheckBox1SB2.Add(new Chunk(SmallcheckBox, PdfPCell.ALIGN_LEFT, PdfPCell.ALIGN_LEFT));
+                                            pCheckBox1SB2.Add(new Phrase(" SB-NRE/ ", fontText));
+                                            pCheckBox1SB2.Add(new Chunk(SmallcheckBox, PdfPCell.ALIGN_LEFT, PdfPCell.ALIGN_LEFT));
+                                            pCheckBox1SB2.Add(new Phrase(" SB-NRO/ ", fontText));
+                                            pCheckBox1SB2.Add(new Chunk(SmallcheckBox, PdfPCell.ALIGN_LEFT, PdfPCell.ALIGN_LEFT));
+                                            pCheckBox1SB2.Add(new Phrase(" OTHER ", fontText));
+                                        }
+                                        else if (chDebit2 == "CA")
+                                        {
+                                            // pCheckBox1SB2.Add(new Phrase(" ", fontText));
+                                            pCheckBox1SB2.Add(new Chunk(SmallcheckBox, PdfPCell.ALIGN_LEFT, PdfPCell.ALIGN_LEFT));
+                                            pCheckBox1SB2.Add(new Phrase(" SB/ ", fontText));
+                                            pCheckBox1SB2.Add(new Chunk(checkBox, PdfPCell.ALIGN_LEFT, PdfPCell.ALIGN_LEFT));
+                                            pCheckBox1SB2.Add(new Phrase(" CA/ ", fontText));
+                                            pCheckBox1SB2.Add(new Chunk(SmallcheckBox, PdfPCell.ALIGN_LEFT, PdfPCell.ALIGN_LEFT));
+                                            pCheckBox1SB2.Add(new Phrase(" CC/ ", fontText));
+                                            pCheckBox1SB2.Add(new Chunk(SmallcheckBox, PdfPCell.ALIGN_LEFT, PdfPCell.ALIGN_LEFT));
+                                            pCheckBox1SB2.Add(new Phrase(" SB-NRE/ ", fontText));
+                                            pCheckBox1SB2.Add(new Chunk(SmallcheckBox, PdfPCell.ALIGN_LEFT, PdfPCell.ALIGN_LEFT));
+                                            pCheckBox1SB2.Add(new Phrase(" SB-NRO/ ", fontText));
+                                            pCheckBox1SB2.Add(new Chunk(SmallcheckBox, PdfPCell.ALIGN_LEFT, PdfPCell.ALIGN_LEFT));
+                                            pCheckBox1SB2.Add(new Phrase(" OTHER ", fontText));
+                                        }
 
-                                    else if (chDebit2 == "CC")
-                                    {
-                                        pCheckBox1SB2.Add(new Phrase(" ", fontText));
-                                        pCheckBox1SB2.Add(new Chunk(SmallcheckBox, PdfPCell.ALIGN_LEFT, PdfPCell.ALIGN_LEFT));
-                                        pCheckBox1SB2.Add(new Phrase(" SB/ ", fontText));
-                                        pCheckBox1SB2.Add(new Chunk(SmallcheckBox, PdfPCell.ALIGN_LEFT, PdfPCell.ALIGN_LEFT));
-                                        pCheckBox1SB2.Add(new Phrase(" CA/ ", fontText));
-                                        pCheckBox1SB2.Add(new Chunk(checkBox, PdfPCell.ALIGN_LEFT, PdfPCell.ALIGN_LEFT));
-                                        pCheckBox1SB2.Add(new Phrase(" CC/ ", fontText));
-                                        pCheckBox1SB2.Add(new Chunk(SmallcheckBox, PdfPCell.ALIGN_LEFT, PdfPCell.ALIGN_LEFT));
-                                        pCheckBox1SB2.Add(new Phrase(" SB-NRE/ ", fontText));
-                                        pCheckBox1SB2.Add(new Chunk(SmallcheckBox, PdfPCell.ALIGN_LEFT, PdfPCell.ALIGN_LEFT));
-                                        pCheckBox1SB2.Add(new Phrase(" SB-NRO/ ", fontText));
-                                        pCheckBox1SB2.Add(new Chunk(SmallcheckBox, PdfPCell.ALIGN_LEFT, PdfPCell.ALIGN_LEFT));
-                                        pCheckBox1SB2.Add(new Phrase(" OTHER ", fontText));
+                                        else if (chDebit2 == "CC")
+                                        {
+                                            //  pCheckBox1SB2.Add(new Phrase(" ", fontText));
+                                            pCheckBox1SB2.Add(new Chunk(SmallcheckBox, PdfPCell.ALIGN_LEFT, PdfPCell.ALIGN_LEFT));
+                                            pCheckBox1SB2.Add(new Phrase(" SB/ ", fontText));
+                                            pCheckBox1SB2.Add(new Chunk(SmallcheckBox, PdfPCell.ALIGN_LEFT, PdfPCell.ALIGN_LEFT));
+                                            pCheckBox1SB2.Add(new Phrase(" CA/ ", fontText));
+                                            pCheckBox1SB2.Add(new Chunk(checkBox, PdfPCell.ALIGN_LEFT, PdfPCell.ALIGN_LEFT));
+                                            pCheckBox1SB2.Add(new Phrase(" CC/ ", fontText));
+                                            pCheckBox1SB2.Add(new Chunk(SmallcheckBox, PdfPCell.ALIGN_LEFT, PdfPCell.ALIGN_LEFT));
+                                            pCheckBox1SB2.Add(new Phrase(" SB-NRE/ ", fontText));
+                                            pCheckBox1SB2.Add(new Chunk(SmallcheckBox, PdfPCell.ALIGN_LEFT, PdfPCell.ALIGN_LEFT));
+                                            pCheckBox1SB2.Add(new Phrase(" SB-NRO/ ", fontText));
+                                            pCheckBox1SB2.Add(new Chunk(SmallcheckBox, PdfPCell.ALIGN_LEFT, PdfPCell.ALIGN_LEFT));
+                                            pCheckBox1SB2.Add(new Phrase(" OTHER ", fontText));
+                                        }
+                                        else if (chDebit2 == "RE")
+                                        {
+                                            // pCheckBox1SB2.Add(new Phrase(" ", fontText));
+                                            pCheckBox1SB2.Add(new Chunk(SmallcheckBox, PdfPCell.ALIGN_LEFT, PdfPCell.ALIGN_LEFT));
+                                            pCheckBox1SB2.Add(new Phrase(" SB/ ", fontText));
+                                            pCheckBox1SB2.Add(new Chunk(SmallcheckBox, PdfPCell.ALIGN_LEFT, PdfPCell.ALIGN_LEFT));
+                                            pCheckBox1SB2.Add(new Phrase(" CA/ ", fontText));
+                                            pCheckBox1SB2.Add(new Chunk(SmallcheckBox, PdfPCell.ALIGN_LEFT, PdfPCell.ALIGN_LEFT));
+                                            pCheckBox1SB2.Add(new Phrase(" CC/ ", fontText));
+                                            pCheckBox1SB2.Add(new Chunk(checkBox, PdfPCell.ALIGN_LEFT, PdfPCell.ALIGN_LEFT));
+                                            pCheckBox1SB2.Add(new Phrase(" SB-NRE/ ", fontText));
+                                            pCheckBox1SB2.Add(new Chunk(SmallcheckBox, PdfPCell.ALIGN_LEFT, PdfPCell.ALIGN_LEFT));
+                                            pCheckBox1SB2.Add(new Phrase(" SB-NRO/ ", fontText));
+                                            pCheckBox1SB2.Add(new Chunk(SmallcheckBox, PdfPCell.ALIGN_LEFT, PdfPCell.ALIGN_LEFT));
+                                            pCheckBox1SB2.Add(new Phrase(" OTHER ", fontText));
+                                        }
+                                        else if (chDebit2 == "RD")
+                                        {
+                                            // pCheckBox1SB2.Add(new Phrase(" ", fontText));
+                                            pCheckBox1SB2.Add(new Chunk(SmallcheckBox, PdfPCell.ALIGN_LEFT, PdfPCell.ALIGN_LEFT));
+                                            pCheckBox1SB2.Add(new Phrase(" SB/ ", fontText));
+                                            pCheckBox1SB2.Add(new Chunk(SmallcheckBox, PdfPCell.ALIGN_LEFT, PdfPCell.ALIGN_LEFT));
+                                            pCheckBox1SB2.Add(new Phrase(" CA/ ", fontText));
+                                            pCheckBox1SB2.Add(new Chunk(SmallcheckBox, PdfPCell.ALIGN_LEFT, PdfPCell.ALIGN_LEFT));
+                                            pCheckBox1SB2.Add(new Phrase(" CC/ ", fontText));
+                                            pCheckBox1SB2.Add(new Chunk(SmallcheckBox, PdfPCell.ALIGN_LEFT, PdfPCell.ALIGN_LEFT));
+                                            pCheckBox1SB2.Add(new Phrase(" SB-NRE/ ", fontText));
+                                            pCheckBox1SB2.Add(new Chunk(checkBox, PdfPCell.ALIGN_LEFT, PdfPCell.ALIGN_LEFT));
+                                            pCheckBox1SB2.Add(new Phrase(" SB-NRO/ ", fontText));
+                                            pCheckBox1SB2.Add(new Chunk(SmallcheckBox, PdfPCell.ALIGN_LEFT, PdfPCell.ALIGN_LEFT));
+                                            pCheckBox1SB2.Add(new Phrase(" OTHER ", fontText));
+                                        }
+                                        else if (chDebit2 == "OT")
+                                        {
+                                            // pCheckBox1SB2.Add(new Phrase(" ", fontText));
+                                            pCheckBox1SB2.Add(new Chunk(SmallcheckBox, PdfPCell.ALIGN_LEFT, PdfPCell.ALIGN_LEFT));
+                                            pCheckBox1SB2.Add(new Phrase(" SB/ ", fontText));
+                                            pCheckBox1SB2.Add(new Chunk(SmallcheckBox, PdfPCell.ALIGN_LEFT, PdfPCell.ALIGN_LEFT));
+                                            pCheckBox1SB2.Add(new Phrase(" CA/ ", fontText));
+                                            pCheckBox1SB2.Add(new Chunk(SmallcheckBox, PdfPCell.ALIGN_LEFT, PdfPCell.ALIGN_LEFT));
+                                            pCheckBox1SB2.Add(new Phrase(" CC/ ", fontText));
+                                            pCheckBox1SB2.Add(new Chunk(SmallcheckBox, PdfPCell.ALIGN_LEFT, PdfPCell.ALIGN_LEFT));
+                                            pCheckBox1SB2.Add(new Phrase(" SB-NRE/ ", fontText));
+                                            pCheckBox1SB2.Add(new Chunk(SmallcheckBox, PdfPCell.ALIGN_LEFT, PdfPCell.ALIGN_LEFT));
+                                            pCheckBox1SB2.Add(new Phrase(" SB-NRO/ ", fontText));
+                                            pCheckBox1SB2.Add(new Chunk(checkBox, PdfPCell.ALIGN_LEFT, PdfPCell.ALIGN_LEFT));
+                                            pCheckBox1SB2.Add(new Phrase(" OTHER ", fontText));
+                                        }
                                     }
-                                    else if (chDebit2 == "RE")
+                                    else
                                     {
-                                        pCheckBox1SB2.Add(new Phrase(" ", fontText));
-                                        pCheckBox1SB2.Add(new Chunk(SmallcheckBox, PdfPCell.ALIGN_LEFT, PdfPCell.ALIGN_LEFT));
-                                        pCheckBox1SB2.Add(new Phrase(" SB/ ", fontText));
-                                        pCheckBox1SB2.Add(new Chunk(SmallcheckBox, PdfPCell.ALIGN_LEFT, PdfPCell.ALIGN_LEFT));
-                                        pCheckBox1SB2.Add(new Phrase(" CA/ ", fontText));
-                                        pCheckBox1SB2.Add(new Chunk(SmallcheckBox, PdfPCell.ALIGN_LEFT, PdfPCell.ALIGN_LEFT));
-                                        pCheckBox1SB2.Add(new Phrase(" CC/ ", fontText));
-                                        pCheckBox1SB2.Add(new Chunk(checkBox, PdfPCell.ALIGN_LEFT, PdfPCell.ALIGN_LEFT));
-                                        pCheckBox1SB2.Add(new Phrase(" SB-NRE/ ", fontText));
-                                        pCheckBox1SB2.Add(new Chunk(SmallcheckBox, PdfPCell.ALIGN_LEFT, PdfPCell.ALIGN_LEFT));
-                                        pCheckBox1SB2.Add(new Phrase(" SB-NRO/ ", fontText));
-                                        pCheckBox1SB2.Add(new Chunk(SmallcheckBox, PdfPCell.ALIGN_LEFT, PdfPCell.ALIGN_LEFT));
-                                        pCheckBox1SB2.Add(new Phrase(" OTHER ", fontText));
-                                    }
-                                    else if (chDebit1 == "RD")
-                                    {
-                                        pCheckBox1SB2.Add(new Phrase(" ", fontText));
-                                        pCheckBox1SB2.Add(new Chunk(SmallcheckBox, PdfPCell.ALIGN_LEFT, PdfPCell.ALIGN_LEFT));
-                                        pCheckBox1SB2.Add(new Phrase(" SB/ ", fontText));
-                                        pCheckBox1SB2.Add(new Chunk(SmallcheckBox, PdfPCell.ALIGN_LEFT, PdfPCell.ALIGN_LEFT));
-                                        pCheckBox1SB2.Add(new Phrase(" CA/ ", fontText));
-                                        pCheckBox1SB2.Add(new Chunk(SmallcheckBox, PdfPCell.ALIGN_LEFT, PdfPCell.ALIGN_LEFT));
-                                        pCheckBox1SB2.Add(new Phrase(" CC/ ", fontText));
-                                        pCheckBox1SB2.Add(new Chunk(SmallcheckBox, PdfPCell.ALIGN_LEFT, PdfPCell.ALIGN_LEFT));
-                                        pCheckBox1SB2.Add(new Phrase(" SB-NRE/ ", fontText));
-                                        pCheckBox1SB2.Add(new Chunk(checkBox, PdfPCell.ALIGN_LEFT, PdfPCell.ALIGN_LEFT));
-                                        pCheckBox1SB2.Add(new Phrase(" SB-NRO/ ", fontText));
-                                        pCheckBox1SB2.Add(new Chunk(SmallcheckBox, PdfPCell.ALIGN_LEFT, PdfPCell.ALIGN_LEFT));
-                                        pCheckBox1SB2.Add(new Phrase(" OTHER ", fontText));
-                                    }
-                                    else if (chDebit2 == "OT")
-                                    {
-                                        pCheckBox1SB2.Add(new Phrase(" ", fontText));
                                         pCheckBox1SB2.Add(new Chunk(SmallcheckBox, PdfPCell.ALIGN_LEFT, PdfPCell.ALIGN_LEFT));
                                         pCheckBox1SB2.Add(new Phrase(" SB/ ", fontText));
                                         pCheckBox1SB2.Add(new Chunk(SmallcheckBox, PdfPCell.ALIGN_LEFT, PdfPCell.ALIGN_LEFT));
@@ -3568,13 +4146,14 @@ namespace ZipNachWebAPI.Controllers
                                         pCheckBox1SB2.Add(new Phrase(" SB-NRE/ ", fontText));
                                         pCheckBox1SB2.Add(new Chunk(SmallcheckBox, PdfPCell.ALIGN_LEFT, PdfPCell.ALIGN_LEFT));
                                         pCheckBox1SB2.Add(new Phrase(" SB-NRO/ ", fontText));
-                                        pCheckBox1SB2.Add(new Chunk(checkBox, PdfPCell.ALIGN_LEFT, PdfPCell.ALIGN_LEFT));
+                                        pCheckBox1SB2.Add(new Chunk(SmallcheckBox, PdfPCell.ALIGN_LEFT, PdfPCell.ALIGN_LEFT));
                                         pCheckBox1SB2.Add(new Phrase(" OTHER ", fontText));
                                     }
                                     PdfHeaderCell2 = new PdfPCell(pCheckBox1SB2);
                                     PdfHeaderCell2.NoWrap = false;
                                     PdfHeaderCell2.RunDirection = PdfWriter.RUN_DIRECTION_LTR;
-                                    PdfHeaderCell2.Colspan = 11;
+                                    //PdfHeaderCell2.Colspan = 11;
+                                    PdfHeaderCell2.Colspan = 12;
                                     PdfHeaderCell2.HorizontalAlignment = 1;
                                     PdfHeaderCell2.VerticalAlignment = iTextSharp.text.Element.ALIGN_MIDDLE;
                                     PdfHeaderCell2.Border = Rectangle.NO_BORDER;//Avinash                        
@@ -3610,28 +4189,37 @@ namespace ZipNachWebAPI.Controllers
                                     documentCheckBox2.Open();
                                     Paragraph pCheckBox2 = new Paragraph();
                                     string status_2 = dr["CreatedStatus"].ToString();
-                                    if (status_2 == "C")
+                                    if (Convert.ToInt16(ds.Tables[0].Rows[0]["NoOfQRCopy"]) > 2)
                                     {
-                                        pCheckBox2.Add(new Phrase("CREATE ", fontText));
-                                        pCheckBox2.Add(new Chunk(checkBox, PdfPCell.ALIGN_LEFT, PdfPCell.ALIGN_LEFT));
-                                        pCheckBox2.Add(new Phrase(" MODIFY ", fontText));
-                                        pCheckBox2.Add(new Phrase(" CANCEL ", fontText));
+                                        if (status_2 == "C")
+                                        {
+                                            pCheckBox2.Add(new Phrase("CREATE ", fontText));
+                                            pCheckBox2.Add(new Chunk(checkBox, PdfPCell.ALIGN_LEFT, PdfPCell.ALIGN_LEFT));
+                                            pCheckBox2.Add(new Phrase(" MODIFY ", fontText));
+                                            pCheckBox2.Add(new Phrase(" CANCEL ", fontText));
 
-                                    }
-                                    else if (status_2 == "M")
-                                    {
-                                        pCheckBox2.Add(new Phrase("CREATE ", fontText));
-                                        pCheckBox2.Add(new Phrase(" MODIFY ", fontText));
-                                        pCheckBox2.Add(new Chunk(checkBox, PdfPCell.ALIGN_LEFT, PdfPCell.ALIGN_LEFT));
-                                        pCheckBox2.Add(new Phrase(" CANCEL ", fontText));
+                                        }
+                                        else if (status_2 == "M")
+                                        {
+                                            pCheckBox2.Add(new Phrase("CREATE ", fontText));
+                                            pCheckBox2.Add(new Phrase(" MODIFY ", fontText));
+                                            pCheckBox2.Add(new Chunk(checkBox, PdfPCell.ALIGN_LEFT, PdfPCell.ALIGN_LEFT));
+                                            pCheckBox2.Add(new Phrase(" CANCEL ", fontText));
 
+                                        }
+                                        else if (status_2 == "L")
+                                        {
+                                            pCheckBox2.Add(new Phrase("CREATE ", fontText));
+                                            pCheckBox2.Add(new Phrase(" MODIFY ", fontText));
+                                            pCheckBox2.Add(new Phrase(" CANCEL ", fontText));
+                                            pCheckBox2.Add(new Chunk(checkBox, PdfPCell.ALIGN_LEFT, PdfPCell.ALIGN_LEFT));
+                                        }
                                     }
-                                    else if (status_2 == "L")
+                                    else
                                     {
                                         pCheckBox2.Add(new Phrase("CREATE ", fontText));
                                         pCheckBox2.Add(new Phrase(" MODIFY ", fontText));
                                         pCheckBox2.Add(new Phrase(" CANCEL ", fontText));
-                                        pCheckBox2.Add(new Chunk(checkBox, PdfPCell.ALIGN_LEFT, PdfPCell.ALIGN_LEFT));
                                     }
                                     PdfMidCell2 = new PdfPCell(pCheckBox2);
                                     PdfMidCell2.NoWrap = false;
@@ -3654,27 +4242,56 @@ namespace ZipNachWebAPI.Controllers
                                     string AccountNo2 = dr["AccountNo"].ToString();
                                     char[] chrAcountNo2 = new char[Convert.ToInt32(AccountNo2.Length)];
                                     chrAcountNo2 = AccountNo2.ToCharArray();
-                                    if (Convert.ToInt32(AccountNo2.Length) <= 26)
+                                    if (Convert.ToInt16(ds.Tables[0].Rows[0]["NoOfQRCopy"]) > 2)
                                     {
-                                        for (int j = 0; j < Convert.ToInt32(chrAcountNo2.Length); j++)
+                                        if (Convert.ToInt32(AccountNo2.Length) <= 26)
                                         {
-                                            PdfMidCell2 = new PdfPCell(new Phrase(chrAcountNo2[j].ToString(), fontA119B));
-                                            PdfMidCell2.NoWrap = false;
-                                            PdfMidCell2.RunDirection = PdfWriter.RUN_DIRECTION_LTR;
-                                            PdfMidCell2.HorizontalAlignment = 1;
-                                            PdfMidCell2.VerticalAlignment = iTextSharp.text.Element.ALIGN_MIDDLE;
-                                            PdfMidTable2.AddCell(PdfMidCell2);
-                                        }
+                                            for (int j = 0; j < Convert.ToInt32(chrAcountNo2.Length); j++)
+                                            {
+                                                PdfMidCell2 = new PdfPCell(new Phrase(chrAcountNo2[j].ToString(), fontA119B));
+                                                PdfMidCell2.NoWrap = false;
+                                                PdfMidCell2.RunDirection = PdfWriter.RUN_DIRECTION_LTR;
+                                                PdfMidCell2.HorizontalAlignment = 1;
+                                                PdfMidCell2.VerticalAlignment = iTextSharp.text.Element.ALIGN_MIDDLE;
+                                                PdfMidTable2.AddCell(PdfMidCell2);
+                                            }
 
-                                        int len = 26 - Convert.ToInt32(AccountNo2.Length);
-                                        for (int k = 0; k < len; k++)
+                                            int len = 26 - Convert.ToInt32(AccountNo2.Length);
+                                            for (int k = 0; k < len; k++)
+                                            {
+                                                PdfMidCell2 = new PdfPCell(new Phrase(" ", fontA119B));
+                                                PdfMidCell2.NoWrap = false;
+                                                PdfMidCell2.RunDirection = PdfWriter.RUN_DIRECTION_LTR;
+                                                PdfMidCell2.HorizontalAlignment = 1;
+                                                PdfMidCell2.VerticalAlignment = iTextSharp.text.Element.ALIGN_MIDDLE;
+                                                PdfMidTable2.AddCell(PdfMidCell2);
+                                            }
+                                        }
+                                    }
+                                    else
+                                    {
+                                        if (Convert.ToInt32(AccountNo2.Length) <= 26)
                                         {
-                                            PdfMidCell2 = new PdfPCell(new Phrase(" ", fontA119B));
-                                            PdfMidCell2.NoWrap = false;
-                                            PdfMidCell2.RunDirection = PdfWriter.RUN_DIRECTION_LTR;
-                                            PdfMidCell2.HorizontalAlignment = 1;
-                                            PdfMidCell2.VerticalAlignment = iTextSharp.text.Element.ALIGN_MIDDLE;
-                                            PdfMidTable2.AddCell(PdfMidCell2);
+                                            for (int j = 0; j < Convert.ToInt32(chrAcountNo2.Length); j++)
+                                            {
+                                                PdfMidCell2 = new PdfPCell(new Phrase(" ", fontA119B));
+                                                PdfMidCell2.NoWrap = false;
+                                                PdfMidCell2.RunDirection = PdfWriter.RUN_DIRECTION_LTR;
+                                                PdfMidCell2.HorizontalAlignment = 1;
+                                                PdfMidCell2.VerticalAlignment = iTextSharp.text.Element.ALIGN_MIDDLE;
+                                                PdfMidTable2.AddCell(PdfMidCell2);
+                                            }
+
+                                            int len = 26 - Convert.ToInt32(AccountNo2.Length);
+                                            for (int k = 0; k < len; k++)
+                                            {
+                                                PdfMidCell2 = new PdfPCell(new Phrase(" ", fontA119B));
+                                                PdfMidCell2.NoWrap = false;
+                                                PdfMidCell2.RunDirection = PdfWriter.RUN_DIRECTION_LTR;
+                                                PdfMidCell2.HorizontalAlignment = 1;
+                                                PdfMidCell2.VerticalAlignment = iTextSharp.text.Element.ALIGN_MIDDLE;
+                                                PdfMidTable2.AddCell(PdfMidCell2);
+                                            }
                                         }
                                     }
 
@@ -3700,16 +4317,39 @@ namespace ZipNachWebAPI.Controllers
                                     PdfMidCell2.BackgroundColor = new Color(252, 252, 252);
                                     PdfMidCell2.RunDirection = PdfWriter.RUN_DIRECTION_LTR;
                                     PdfMidCell2.HorizontalAlignment = 1;
-                                    PdfMidCell2.FixedHeight = 20f;
+                                    PdfMidCell2.FixedHeight = 25f;
                                     PdfMidCell2.VerticalAlignment = iTextSharp.text.Element.ALIGN_MIDDLE;
                                     PdfMidCell2.Border = Rectangle.NO_BORDER;//Avinash
                                                                              //PdfMidCell2.Border = Rectangle.LEFT_BORDER;
                                                                              //PdfMidCell2.BorderWidth = 2f;
                                     PdfMidTable2.AddCell(PdfMidCell2);
 
-                                    PdfMidCell2 = new PdfPCell(new Phrase(dr["BankName"].ToString(), fontAb11));
+                                    //PdfMidCell2 = new PdfPCell(new Phrase(dr["BankName"].ToString(), fontAb11));
+                                    if (Convert.ToInt16(ds.Tables[0].Rows[0]["NoOfQRCopy"]) > 2)
+                                    {
+                                        if (count_BankName < 34)
+                                        {
+                                            PdfMidCell2 = new PdfPCell(new Phrase(dr["BankName"].ToString(), fontAb11B));
+                                        }
+                                        else if (count_BankName < 40)
+                                        {
+                                            PdfMidCell2 = new PdfPCell(new Phrase(dr["BankName"].ToString(), fontText));
+                                        }
+                                        else if (count_BankName < 48)
+                                        {
+                                            PdfMidCell2 = new PdfPCell(new Phrase(dr["BankName"].ToString(), fontText6));
+                                        }
+                                        else
+                                        {
+                                            PdfMidCell2 = new PdfPCell(new Phrase(dr["BankName"].ToString(), fontText5));
+                                        }
+                                    }
+                                    else
+                                    {
+                                        PdfMidCell2 = new PdfPCell(new Phrase(" ", fontText5));
+                                    }
                                     PdfMidCell2.NoWrap = false;
-                                    PdfMidCell2.FixedHeight = 30f;
+                                    //PdfMidCell2.FixedHeight = 30f;
                                     PdfMidCell2.RunDirection = PdfWriter.RUN_DIRECTION_LTR;
                                     PdfMidCell2.Colspan = 6;
                                     PdfMidCell2.HorizontalAlignment = 1;
@@ -3731,28 +4371,58 @@ namespace ZipNachWebAPI.Controllers
                                     string IFSCcode2 = dr["IFSCcode"].ToString();
                                     char[] chrIFSCcode2 = new char[Convert.ToInt32(IFSCcode2.Length)];
                                     chrIFSCcode2 = IFSCcode2.ToCharArray();
-                                    if (Convert.ToInt32(chrIFSCcode2.Length) == 11)
+                                    if (Convert.ToInt16(ds.Tables[0].Rows[0]["NoOfQRCopy"]) > 2)
                                     {
-                                        for (int j = 0; j < Convert.ToInt32(chrIFSCcode2.Length); j++)
+                                        if (Convert.ToInt32(chrIFSCcode2.Length) == 11)
                                         {
-                                            PdfMidCell2 = new PdfPCell(new Phrase(chrIFSCcode2[j].ToString(), fontA119B));
-                                            PdfMidCell2.NoWrap = false;
-                                            PdfMidCell2.RunDirection = PdfWriter.RUN_DIRECTION_LTR;
-                                            PdfMidCell2.HorizontalAlignment = 1;
-                                            PdfMidCell2.VerticalAlignment = iTextSharp.text.Element.ALIGN_MIDDLE;
-                                            PdfMidTable2.AddCell(PdfMidCell2);
+                                            for (int j = 0; j < Convert.ToInt32(chrIFSCcode2.Length); j++)
+                                            {
+                                                PdfMidCell2 = new PdfPCell(new Phrase(chrIFSCcode2[j].ToString(), fontA119B));
+                                                PdfMidCell2.NoWrap = false;
+                                                PdfMidCell2.RunDirection = PdfWriter.RUN_DIRECTION_LTR;
+                                                PdfMidCell2.HorizontalAlignment = 1;
+                                                PdfMidCell2.VerticalAlignment = iTextSharp.text.Element.ALIGN_MIDDLE;
+                                                PdfMidTable2.AddCell(PdfMidCell2);
+                                            }
+                                        }
+                                        else
+                                        {
+                                            for (int j = 0; j < 11; j++)
+                                            {
+                                                PdfMidCell2 = new PdfPCell(new Phrase(" ", fontA119B));
+                                                PdfMidCell2.NoWrap = false;
+                                                PdfMidCell2.RunDirection = PdfWriter.RUN_DIRECTION_LTR;
+                                                PdfMidCell2.HorizontalAlignment = 1;
+                                                PdfMidCell2.VerticalAlignment = iTextSharp.text.Element.ALIGN_MIDDLE;
+                                                PdfMidTable2.AddCell(PdfMidCell2);
+                                            }
                                         }
                                     }
                                     else
                                     {
-                                        for (int j = 0; j < 11; j++)
+                                        if (Convert.ToInt32(chrIFSCcode2.Length) == 11)
                                         {
-                                            PdfMidCell2 = new PdfPCell(new Phrase(" ", fontA119B));
-                                            PdfMidCell2.NoWrap = false;
-                                            PdfMidCell2.RunDirection = PdfWriter.RUN_DIRECTION_LTR;
-                                            PdfMidCell2.HorizontalAlignment = 1;
-                                            PdfMidCell2.VerticalAlignment = iTextSharp.text.Element.ALIGN_MIDDLE;
-                                            PdfMidTable2.AddCell(PdfMidCell2);
+                                            for (int j = 0; j < Convert.ToInt32(chrIFSCcode2.Length); j++)
+                                            {
+                                                PdfMidCell2 = new PdfPCell(new Phrase(" ", fontA119B));
+                                                PdfMidCell2.NoWrap = false;
+                                                PdfMidCell2.RunDirection = PdfWriter.RUN_DIRECTION_LTR;
+                                                PdfMidCell2.HorizontalAlignment = 1;
+                                                PdfMidCell2.VerticalAlignment = iTextSharp.text.Element.ALIGN_MIDDLE;
+                                                PdfMidTable2.AddCell(PdfMidCell2);
+                                            }
+                                        }
+                                        else
+                                        {
+                                            for (int j = 0; j < 11; j++)
+                                            {
+                                                PdfMidCell2 = new PdfPCell(new Phrase(" ", fontA119B));
+                                                PdfMidCell2.NoWrap = false;
+                                                PdfMidCell2.RunDirection = PdfWriter.RUN_DIRECTION_LTR;
+                                                PdfMidCell2.HorizontalAlignment = 1;
+                                                PdfMidCell2.VerticalAlignment = iTextSharp.text.Element.ALIGN_MIDDLE;
+                                                PdfMidTable2.AddCell(PdfMidCell2);
+                                            }
                                         }
                                     }
                                     PdfMidCell2 = new PdfPCell(new Phrase("or MICR", fontAb11B));
@@ -3823,8 +4493,14 @@ namespace ZipNachWebAPI.Controllers
                                                                              //PdfMidCell2.BorderWidth = 2f;
                                     PdfMidCell2.VerticalAlignment = iTextSharp.text.Element.ALIGN_LEFT;
                                     PdfMidTable2.AddCell(PdfMidCell2);
-
-                                    PdfMidCell2 = new PdfPCell(new Phrase(dr["AmountInWord"].ToString(), fontA11B));
+                                    if (Convert.ToInt16(ds.Tables[0].Rows[0]["NoOfQRCopy"]) > 2)
+                                    {
+                                        PdfMidCell2 = new PdfPCell(new Phrase(dr["AmountInWord"].ToString(), fontA11B));
+                                    }
+                                    else
+                                    {
+                                        PdfMidCell2 = new PdfPCell(new Phrase(" ", fontA11B));
+                                    }
                                     PdfMidCell2.NoWrap = false;
                                     PdfMidCell2.RunDirection = PdfWriter.RUN_DIRECTION_LTR;
                                     PdfMidCell2.Colspan = 22;
@@ -3836,7 +4512,14 @@ namespace ZipNachWebAPI.Controllers
                                     documentAmountInDigit2.Open();
                                     Paragraph pAmountInDigit2 = new Paragraph();
                                     pAmountInDigit2.Add(new Chunk(Rupee, PdfPCell.ALIGN_CENTER, PdfPCell.ALIGN_CENTER));
-                                    pAmountInDigit2.Add(new Phrase(" " + dr["AmountInDigit"].ToString(), fontA119B));
+                                    if (Convert.ToInt16(ds.Tables[0].Rows[0]["NoOfQRCopy"]) > 2)
+                                    {
+                                        pAmountInDigit2.Add(new Phrase(" " + dr["AmountInDigit"].ToString(), fontA119B));
+                                    }
+                                    else
+                                    {
+                                        pAmountInDigit2.Add(new Phrase(" " + " ", fontA119B));
+                                    }
                                     PdfMidCell2 = new PdfPCell(pAmountInDigit2);
                                     PdfMidCell2.NoWrap = false;
                                     PdfMidCell2.RunDirection = PdfWriter.RUN_DIRECTION_LTR;
@@ -3863,7 +4546,7 @@ namespace ZipNachWebAPI.Controllers
                                     PdfMidTable2.AddCell(PdfMidCell2);
 
                                     string Freq2 = dr["Frequency"].ToString();
-                                    PdfMidCell2 = new PdfPCell(new Phrase("Frequency", fontAb11B));
+                                    PdfMidCell2 = new PdfPCell(new Phrase("Frequency", fontText));
                                     PdfMidCell2.NoWrap = false;
                                     PdfMidCell2.BackgroundColor = new Color(252, 252, 252);
                                     PdfMidCell2.RunDirection = PdfWriter.RUN_DIRECTION_LTR;
@@ -3877,15 +4560,23 @@ namespace ZipNachWebAPI.Controllers
                                     documentMonthly2.Open();
                                     Paragraph pMonthly2 = new Paragraph();
                                     //------------------------------- add Monthly-------------------------------------
-                                    if (Freq2 == "M")
+                                    if (Convert.ToInt16(ds.Tables[0].Rows[0]["NoOfQRCopy"]) > 2)
                                     {
-                                        pMonthly2.Add(new Chunk(checkBox, PdfPCell.ALIGN_LEFT, PdfPCell.ALIGN_LEFT));
-                                        pMonthly2.Add(new Phrase("  Monthly ", fontText));
+                                        if (Freq2 == "M")
+                                        {
+                                            pMonthly2.Add(new Chunk(checkBox, PdfPCell.ALIGN_LEFT, PdfPCell.ALIGN_LEFT));
+                                            pMonthly2.Add(new Phrase("  Monthly", fontText));
+                                        }
+                                        else
+                                        {
+                                            pMonthly2.Add(new Chunk(Box, PdfPCell.ALIGN_LEFT, PdfPCell.ALIGN_LEFT));
+                                            pMonthly2.Add(new Phrase("  Monthly", fontText));
+                                        }
                                     }
                                     else
                                     {
                                         pMonthly2.Add(new Chunk(Box, PdfPCell.ALIGN_LEFT, PdfPCell.ALIGN_LEFT));
-                                        pMonthly2.Add(new Phrase("  Monthly ", fontText));
+                                        pMonthly2.Add(new Phrase("  Monthly", fontText));
                                     }
 
                                     PdfMidCell2 = new PdfPCell(pMonthly2);
@@ -3899,15 +4590,23 @@ namespace ZipNachWebAPI.Controllers
                                     documentQtly2.Open();
                                     Paragraph pQtly2 = new Paragraph();
                                     //------------------------------- add Qtly-------------------------------------
-                                    if (Freq2 == "Q")
+                                    if (Convert.ToInt16(ds.Tables[0].Rows[0]["NoOfQRCopy"]) > 2)
                                     {
-                                        pQtly2.Add(new Chunk(checkBox, PdfPCell.ALIGN_LEFT, PdfPCell.ALIGN_LEFT));
-                                        pQtly2.Add(new Phrase(" Qtly ", fontText));
+                                        if (Freq2 == "Q")
+                                        {
+                                            pQtly2.Add(new Chunk(checkBox, PdfPCell.ALIGN_LEFT, PdfPCell.ALIGN_LEFT));
+                                            pQtly2.Add(new Phrase(" Qtly", fontText));
+                                        }
+                                        else
+                                        {
+                                            pQtly2.Add(new Chunk(Box, PdfPCell.ALIGN_LEFT, PdfPCell.ALIGN_LEFT));
+                                            pQtly2.Add(new Phrase(" Qtly", fontText));
+                                        }
                                     }
                                     else
                                     {
                                         pQtly2.Add(new Chunk(Box, PdfPCell.ALIGN_LEFT, PdfPCell.ALIGN_LEFT));
-                                        pQtly2.Add(new Phrase(" Qtly ", fontText));
+                                        pQtly2.Add(new Phrase(" Qtly", fontText));
                                     }
 
                                     PdfMidCell2 = new PdfPCell(pQtly2);
@@ -3921,15 +4620,23 @@ namespace ZipNachWebAPI.Controllers
                                     documentHYrly2.Open();
                                     Paragraph pHYrly2 = new Paragraph();
                                     //------------------------------- add H-Yrly-------------------------------------
-                                    if (Freq2 == "H")
+                                    if (Convert.ToInt16(ds.Tables[0].Rows[0]["NoOfQRCopy"]) > 2)
                                     {
-                                        pHYrly2.Add(new Chunk(checkBox, PdfPCell.ALIGN_LEFT, PdfPCell.ALIGN_LEFT));
-                                        pHYrly2.Add(new Phrase("  H-Yrly ", fontText));
+                                        if (Freq2 == "H")
+                                        {
+                                            pHYrly2.Add(new Chunk(checkBox, PdfPCell.ALIGN_LEFT, PdfPCell.ALIGN_LEFT));
+                                            pHYrly2.Add(new Phrase("  H-Yrly", fontText));
+                                        }
+                                        else
+                                        {
+                                            pHYrly2.Add(new Chunk(Box, PdfPCell.ALIGN_LEFT, PdfPCell.ALIGN_LEFT));
+                                            pHYrly2.Add(new Phrase("  H-Yrly", fontText));
+                                        }
                                     }
                                     else
                                     {
                                         pHYrly2.Add(new Chunk(Box, PdfPCell.ALIGN_LEFT, PdfPCell.ALIGN_LEFT));
-                                        pHYrly2.Add(new Phrase("  H-Yrly ", fontText));
+                                        pHYrly2.Add(new Phrase("  H-Yrly", fontText));
                                     }
 
                                     PdfMidCell2 = new PdfPCell(pHYrly2);
@@ -3943,17 +4650,25 @@ namespace ZipNachWebAPI.Controllers
                                     documentYearly2.Open();
                                     Paragraph pYearly2 = new Paragraph();
                                     //------------------------------- add Yearly-------------------------------------
-                                    if (Freq2 == "Y")
+                                    if (Convert.ToInt16(ds.Tables[0].Rows[0]["NoOfQRCopy"]) > 2)
                                     {
-                                        pYearly2.Add(new Chunk(checkBox, PdfPCell.ALIGN_LEFT, PdfPCell.ALIGN_LEFT));
-                                        pYearly2.Add(new Phrase("  Yearly ", fontText));
+                                        if (Freq2 == "Y")
+                                        {
+                                            pYearly2.Add(new Chunk(checkBox, PdfPCell.ALIGN_LEFT, PdfPCell.ALIGN_LEFT));
+                                            pYearly2.Add(new Phrase("  Yearly", fontText));
+                                        }
+                                        else
+                                        {
+                                            pYearly2.Add(new Chunk(Box, PdfPCell.ALIGN_LEFT, PdfPCell.ALIGN_LEFT));
+                                            pYearly2.Add(new Phrase("  Yearly", fontText));
+                                        }
+
                                     }
                                     else
                                     {
                                         pYearly2.Add(new Chunk(Box, PdfPCell.ALIGN_LEFT, PdfPCell.ALIGN_LEFT));
-                                        pYearly2.Add(new Phrase("  Yearly ", fontText));
+                                        pYearly2.Add(new Phrase("  Yearly", fontText));
                                     }
-
                                     PdfMidCell2 = new PdfPCell(pYearly2);
                                     PdfMidCell2.NoWrap = false;
                                     PdfMidCell2.RunDirection = PdfWriter.RUN_DIRECTION_LTR;
@@ -3964,15 +4679,23 @@ namespace ZipNachWebAPI.Controllers
                                     Document prensented1prensented12 = new Document();
                                     prensented1prensented12.Open();
                                     Paragraph prensented2 = new Paragraph();
-                                    if (Freq2 == "A")
+                                    if (Convert.ToInt16(ds.Tables[0].Rows[0]["NoOfQRCopy"]) > 2)
                                     {
-                                        prensented2.Add(new Chunk(checkBox, PdfPCell.ALIGN_LEFT, PdfPCell.ALIGN_LEFT));
-                                        prensented2.Add(new Phrase("  As & when prensented1 ", fontText));
+                                        if (Freq2 == "A")
+                                        {
+                                            prensented2.Add(new Chunk(checkBox, PdfPCell.ALIGN_LEFT, PdfPCell.ALIGN_LEFT));
+                                            prensented2.Add(new Phrase("  As & when prensented", fontText));
+                                        }
+                                        else
+                                        {
+                                            prensented2.Add(new Chunk(Box, PdfPCell.ALIGN_LEFT, PdfPCell.ALIGN_LEFT));
+                                            prensented2.Add(new Phrase("  As & when prensented", fontText));
+                                        }
                                     }
                                     else
                                     {
                                         prensented2.Add(new Chunk(Box, PdfPCell.ALIGN_LEFT, PdfPCell.ALIGN_LEFT));
-                                        prensented2.Add(new Phrase("  As & when prensented1 ", fontText));
+                                        prensented2.Add(new Phrase("  As & when prensented", fontText));
                                     }
 
                                     PdfMidCell2 = new PdfPCell(prensented2);
@@ -3984,7 +4707,7 @@ namespace ZipNachWebAPI.Controllers
 
                                     string DebitType2 = dr["DebitType"].ToString();
 
-                                    PdfMidCell2 = new PdfPCell(new Phrase("Debit Type", fontAb11B));
+                                    PdfMidCell2 = new PdfPCell(new Phrase("Debit Type", fontText));
                                     PdfMidCell2.NoWrap = false;
                                     PdfMidCell2.BackgroundColor = new Color(252, 252, 252);
                                     PdfMidCell2.RunDirection = PdfWriter.RUN_DIRECTION_LTR;
@@ -3998,15 +4721,23 @@ namespace ZipNachWebAPI.Controllers
                                     documentFixed2.Open();
                                     Paragraph pFixed2 = new Paragraph();
                                     //------------------------------- add H-Yrly-------------------------------------
-                                    if (DebitType2 == "F")
+                                    if (Convert.ToInt16(ds.Tables[0].Rows[0]["NoOfQRCopy"]) > 2)
                                     {
-                                        pFixed2.Add(new Chunk(checkBox, PdfPCell.ALIGN_LEFT, PdfPCell.ALIGN_LEFT));
-                                        pFixed2.Add(new Phrase("  Fixed Amount ", fontText));
+                                        if (DebitType2 == "F")
+                                        {
+                                            pFixed2.Add(new Chunk(checkBox, PdfPCell.ALIGN_LEFT, PdfPCell.ALIGN_LEFT));
+                                            pFixed2.Add(new Phrase("  Fixed Amount", fontText));
+                                        }
+                                        else
+                                        {
+                                            pFixed2.Add(new Chunk(Box, PdfPCell.ALIGN_LEFT, PdfPCell.ALIGN_LEFT));
+                                            pFixed2.Add(new Phrase("  Fixed Amount", fontText));
+                                        }
                                     }
                                     else
                                     {
                                         pFixed2.Add(new Chunk(Box, PdfPCell.ALIGN_LEFT, PdfPCell.ALIGN_LEFT));
-                                        pFixed2.Add(new Phrase("  Fixed Amount ", fontText));
+                                        pFixed2.Add(new Phrase("  Fixed Amount", fontText));
                                     }
                                     PdfMidCell2 = new PdfPCell(pFixed2);
                                     PdfMidCell2.NoWrap = false;
@@ -4019,15 +4750,23 @@ namespace ZipNachWebAPI.Controllers
                                     documentMaximum2.Open();
                                     Paragraph pMaximum2 = new Paragraph();
                                     //------------------------------- add H-Yrly-------------------------------------
-                                    if (DebitType2 == "M")
+                                    if (Convert.ToInt16(ds.Tables[0].Rows[0]["NoOfQRCopy"]) > 2)
                                     {
-                                        pMaximum2.Add(new Chunk(checkBox, PdfPCell.ALIGN_LEFT, PdfPCell.ALIGN_LEFT));
-                                        pMaximum2.Add(new Phrase("  Maximum Amount ", fontText));
+                                        if (DebitType2 == "M")
+                                        {
+                                            pMaximum2.Add(new Chunk(checkBox, PdfPCell.ALIGN_LEFT, PdfPCell.ALIGN_LEFT));
+                                            pMaximum2.Add(new Phrase("  Maximum Amount", fontText));
+                                        }
+                                        else
+                                        {
+                                            pMaximum2.Add(new Chunk(Box, PdfPCell.ALIGN_LEFT, PdfPCell.ALIGN_LEFT));
+                                            pMaximum2.Add(new Phrase("  Maximum Amount", fontText));
+                                        }
                                     }
                                     else
                                     {
                                         pMaximum2.Add(new Chunk(Box, PdfPCell.ALIGN_LEFT, PdfPCell.ALIGN_LEFT));
-                                        pMaximum2.Add(new Phrase("  Maximum Amount ", fontText));
+                                        pMaximum2.Add(new Phrase("  Maximum Amount", fontText));
                                     }
 
                                     PdfMidCell2 = new PdfPCell(pMaximum2);
@@ -4065,7 +4804,23 @@ namespace ZipNachWebAPI.Controllers
                                     PdfMidCell2.VerticalAlignment = iTextSharp.text.Element.ALIGN_LEFT;
                                     PdfMidTable2.AddCell(PdfMidCell2);
 
-                                    PdfMidCell2 = new PdfPCell(new Phrase(dr["Reference1"].ToString(), fontAb11B));
+                                    //PdfMidCell2 = new PdfPCell(new Phrase(dr["Reference1"].ToString(), fontAb11B));
+                                    if (count_Ref1 < 34)
+                                    {
+                                        PdfMidCell2 = new PdfPCell(new Phrase(dr["Reference1"].ToString(), fontAb11B));
+                                    }
+                                    else if (count_Ref1 < 40)
+                                    {
+                                        PdfMidCell2 = new PdfPCell(new Phrase(dr["Reference1"].ToString(), fontText));
+                                    }
+                                    else if (count_Ref1 < 48)
+                                    {
+                                        PdfMidCell2 = new PdfPCell(new Phrase(dr["Reference1"].ToString(), fontText6));
+                                    }
+                                    else
+                                    {
+                                        PdfMidCell2 = new PdfPCell(new Phrase(dr["Reference1"].ToString(), fontText5));
+                                    }
                                     PdfMidCell2.NoWrap = false;
                                     PdfMidCell2.RunDirection = PdfWriter.RUN_DIRECTION_LTR;
                                     PdfMidCell2.Colspan = 15;
@@ -4082,7 +4837,14 @@ namespace ZipNachWebAPI.Controllers
                                     PdfMidCell2.Border = Rectangle.NO_BORDER;//Avinash
                                     PdfMidTable2.AddCell(PdfMidCell2);
 
-                                    PdfMidCell2 = new PdfPCell(new Phrase(dr["PhoneNo"].ToString(), fontAb11B));
+                                    if (Convert.ToInt16(ds.Tables[0].Rows[0]["NoOfQRCopy"]) > 2)
+                                    {
+                                        PdfMidCell2 = new PdfPCell(new Phrase(dr["PhoneNo"].ToString(), fontAb11B));
+                                    }
+                                    else
+                                    {
+                                        PdfMidCell2 = new PdfPCell(new Phrase(" ", fontAb11B));
+                                    }
                                     PdfMidCell2.NoWrap = false;
                                     PdfMidCell2.RunDirection = PdfWriter.RUN_DIRECTION_LTR;
                                     PdfMidCell2.Colspan = 10;
@@ -4114,7 +4876,30 @@ namespace ZipNachWebAPI.Controllers
                                     PdfMidCell2.VerticalAlignment = iTextSharp.text.Element.ALIGN_LEFT;
                                     PdfMidTable2.AddCell(PdfMidCell2);
 
-                                    PdfMidCell2 = new PdfPCell(new Phrase(dr["Reference2"].ToString(), fontAb11B));
+                                    //PdfMidCell2 = new PdfPCell(new Phrase(dr["Reference2"].ToString(), fontAb11B));
+                                    if (Convert.ToInt16(ds.Tables[0].Rows[0]["NoOfQRCopy"]) > 2)
+                                    {
+                                        if (count_Ref2 < 34)
+                                        {
+                                            PdfMidCell2 = new PdfPCell(new Phrase(dr["Reference2"].ToString(), fontAb11B));
+                                        }
+                                        else if (count_Ref2 < 40)
+                                        {
+                                            PdfMidCell2 = new PdfPCell(new Phrase(dr["Reference2"].ToString(), fontText));
+                                        }
+                                        else if (count_Ref2 < 48)
+                                        {
+                                            PdfMidCell2 = new PdfPCell(new Phrase(dr["Reference2"].ToString(), fontText6));
+                                        }
+                                        else
+                                        {
+                                            PdfMidCell2 = new PdfPCell(new Phrase(dr["Reference2"].ToString(), fontText5));
+                                        }
+                                    }
+                                    else
+                                    {
+                                        PdfMidCell2 = new PdfPCell(new Phrase(" ", fontText5));
+                                    }
                                     PdfMidCell2.NoWrap = false;
                                     PdfMidCell2.RunDirection = PdfWriter.RUN_DIRECTION_LTR;
                                     PdfMidCell2.Colspan = 15;
@@ -4131,7 +4916,31 @@ namespace ZipNachWebAPI.Controllers
                                     PdfMidCell2.Border = Rectangle.NO_BORDER;//Avinash
                                     PdfMidTable2.AddCell(PdfMidCell2);
 
-                                    PdfMidCell2 = new PdfPCell(new Phrase(dr["EmailId"].ToString(), fontAb11B));
+                                    //PdfMidCell2 = new PdfPCell(new Phrase(dr["EmailId"].ToString(), fontAb11B));
+                                    if (Convert.ToInt16(ds.Tables[0].Rows[0]["NoOfQRCopy"]) > 2)
+                                    {
+                                        if (count < 34)
+                                        {
+                                            PdfMidCell2 = new PdfPCell(new Phrase(dr["EmailId"].ToString(), fontAb11B));
+                                        }
+                                        //else if (count < 40)
+                                        //{
+                                        //    PdfMidCell2 = new PdfPCell(new Phrase(dr["EmailId"].ToString(), fontText));
+                                        //}
+                                        //else if (count < 48)
+                                        //{
+                                        //    PdfMidCell2 = new PdfPCell(new Phrase(dr["EmailId"].ToString(), fontText6));
+                                        //}
+                                        else
+                                        {
+                                            PdfMidCell2 = new PdfPCell(new Phrase(dr["EmailId"].ToString(), fontText5));
+                                        }
+                                    }
+                                    else
+                                    {
+                                        PdfMidCell2 = new PdfPCell(new Phrase(" ", fontText5));
+                                    }
+
                                     PdfMidCell2.NoWrap = false;
                                     PdfMidCell2.RunDirection = PdfWriter.RUN_DIRECTION_LTR;
                                     PdfMidCell2.Colspan = 10;
@@ -4154,8 +4963,9 @@ namespace ZipNachWebAPI.Controllers
                                     PdfMidCell2.BorderWidthLeft = 2f;
                                     PdfMidTable2.AddCell(PdfMidCell2);
 
-                                    PdfMidCell2 = new PdfPCell(new Phrase("PERIOD", fontAb11B));
+                                    PdfMidCell2 = new PdfPCell(new Phrase("PERIOD", fontText));
                                     PdfMidCell2.NoWrap = false;
+                                    PdfMidCell2.FixedHeight = 8f;
                                     PdfMidCell2.BackgroundColor = new Color(252, 252, 252);
                                     PdfMidCell2.RunDirection = PdfWriter.RUN_DIRECTION_LTR;
                                     PdfMidCell2.HorizontalAlignment = 1;
@@ -4220,28 +5030,57 @@ namespace ZipNachWebAPI.Controllers
                                     string PeriodFrom2 = dr["PeriodFrom"].ToString();
                                     char[] chrPeriodFrom2 = new char[8];
                                     chrPeriodFrom2 = PeriodFrom2.ToCharArray();
-                                    if (Convert.ToInt32(chrPeriodFrom2.Length) > 0)
+                                    if (Convert.ToInt16(ds.Tables[0].Rows[0]["NoOfQRCopy"]) > 2)
                                     {
-                                        for (int j = 0; j < Convert.ToInt32(chrPeriodFrom2.Length); j++)
+                                        if (Convert.ToInt32(chrPeriodFrom2.Length) > 0)
                                         {
-                                            PdfDetailCell2 = new PdfPCell(new Phrase(chrPeriodFrom2[j].ToString(), fontA119B));
-                                            PdfDetailCell2.NoWrap = false;
-                                            PdfDetailCell2.RunDirection = PdfWriter.RUN_DIRECTION_LTR;
-                                            PdfDetailCell2.HorizontalAlignment = 1;
-                                            PdfDetailTable2.AddCell(PdfDetailCell2);
+                                            for (int j = 0; j < Convert.ToInt32(chrPeriodFrom2.Length); j++)
+                                            {
+                                                PdfDetailCell2 = new PdfPCell(new Phrase(chrPeriodFrom2[j].ToString(), fontA119B));
+                                                PdfDetailCell2.NoWrap = false;
+                                                PdfDetailCell2.RunDirection = PdfWriter.RUN_DIRECTION_LTR;
+                                                PdfDetailCell2.HorizontalAlignment = 1;
+                                                PdfDetailTable2.AddCell(PdfDetailCell2);
+                                            }
+                                        }
+                                        else
+                                        {
+                                            for (int j = 0; j < 8; j++)
+                                            {
+                                                PdfDetailCell2 = new PdfPCell(new Phrase(" ", fontA119B));
+                                                PdfDetailCell2.NoWrap = false;
+                                                PdfDetailCell2.RunDirection = PdfWriter.RUN_DIRECTION_LTR;
+                                                PdfDetailCell2.HorizontalAlignment = 1;
+                                                PdfDetailTable2.AddCell(PdfDetailCell2);
+                                            }
+
                                         }
                                     }
                                     else
                                     {
-                                        for (int j = 0; j < 8; j++)
+                                        if (Convert.ToInt32(chrPeriodFrom2.Length) > 0)
                                         {
-                                            PdfDetailCell2 = new PdfPCell(new Phrase(" ", fontA119B));
-                                            PdfDetailCell2.NoWrap = false;
-                                            PdfDetailCell2.RunDirection = PdfWriter.RUN_DIRECTION_LTR;
-                                            PdfDetailCell2.HorizontalAlignment = 1;
-                                            PdfDetailTable2.AddCell(PdfDetailCell2);
+                                            for (int j = 0; j < Convert.ToInt32(chrPeriodFrom2.Length); j++)
+                                            {
+                                                PdfDetailCell2 = new PdfPCell(new Phrase(" ", fontA119B));
+                                                PdfDetailCell2.NoWrap = false;
+                                                PdfDetailCell2.RunDirection = PdfWriter.RUN_DIRECTION_LTR;
+                                                PdfDetailCell2.HorizontalAlignment = 1;
+                                                PdfDetailTable2.AddCell(PdfDetailCell2);
+                                            }
                                         }
+                                        else
+                                        {
+                                            for (int j = 0; j < 8; j++)
+                                            {
+                                                PdfDetailCell2 = new PdfPCell(new Phrase(" ", fontA119B));
+                                                PdfDetailCell2.NoWrap = false;
+                                                PdfDetailCell2.RunDirection = PdfWriter.RUN_DIRECTION_LTR;
+                                                PdfDetailCell2.HorizontalAlignment = 1;
+                                                PdfDetailTable2.AddCell(PdfDetailCell2);
+                                            }
 
+                                        }
                                     }
                                     PdfDetailCell2 = new PdfPCell(new Phrase(" ", fontAb11));
                                     PdfDetailCell2.NoWrap = false;
@@ -4282,17 +5121,32 @@ namespace ZipNachWebAPI.Controllers
                                     string PeriodTo2 = dr["PeriodTo"].ToString();
                                     char[] chrPeriodTo2 = new char[8];
                                     chrPeriodTo2 = PeriodTo2.ToCharArray();
-                                    if (Convert.ToInt32(chrPeriodTo2.Length) > 0)
+                                    if (Convert.ToInt16(ds.Tables[0].Rows[0]["NoOfQRCopy"]) > 2)
                                     {
-                                        if (dr["PeriodTo"].ToString() != "01011900")
+                                        if (Convert.ToInt32(chrPeriodTo2.Length) > 0)
                                         {
-                                            for (int j = 0; j < Convert.ToInt32(chrPeriodTo2.Length); j++)
+                                            if (dr["PeriodTo"].ToString() != "01011900")
                                             {
-                                                PdfDetailCell2 = new PdfPCell(new Phrase(chrPeriodTo2[j].ToString(), fontA119B));
-                                                PdfDetailCell2.NoWrap = false;
-                                                PdfDetailCell2.RunDirection = PdfWriter.RUN_DIRECTION_LTR;
-                                                PdfDetailCell2.HorizontalAlignment = 1;
-                                                PdfDetailTable2.AddCell(PdfDetailCell2);
+                                                for (int j = 0; j < Convert.ToInt32(chrPeriodTo2.Length); j++)
+                                                {
+                                                    PdfDetailCell2 = new PdfPCell(new Phrase(chrPeriodTo2[j].ToString(), fontA119B));
+                                                    PdfDetailCell2.NoWrap = false;
+                                                    PdfDetailCell2.RunDirection = PdfWriter.RUN_DIRECTION_LTR;
+                                                    PdfDetailCell2.HorizontalAlignment = 1;
+                                                    PdfDetailTable2.AddCell(PdfDetailCell2);
+                                                }
+                                            }
+                                            else
+                                            {
+                                                for (int j = 0; j < 8; j++)
+                                                {
+                                                    PdfDetailCell2 = new PdfPCell(new Phrase(" ", fontA119B));
+                                                    PdfDetailCell2.NoWrap = false;
+                                                    //PdfDetailCell2.BackgroundColor = new Color(0,0,0);
+                                                    PdfDetailCell2.RunDirection = PdfWriter.RUN_DIRECTION_LTR;
+                                                    PdfDetailCell2.HorizontalAlignment = 1;
+                                                    PdfDetailTable2.AddCell(PdfDetailCell2);
+                                                }
                                             }
                                         }
                                         else
@@ -4301,23 +5155,52 @@ namespace ZipNachWebAPI.Controllers
                                             {
                                                 PdfDetailCell2 = new PdfPCell(new Phrase(" ", fontA119B));
                                                 PdfDetailCell2.NoWrap = false;
-                                                //PdfDetailCell2.BackgroundColor = new Color(0,0,0);
                                                 PdfDetailCell2.RunDirection = PdfWriter.RUN_DIRECTION_LTR;
                                                 PdfDetailCell2.HorizontalAlignment = 1;
+                                                //PdfDetailCell2.BackgroundColor = new Color(0, 0, 0);
                                                 PdfDetailTable2.AddCell(PdfDetailCell2);
                                             }
                                         }
                                     }
                                     else
                                     {
-                                        for (int j = 0; j < 8; j++)
+                                        if (Convert.ToInt32(chrPeriodTo2.Length) > 0)
                                         {
-                                            PdfDetailCell2 = new PdfPCell(new Phrase(" ", fontA119B));
-                                            PdfDetailCell2.NoWrap = false;
-                                            PdfDetailCell2.RunDirection = PdfWriter.RUN_DIRECTION_LTR;
-                                            PdfDetailCell2.HorizontalAlignment = 1;
-                                            //PdfDetailCell2.BackgroundColor = new Color(0, 0, 0);
-                                            PdfDetailTable2.AddCell(PdfDetailCell2);
+                                            if (dr["PeriodTo"].ToString() != "01011900")
+                                            {
+                                                for (int j = 0; j < Convert.ToInt32(chrPeriodTo2.Length); j++)
+                                                {
+                                                    PdfDetailCell2 = new PdfPCell(new Phrase(" ", fontA119B));
+                                                    PdfDetailCell2.NoWrap = false;
+                                                    PdfDetailCell2.RunDirection = PdfWriter.RUN_DIRECTION_LTR;
+                                                    PdfDetailCell2.HorizontalAlignment = 1;
+                                                    PdfDetailTable2.AddCell(PdfDetailCell2);
+                                                }
+                                            }
+                                            else
+                                            {
+                                                for (int j = 0; j < 8; j++)
+                                                {
+                                                    PdfDetailCell2 = new PdfPCell(new Phrase(" ", fontA119B));
+                                                    PdfDetailCell2.NoWrap = false;
+                                                    //PdfDetailCell2.BackgroundColor = new Color(0,0,0);
+                                                    PdfDetailCell2.RunDirection = PdfWriter.RUN_DIRECTION_LTR;
+                                                    PdfDetailCell2.HorizontalAlignment = 1;
+                                                    PdfDetailTable2.AddCell(PdfDetailCell2);
+                                                }
+                                            }
+                                        }
+                                        else
+                                        {
+                                            for (int j = 0; j < 8; j++)
+                                            {
+                                                PdfDetailCell2 = new PdfPCell(new Phrase(" ", fontA119B));
+                                                PdfDetailCell2.NoWrap = false;
+                                                PdfDetailCell2.RunDirection = PdfWriter.RUN_DIRECTION_LTR;
+                                                PdfDetailCell2.HorizontalAlignment = 1;
+                                                //PdfDetailCell2.BackgroundColor = new Color(0, 0, 0);
+                                                PdfDetailTable2.AddCell(PdfDetailCell2);
+                                            }
                                         }
                                     }
 
@@ -4379,9 +5262,16 @@ namespace ZipNachWebAPI.Controllers
                                     Document documentCheckBox11232 = new Document();
                                     documentCheckBox11232.Open();
                                     Paragraph pCheckBox11232 = new Paragraph();
-                                    if (dr["PeriodTo"].ToString() == "01011900")
+                                    if (Convert.ToInt16(ds.Tables[0].Rows[0]["NoOfQRCopy"]) > 2)
                                     {
-                                        pCheckBox11232.Add(new Chunk(checkBox, PdfPCell.ALIGN_LEFT, PdfPCell.ALIGN_LEFT));
+                                        if (dr["PeriodTo"].ToString() == "01011900")
+                                        {
+                                            pCheckBox11232.Add(new Chunk(checkBox, PdfPCell.ALIGN_LEFT, PdfPCell.ALIGN_LEFT));
+                                        }
+                                        else
+                                        {
+                                            pCheckBox11232.Add(new Chunk(Box, PdfPCell.ALIGN_LEFT, PdfPCell.ALIGN_LEFT));
+                                        }
                                     }
                                     else
                                     {
@@ -4395,7 +5285,30 @@ namespace ZipNachWebAPI.Controllers
                                     PdfDetailCell2.HorizontalAlignment = 1;
                                     PdfDetailTable2.AddCell(PdfDetailCell2);
 
-                                    PdfDetailCell2 = new PdfPCell(new Phrase(dr["BenificiaryName"].ToString(), fontAbCutomer));
+                                    //PdfDetailCell2 = new PdfPCell(new Phrase(dr["BenificiaryName"].ToString(), fontAbCutomer));
+                                    if (Convert.ToInt16(ds.Tables[0].Rows[0]["NoOfQRCopy"]) > 2)
+                                    {
+                                        if (count_Customer < 10)
+                                        {
+                                            PdfDetailCell2 = new PdfPCell(new Phrase(dr["BenificiaryName"].ToString(), fontAb11B));
+                                        }
+                                        else if (count_Customer < 20)
+                                        {
+                                            PdfDetailCell2 = new PdfPCell(new Phrase(dr["BenificiaryName"].ToString(), fontText));
+                                        }
+                                        else if (count_Customer < 30)
+                                        {
+                                            PdfDetailCell2 = new PdfPCell(new Phrase(dr["BenificiaryName"].ToString(), fontText6));
+                                        }
+                                        else
+                                        {
+                                            PdfDetailCell2 = new PdfPCell(new Phrase(dr["BenificiaryName"].ToString(), fontText5));
+                                        }
+                                    }
+                                    else
+                                    {
+                                        PdfDetailCell2 = new PdfPCell(new Phrase(" ", fontText5));
+                                    }
                                     PdfDetailCell2.NoWrap = false;
                                     PdfDetailCell2.RunDirection = PdfWriter.RUN_DIRECTION_LTR;
                                     PdfDetailCell2.HorizontalAlignment = 1;
@@ -4403,18 +5316,62 @@ namespace ZipNachWebAPI.Controllers
                                     //PdfDetailCell2.Colspan = 13;
                                     PdfDetailCell2.Colspan = 7;
                                     PdfDetailTable2.AddCell(PdfDetailCell2);
+                                    if (Convert.ToInt16(ds.Tables[0].Rows[0]["NoOfQRCopy"]) > 2)
+                                    {
 
-                                    PdfDetailCell2 = new PdfPCell(new Phrase(dr["Customer2"].ToString(), fontAbCutomer));
-                                    //PdfDetailCell2 = new PdfPCell(new Phrase("Avinash Gupta", fontAbCutomer));
+                                        if (count_Customer < 10)
+                                        {
+                                            PdfDetailCell2 = new PdfPCell(new Phrase(dr["Customer2"].ToString(), fontAb11B));
+                                        }
+                                        else if (count_Customer < 20)
+                                        {
+                                            PdfDetailCell2 = new PdfPCell(new Phrase(dr["Customer2"].ToString(), fontText));
+                                        }
+                                        else if (count_Customer < 30)
+                                        {
+                                            PdfDetailCell2 = new PdfPCell(new Phrase(dr["Customer2"].ToString(), fontText6));
+                                        }
+                                        else
+                                        {
+                                            PdfDetailCell2 = new PdfPCell(new Phrase(dr["Customer2"].ToString(), fontText5));
+                                        }
+                                    }
+                                    else
+                                    {
+                                        PdfDetailCell2 = new PdfPCell(new Phrase(" ", fontText5));
+                                    }
+                                    //PdfDetailCell2 = new PdfPCell(new Phrase(dr["Customer2"].ToString(), fontAbCutomer));
                                     PdfDetailCell2.NoWrap = false;
                                     PdfDetailCell2.RunDirection = PdfWriter.RUN_DIRECTION_LTR;
                                     PdfDetailCell2.HorizontalAlignment = 1;
                                     PdfDetailCell2.Border = Rectangle.NO_BORDER;
                                     PdfDetailCell2.Colspan = 10;
                                     PdfDetailTable2.AddCell(PdfDetailCell2);
+                                    if (Convert.ToInt16(ds.Tables[0].Rows[0]["NoOfQRCopy"]) > 2)
+                                    {
 
-                                    PdfDetailCell2 = new PdfPCell(new Phrase(dr["Customer3"].ToString(), fontAbCutomer));
-                                    //PdfDetailCell2 = new PdfPCell(new Phrase("Avinash Gupta", fontAbCutomer));
+                                        if (count_Customer < 10)
+                                        {
+                                            PdfDetailCell2 = new PdfPCell(new Phrase(dr["Customer3"].ToString(), fontAb11B));
+                                        }
+                                        else if (count_Customer < 20)
+                                        {
+                                            PdfDetailCell2 = new PdfPCell(new Phrase(dr["Customer3"].ToString(), fontText));
+                                        }
+                                        else if (count_Customer < 30)
+                                        {
+                                            PdfDetailCell2 = new PdfPCell(new Phrase(dr["Customer3"].ToString(), fontText6));
+                                        }
+                                        else
+                                        {
+                                            PdfDetailCell2 = new PdfPCell(new Phrase(dr["Customer3"].ToString(), fontText5));
+                                        }
+                                    }
+                                    else
+                                    {
+                                        PdfDetailCell2 = new PdfPCell(new Phrase(" ", fontText5));
+                                    }
+                                    //PdfDetailCell2 = new PdfPCell(new Phrase(dr["Customer3"].ToString(), fontAbCutomer));
                                     PdfDetailCell2.NoWrap = false;
                                     PdfDetailCell2.RunDirection = PdfWriter.RUN_DIRECTION_LTR;
                                     PdfDetailCell2.HorizontalAlignment = 1;
@@ -4432,6 +5389,26 @@ namespace ZipNachWebAPI.Controllers
                                     PdfDetailCell2.Colspan = 9;
                                     PdfDetailTable2.AddCell(PdfDetailCell2);
 
+                                    /*Avinash[14/01/2020]*/
+                                    PdfDetailCell2 = new PdfPCell(new Phrase(""));
+                                    PdfDetailCell2.NoWrap = false;
+                                    PdfDetailCell2.RunDirection = PdfWriter.RUN_DIRECTION_LTR;
+                                    PdfDetailCell2.HorizontalAlignment = 1;
+                                    PdfDetailCell2.Border = Rectangle.NO_BORDER;//Avinash
+                                    PdfDetailCell2.BorderWidthLeft = 2f;
+                                    PdfDetailCell2.BorderWidthRight = 2f;
+                                    PdfDetailCell2.Colspan = 38;
+                                    PdfDetailTable2.AddCell(PdfDetailCell2);
+
+                                    //PdfDetailCell2 = new PdfPCell(new Phrase(""));
+                                    //PdfDetailCell2.NoWrap = false;
+                                    //PdfDetailCell2.RunDirection = PdfWriter.RUN_DIRECTION_LTR;
+                                    //PdfDetailCell2.HorizontalAlignment = 1;
+                                    //PdfDetailCell2.Border = Rectangle.NO_BORDER;//Avinash
+                                    //PdfDetailCell2.BorderWidthLeft = 2f;
+                                    //PdfDetailCell2.BorderWidthRight = 2f;
+                                    //PdfDetailCell2.Colspan = 38;
+                                    //PdfDetailTable2.AddCell(PdfDetailCell2);
 
                                     PdfDetailCell2 = new PdfPCell(new Phrase(""));
                                     PdfDetailCell2.NoWrap = false;

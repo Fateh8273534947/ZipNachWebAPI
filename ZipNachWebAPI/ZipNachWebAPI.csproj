@@ -208,6 +208,7 @@
     <Compile Include="Controllers\ChangePasswordController.cs" />
     <Compile Include="Controllers\DownloadMandateBinaryController.cs" />
     <Compile Include="Controllers\DownloadMandateController.cs" />
+    <Compile Include="Controllers\GetAllNPCILiveBankDataController.cs" />
     <Compile Include="Controllers\GetMandateStatusController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\ScanQRCodeController.cs" />

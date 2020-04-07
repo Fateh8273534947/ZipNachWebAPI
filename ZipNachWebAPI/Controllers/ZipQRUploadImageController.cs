@@ -1,5 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
+using System.Data;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
@@ -52,6 +55,12 @@ namespace ZipNachWebAPI.Controllers
                 pathInfo.status = "Failure";
                 return pathInfo;
             }
+            if (CheckImageSubmitted(context.MandeteId, context.AppID))
+            {
+                pathInfo.message = "Image already uploaded and submitted to bank";
+                pathInfo.status = "Failure";
+                return pathInfo;
+            }
             else
             {
                 pathInfo.message = "Image uploaded successfully";
@@ -59,6 +68,34 @@ namespace ZipNachWebAPI.Controllers
                 return pathInfo;
             }
 
+        }
+        public bool CheckImageSubmitted(string MandateID, string AppId)
+        {
+            bool status = false;
+            try
+            {
+                SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings[Convert.ToString(AppId)].ConnectionString);
+                string query = "Sp_WebAPI";
+                SqlCommand cmd = new SqlCommand(query, con);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("@QueryType", "validateImage");
+                cmd.Parameters.AddWithValue("@MandateID", MandateID);
+                SqlDataAdapter da = new SqlDataAdapter(cmd);
+                DataTable dt = new DataTable();
+                da.Fill(dt);
+                if (dt.Rows.Count > 0)
+                {
+                    status = true;
+                }
+                return status;
+
+            }
+            catch (Exception ex)
+            {
+                Console.Out.WriteLine("-----------------");
+                Console.Out.WriteLine(ex.Message);
+                return status;
+            }
         }
     }
 }

@@ -101,6 +101,7 @@ namespace ZipNachWebAPI.Controllers
                     pathInfo.status = "Failure";
                     return pathInfo;
                 }
+                
                 string TempJpgpath = string.Empty;
                 string TempTifpath = string.Empty;
                 Boolean Greater =true;
@@ -586,7 +587,7 @@ namespace ZipNachWebAPI.Controllers
             }
             return null;
         }
-        
+       
     }
     public class ResponseGetMobileNO
     {

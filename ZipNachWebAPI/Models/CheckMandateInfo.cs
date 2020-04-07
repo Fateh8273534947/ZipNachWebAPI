@@ -201,9 +201,9 @@ namespace ZipNachWebAPI.Models
             }
         }
         //  CommonManger.FillDatasetWithParam("", "@QueryType", "@MandateId", "@EmailCount", "@SmsCount", "SendMail", Convert.ToString(dt.Rows[l]["MandateId"]), "0", "1");
-        public static bool SendMailCount(string MandateID, string AppId, string EmailCount, string SmsCount)
+        public static string SendMailCount(string MandateID, string AppId, string EmailCount, string SmsCount,int SMSLength,string  MessageRequestId)
         {
-            bool status = false;
+            string status = "";
             try
             {
                 SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings[Convert.ToString(AppId)].ConnectionString);
@@ -214,22 +214,25 @@ namespace ZipNachWebAPI.Models
                 cmd.Parameters.AddWithValue("@MandateID", MandateID);
                 cmd.Parameters.AddWithValue("@EmailCount", EmailCount);
                 cmd.Parameters.AddWithValue("@SmsCount", SmsCount);
+                 cmd.Parameters.AddWithValue("@SMSLength", SMSLength);
+                cmd.Parameters.AddWithValue("@MessageRequestId", MessageRequestId); 
                 SqlDataAdapter da = new SqlDataAdapter(cmd);
                 DataTable dt = new DataTable();
                 da.Fill(dt);
                 if (dt.Rows.Count > 0)
                 {
-                    status = true;
+                    status = "";
                 }
-                return status;
+               
 
             }
             catch (Exception ex)
             {
                 Console.Out.WriteLine("-----------------");
                 Console.Out.WriteLine(ex.Message);
-                return status;
+                return ex.Message;
             }
+            return status;
         }
         public static bool CheckSMSAndEMail(string EntityId, string AppId, string Type)
         {
@@ -336,6 +339,37 @@ namespace ZipNachWebAPI.Models
                 if (dt.Rows.Count > 0)
                 {
                     status = true;
+                }
+                return status;
+
+            }
+            catch (Exception ex)
+            {
+                Console.Out.WriteLine("-----------------");
+                Console.Out.WriteLine(ex.Message);
+                return status;
+            }
+        }
+        public static bool CheckAmt(string MandateID, string AppId)
+        {
+            bool status = true;
+            try
+            {
+                SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings[Convert.ToString(AppId)].ConnectionString);
+                string query = "Sp_WebAPI";
+                SqlCommand cmd = new SqlCommand(query, con);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("@QueryType", "CheckMandateInfo");
+                cmd.Parameters.AddWithValue("@MandateID", MandateID);
+                SqlDataAdapter da = new SqlDataAdapter(cmd);
+                DataTable dt = new DataTable();
+                da.Fill(dt);
+                if (dt.Rows.Count > 0)
+                {
+                    if (Convert.ToDecimal(dt.Rows[0]["AmountRupees"]) > Convert.ToDecimal(ConfigurationManager.AppSettings["MaxEmandateAmt"]))
+                    {
+                        status = false;
+                    }
                 }
                 return status;
 
@@ -533,7 +567,34 @@ namespace ZipNachWebAPI.Models
             return status;
 
         }
+        public static bool ValidateDateDateOnMandate(string DateOnMandate)
+        {
+            bool status = false;
+            try
+            {
+                string s = DateOnMandate; // or 2015-11-19
+                DateTime dt;
+                string[] formats = { "yyyy/MM/dd", "yyyy/MM/dd" };
+                if (DateTime.TryParseExact(s, formats, CultureInfo.InvariantCulture,
+                                          DateTimeStyles.None, out dt))
 
+                    //    DateTime dateValue= Convert.ToDateTime(DateOnMandate);
+                    //if (DateTime.TryParseExact(DateOnMandate, "yyyyMMdd", CultureInfo.InvariantCulture, DateTimeStyles.None, out dateValue))
+                    //{
+
+                    if (Convert.ToDateTime(s).Date >= DateTime.Now.Date)
+                    {
+                        status = true;
+                    }
+                // }
+            }
+            catch (Exception ex)
+            {
+                Console.Out.WriteLine("-----------------");
+                Console.Out.WriteLine(ex.Message);
+            }
+            return status;
+        }
         public static bool ValidateDate(string DateOnMandate)
         {
             bool status = false;
@@ -548,7 +609,10 @@ namespace ZipNachWebAPI.Models
                     //    DateTime dateValue= Convert.ToDateTime(DateOnMandate);
                     //if (DateTime.TryParseExact(DateOnMandate, "yyyyMMdd", CultureInfo.InvariantCulture, DateTimeStyles.None, out dateValue))
                     //{
-                    status = true;
+                    if (Convert.ToDateTime(s).Date > DateTime.Now.Date)
+                    {
+                        status = true;
+                    }
                 // }
             }
             catch (Exception ex)
@@ -939,7 +1003,7 @@ namespace ZipNachWebAPI.Models
             }
             return dtset;
         }
-        public static string  CheckMandateId(string AppID,string MandeteId)
+        public static string CheckMandateId(string AppID, string MandeteId)
         {
             string Temp = "";
             SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings[Convert.ToString(AppID)].ConnectionString);

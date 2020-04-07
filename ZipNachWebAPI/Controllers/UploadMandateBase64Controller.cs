@@ -431,6 +431,7 @@ namespace ZipNachWebAPI.Controllers
                                         cmd.Parameters.AddWithValue("@TIFPath", TIFFilepath);
                                         cmd.Parameters.AddWithValue("@JPGPath", JPGFilepath);
                                         cmd.Parameters.AddWithValue("@MandateId", context.MdtID);
+                                        cmd.Parameters.AddWithValue("@UserId", UserId);
                                         da = new SqlDataAdapter(cmd);
                                         DataSet ds = new DataSet();
                                         da.Fill(ds);

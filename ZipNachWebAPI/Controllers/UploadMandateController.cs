@@ -434,6 +434,7 @@ namespace ZipNachWebAPI.Controllers
                                         cmd.Parameters.AddWithValue("@TIFPath", TIFFilepath);
                                         cmd.Parameters.AddWithValue("@JPGPath", JPGFilepath);
                                         cmd.Parameters.AddWithValue("@MandateId", context.MdtID);
+                                        cmd.Parameters.AddWithValue("@UserId", UserId);
                                         da = new SqlDataAdapter(cmd);
                                         DataSet ds = new DataSet();
                                         da.Fill(ds);
@@ -648,7 +649,7 @@ namespace ZipNachWebAPI.Controllers
                     ul.MDate = "Data blank or invalid";
                     _flag = false;
                 }
-                else if (ul.MDate != "" && CheckMandateInfo.ValidateDate(ul.MDate) != true)
+                else if (ul.MDate != "" && CheckMandateInfo.ValidateDateDateOnMandate(ul.MDate) != true)
                 {
                     ul.MDate = "Data blank or invalid"; _flag = false;
                 }
@@ -673,6 +674,8 @@ namespace ZipNachWebAPI.Controllers
                 { ul.Amt = "Data blank or invalid"; _flag = false; }
                 else if (ul.Amt.Length > 20) { ul.Amt = "Data blank or invalid"; _flag = false; }
                 else if (ul.Amt != "" && CheckMandateInfo.ValidateAmount(ul.Amt) != true)
+                { ul.Amt = "Data blank or invalid"; _flag = false; }
+                else if (ul.Amt != "" && CheckMandateInfo.ValidateAmount(ul.Amt) == true&&Convert.ToDecimal(ul.Amt)<1)
                 { ul.Amt = "Data blank or invalid"; _flag = false; }
                 else if (ul.DType == "" || ul.DType == null)
                 {
@@ -1056,6 +1059,8 @@ namespace ZipNachWebAPI.Controllers
                 { ul.Amt = "Data blank or invalid"; _flag = false; }
                 else if (ul.Amt.Length > 20) { ul.Amt = "Data blank or invalid"; _flag = false; }
                 else if (ul.Amt != "" && CheckMandateInfo.ValidateAmount(ul.Amt) != true)
+                { ul.Amt = "Data blank or invalid"; _flag = false; }
+                else if (ul.Amt != "" && CheckMandateInfo.ValidateAmount(ul.Amt) == true&&Convert.ToDecimal(ul.Amt)<1)
                 { ul.Amt = "Data blank or invalid"; _flag = false; }
                 else if (ul.DType == "" || ul.DType == null)
                 {
@@ -1888,6 +1893,13 @@ namespace ZipNachWebAPI.Controllers
                     res.ResCode = "ykR20022";
                     return res;
                 }
+                else if (!CheckMandateInfo.CheckAmt(Data.MdtID, Data.AppID))
+                {
+                    res.Message = "Mandate Amt can not be greater than 1 lakh";
+                    res.Status = "Failure";
+                    res.ResCode = "ykR20050";
+                    return res;
+                }
                 //else if (!CheckMandateInfo.CheckAccountValidation(Data.MdtID, Data.AppID))
                 //{
                 //    res.Message = "Account should be validated";
@@ -2005,7 +2017,8 @@ namespace ZipNachWebAPI.Controllers
                                 res.ResCode = "ykR20032";
                                 res.MdtID = Data.MdtID;
                                 //   res.eMandateURL = ConfigurationManager.AppSettings["ENachUrl" + Data.AppID] + "Master/MandateDetails.aspx?ID=" + DBsecurity.EncryptMD5(Data.MdtID) + "&AppId=" + DBsecurity.Encrypt(Data.AppID) + "&api=API";
-                                res.eMandateURL = ConfigurationManager.AppSettings["ENachUrl" + Data.AppID] + "Master/MandateDetails.aspx?ID=" + TempId + "&AppId=" + DBsecurity.Encrypt(Data.AppID) + "&api=API";
+                                // res.eMandateURL = ConfigurationManager.AppSettings["ENachUrl" + Data.AppID] + "Master/MandateDetails.aspx?ID=" + TempId + "&AppId=" + DBsecurity.Encrypt(Data.AppID) + "&api=API";
+                                res.eMandateURL = ConfigurationManager.AppSettings["ENachUrl" + Data.AppID] + "Master/MandateDetails.aspx?ID=" + TempId;
                             }
                         }
                         catch (Exception ex)

@@ -78,6 +78,10 @@ namespace ZipNachWebAPI.Controllers
                 try
                 {
                     DataSet ds = new DataSet();
+                    int SMSlen = 0;
+                    int EmailCount = 0;
+                    int SmsCount = 0;
+                    string MessageRequestId = "";
                     if (dt.Rows.Count > 0 && dt != null)
                     {
 
@@ -95,13 +99,14 @@ namespace ZipNachWebAPI.Controllers
                                 sb.Append(dtset.Tables[1].Rows[0][0].ToString());
                                // sb.Append("To process Mandate Reg. amt " + Convert.ToString(dt.Rows[0]["Amt"]) + " at " + Convert.ToString(dt.Rows[0]["EntityName"]) + " click " + WebAppUrl + "Master/MandateDetails.aspx?ID=" + DBsecurity.Base64Encode(Convert.ToString(dt.Rows[0]["MandateId"])));
 
-                                string URL = "http://api.msg91.com/api/sendhttp.php?sender=" + ConfigurationManager.AppSettings["SenderId"+ Data.AppID] + "&route=4&mobiles=" + Convert.ToString(dt.Rows[0]["PhoneNumber"]) + "&authkey=" + ConfigurationManager.AppSettings["authkey"] + "&country=0&message=" + sb.ToString() + "";
-                            //    
+                                string URL = "http://api.msg91.com/api/sendhttp.php?sender=" + ConfigurationManager.AppSettings["SenderId"+ Data.AppID] + "&route=4&mobiles=" + Convert.ToString(dt.Rows[0]["PhoneNumber"]) + "&authkey=" + ConfigurationManager.AppSettings["authkey"] + "&country=91&message=" + sb.ToString() + "";
+                                //string URL = "http://api.msg91.com/api/sendhttp.php?sender=" + ConfigurationManager.AppSettings["SenderId" + Data.AppID] + "&route=4&mobiles=8273534947&authkey=" + ConfigurationManager.AppSettings["authkey"] + "&country=0&message=" + sb.ToString() + "";
+                                //    
                                 HttpWebRequest request = (HttpWebRequest)WebRequest.Create(URL);
 
                                 request.Method = "POST";
                                 request.ContentType = "application/json";
-
+                                //string response1 = "";
 
                                 WebResponse webResponse = request.GetResponse();
                                 using (Stream webStream = webResponse.GetResponseStream())
@@ -110,12 +115,30 @@ namespace ZipNachWebAPI.Controllers
                                     {
                                         using (StreamReader responseReader = new StreamReader(webStream))
                                         {
-                                              string response1 = responseReader.ReadToEnd();
+                                            MessageRequestId = responseReader.ReadToEnd();
                                             // Console.Out.WriteLine(response);
                                         }
                                     }
                                 }
-                                CheckMandateInfo.SendMailCount(Data.MdtID, Data.AppID, "0", "1");
+                                SMSlen =Convert.ToString(dtset.Tables[1].Rows[0][0]).Length;
+                                if(SMSlen<=160)
+                                {
+                                    SmsCount = 1;
+                                }
+                                if(SMSlen>160&&SMSlen<=306)
+                                {
+                                    SmsCount = 2;
+                                }
+                                if (SMSlen > 306 && SMSlen <= 459)
+                                {
+                                    SmsCount = 3;
+                                }
+                                if (SMSlen > 459)
+                                {
+                                    SmsCount = 4;
+                                }
+                                //SmsCount =1+ Convert.ToInt32((SMSlen-160) / 153)+1;
+                              //  CheckMandateInfo.SendMailCount(Data.MdtID, Data.AppID, "0", SMSlen < 160 ? "1" : SMSlen < 320 ? "2" : "3",SMSlen, response1);
                                 //  CommonManger.FillDatasetWithParam("Sp_SendEmail", "@QueryType", "@MandateId", "@EmailCount", "@SmsCount", "SendMail", Convert.ToString(dt.Rows[l]["MandateId"]), "0", "1");
                             }
 
@@ -165,12 +188,16 @@ namespace ZipNachWebAPI.Controllers
                                 smtpClient.UseDefaultCredentials = true;
                                 smtpClient.Credentials = new System.Net.NetworkCredential(UserId, MailPassword);
                                 smtpClient.Send(mailmsg);
-                                CheckMandateInfo.SendMailCount(Data.MdtID, Data.AppID, "1", "0");
+                                //CheckMandateInfo.SendMailCount(Data.MdtID, Data.AppID, "1", "0",0,"");
                                 //   CommonManger.FillDatasetWithParam("Sp_SendEmail", "@QueryType", "@MandateId", "@EmailCount", "@SmsCount", "SendMail", Convert.ToString(dt.Rows[l]["MandateId"]), "1", "0");
-                                response.Message = "Email and SMS have been sent successfully";
-                                response.ResCode = "ykR20041";
-                                response.Status = "Success";
+                                EmailCount = 1;
+                               
                             }
+                            CheckMandateInfo.SendMailCount(Data.MdtID, Data.AppID, EmailCount.ToString(), SmsCount.ToString(), SMSlen, MessageRequestId);
+                            response.Message = "Email and SMS have been sent successfully";
+                            response.ResCode = "ykR20041";
+                            response.Status = "Success";
+                           
                             if (Flag)
                             {
                                 response.Message = "Email and phone number do not exist";
@@ -4374,7 +4401,7 @@ namespace ZipNachWebAPI.Controllers
                                 smtpClient.UseDefaultCredentials = true;
                                 smtpClient.Credentials = new System.Net.NetworkCredential(UserId, MailPassword);
                                 smtpClient.Send(mailmsg);
-                                CheckMandateInfo.SendMailCount(ID, AppId, "1", "0");
+                                CheckMandateInfo.SendMailCount(ID, AppId, "1", "0",0,"");
                                 //CommonManger.FillDatasetWithParam("Sp_SendEmail", "@QueryType", "@MandateId", "@RefNo", "@FromMail", "@ToMail", "@IsSent", "@Reason", "SendMail", Convert.ToString(dt.Rows[l]["MandateId"]), Convert.ToString(dt.Rows[l]["RefNo"]), Convert.ToString(UserId), Convert.ToString(dt.Rows[l]["EmailID"]), IsSend, Reason);
 
                                 
