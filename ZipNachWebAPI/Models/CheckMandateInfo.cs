@@ -977,7 +977,8 @@ namespace ZipNachWebAPI.Models
         {
             DataSet dtset = new DataSet();
             try
-            {
+            { 
+
                 string TempId = AppID + MandateId;
                 TempId = Global.ReverseString(TempId);
                 TempId = Global.CreateRandomCode(6) + TempId;
